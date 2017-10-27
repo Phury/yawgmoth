@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Yawgmoth</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Convert your mtg collections to a PWA mobile app">
+    <meta name="author" content="Pierre-Henri Van de Velde">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index,follow">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
+	</script>
+	<![endif]-->
+    
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://fiddle.jshell.net/js/babel/babel.js"></script>
+  
+    <link rel="stylesheet" type="text/css" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://andrewgioia.github.io/Mana/bower_components/mana/css/mana.css" />
+    <link rel="stylesheet" type="text/css" href="https://andrewgioia.github.io/Keyrune/node_modules/keyrune/css/keyrune.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+</head>
+
+<body>
+<nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="yawgmoth.io">
+      <h1 class="title">
+        <i class="ss ss-nph"></i>Yawgmoth
+      </h1>
+    </a>
+  </section>
+</nav>
+<header></header>
+<div class="container">
+  <div class="row">
+    <div id="deckListComponent" class="column column-25">
+      Loading...
+    </div>
+    <div id="cardComponent" class="column column-50">
+      Loading...
+    </div>
+    <div class="column column-25">
+      <div class="side-wrapper">
+        <form class="fixed">
+          <label for="cardGroubBy">Group by</label>
+          <select id="cardGroubBy">
+            <option value="type">Type</option>
+            <option value="color">Color</option>
+            <option value="cmc">Cmc</option>
+          </select>
+        </form>
+        <h3>
+          Preview
+        </h3>
+        <div id="preview" style="background-image: url('https://magic.wizards.com/sites/mtg/files/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg');">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/babel" src="js/yawgmoth.js"></script>
+</body>
+</html>
