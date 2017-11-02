@@ -1,56 +1,55 @@
 decks:
-  - name: Godzilla
-    description: reanimator deck
-    playedBy: Alan Comer
+  - name: B/W Zombies
+    description: Amonkhet B/W Zombie deck
+    submittedBy: Phury
     cards:
-      - 4 Hidden Horror
-      - 4 Merfolk Traders
-      - 2 Necrosavant
-      - 2 Sliver Queen
-      - 4 Verdant Force
-      - 3 Shivan Dragon
-      - 1 Living Death
-      - 4 Dark Ritual
-      - 4 Mana Leak
-      - 4 Firestorm
-      - 4 Animate Dead
-      - 4 Necromancy
-      - 4 City of Brass
-      - 4 Gemstone Mine
-      - 1 Island
-      - 2 Reflecting Pool
-      - 3 Sulfurous Springs
-      - 1 Swamp
-      - 3 Underground River
-      - 2 Undiscovered Paradise
+      - 2 Tattered Mummy
+      - 1 Splendid Agony
+      - 2 Cartouche of Solidarity
+      - 3 Binding Mummy 
+      - 1 Bone Picker
+      - 2 Forsaken Sanctuary
+      - 1 Fan Bearer
+      - 2 Festering Mummy
+      - 1 Never
+      - 2 Trueheart Duelist
+      - 1 Unconventional Tactics
+      - 1 Trespasser's Curse
+      - 3 Miasmic Mummy
+      - 1 Trial of Solidarity
+      - 1 Cartouche of Ambition
+      - 2 In Oketra's Name
+      - 1 Bontu's Monument
+      - 1 Desert's Hold
+      - 2 Doomed Dissenter
+      - 2 Cursed Minotaur
+      - 2 Lord of the Accursed
+      - 2 Wayward Servant
+      - 2 Compulsory Rest
+      - 1 Supernatural Stamina
+      - 2 Blighted Bat
+      - 1 Unraveling Mummy
+      - 1 Cradle of the Accursed
+      - 1 Stir the Sands
+      - 7 Plains
+      - 9 Swamp
     sideboard: 
-      - 4 Dread of Night  
-      - 2 Uktabi Orangutan 
-      - 2 Hydroblast  
-      - 3 Tranquil Domain 4 Pyroblast
-  - name: Deadguy Red
-    description: aggressive red deck
-    playedBy: David Price
+      - 4 Swamp
+      
+  - name: B/W Warriors
+    description: Tarkir Budget Warriors deck
+    submittedBy: Phury
     cards:
-      - 4 Ball Lightning
-      - 2 Goblin Vandal
-      - 4 Jackal Pup
-      - 4 Mogg Fanatic
-      - 2 Mogg Flunkies
-      - 1 Viashino Sandstalker
-      - 4 Fireslinger
-      - 2 Hammer of Bogardan
-      - 4 Fireblast
-      - 4 Incinerate
-      - 4 Shock
-      - 4 Cursed Scroll
-      - 17 Mountain
-      - 4 Wasteland
-    sideboard: 
-      - 3 Bottle Gnomes  
-      - 2 Dwarven Miner 
-      - 2 Dwarven Thaumaturgist  
-      - 1 Final Fortune 
-      - 1 Firestorm  
-      - 4 Pyroblast 
-      - 2 Shattering Pulse
+      - 4 Herald of Dromoka
+      - 4 Seeker of the Way
+      - 4 Dragon Hunter
+      - 1 Chief of the Scale
+      - 2 Champion of Arashin
+      - 2 Chief of the Edge
+      - 2 Bellowing Saddlebrute
+      - 2 Disowned Ancestor
+      - 2 Sultai Emissary
+      - 1 Hand of Silumgar
+      - 2 Blighted Steppe
+      - 8 Swamp
+      - 10 Plain

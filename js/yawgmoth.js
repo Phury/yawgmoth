@@ -6,7 +6,7 @@ var decks = [],
     currentCard = mtgCardBack;
 
 const CardRepository = {
-  getCardByName: function(cardName, callback) {
+  getCardByName: function(cardName, success) {
     const url = "https://api.magicthegathering.io/v1/cards?name="+cardName;
     $.getJSON(url, (data) => {
       console.log({ message: "Got response from "+url, payload: data });
@@ -14,16 +14,16 @@ const CardRepository = {
         return elt.imageUrl != null;
       });
       console.log({ message: "Found card "+card.name, payload: card });
-      callback(card);
+      success(card);
     });
   },
   
-  listDecks: function(callback) {
+  listDecks: function(success) {
     // Load yaml file
     $.get('data/decks.yaml', (yaml) => {
       decks = jsyaml.load(yaml).decks;
       console.log(decks);
-      callback(decks);
+      success(decks);
     });
   },
   
@@ -33,7 +33,7 @@ const CardRepository = {
     return deck;
   },
   
-  listCards: function(deckName, callback) {
+  listCards: function(deckName, success) {
     const cards = [];
   	const cardStr = this.getDeck(deckName).cards;
     cardStr.forEach((elt) => {
@@ -44,16 +44,16 @@ const CardRepository = {
         card.amount = numberOfCards;
         cards.push(card);
         if (cards.length == cardStr.length) {
-          callback(cards);
+          success(cards);
         }
       });
     });
   }
 }
 
-function CardPreview(image) {
-  console.log('showing image '+image);
-  $('#preview').css('background-image', 'url("'+image+'")');
+function CardPreview() {
+  //$('#preview').css('background-image', 'url("'+image+'")');
+  return `<img src="`+currentCard+`" />`;
 }
 
 function ManaLabel(str) {
@@ -69,7 +69,7 @@ function ManaLabel(str) {
 function CardTile(card) {
 	return `
   	<li>
-      <a class="preview" href="`+card.imageUrl+`">`+card.name+`</a>
+      `+card.amount+` <a class="preview" href="`+card.imageUrl+`">`+card.name+`</a>
       <span class="mc">`+ManaLabel(card.manaCost)+`</span>
     </li>
   `;
@@ -111,12 +111,14 @@ function CardList() {
   if (currentDeck == null) {
       return '<p>No deck selected</p>';
   }
+  
   const html = [];
   html.push('<h3>'+currentDeck.name+'</h3>');
   Object.keys(cardsGrouped).forEach((group) => {
-    html.push('<h5>'+group+' ('+cardsGrouped[group].length+')</h5>');
+    const cards = cardsGrouped[group];
+    html.push('<h5>'+group+' ('+cards.length+')</h5>');
     html.push('<ul>');
-    cardsGrouped[group].forEach((card) => {
+    cards.forEach((card) => {
         html.push(CardTile(card));
     });
     html.push('</ul>');
@@ -157,7 +159,9 @@ function YawgmothApp() {
       .empty()
       .append(CardList());
     
-    CardPreview(currentCard);
+    $('#preview')
+      .empty()
+      .append(CardPreview());
     
     // Initialize handlers
     $('a.preview').on('click', (evt) => {
@@ -178,7 +182,4 @@ function YawgmothApp() {
   }
 }
 
-YawgmothApp();   
-	
-
-//$('#cardGroubBy').trigger('change');
+YawgmothApp();

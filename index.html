@@ -15,12 +15,12 @@
 	<![endif]-->
     
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js"></script>
     <script src="//fiddle.jshell.net/js/babel/babel.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js"></script>
   
     <link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Mana/bower_components/mana/css/mana.css" />
+    <link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Mana/bower_components/mana/css/mana.min.css" />
     <link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Keyrune/node_modules/keyrune/css/keyrune.min.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto" />
 </head>
@@ -41,24 +41,25 @@
     <div id="deckListComponent" class="column column-25">
       Loading...
     </div>
-    <div id="cardComponent" class="column column-50">
-      Loading...
+    <div class="column column-50">
+      <div id="cardComponent">
+        Loading...
+      </div>
     </div>
     <div class="column column-25">
-      <div class="side-wrapper">
-        <form class="fixed">
-          <label for="cardGroubBy">Group by</label>
-          <select id="cardGroubBy">
-            <option value="type">Type</option>
-            <option value="color">Color</option>
-            <option value="cmc">Cmc</option>
-          </select>
-        </form>
-        <h3>
-          Preview
-        </h3>
-        <div id="preview" style="background-image: url('https://magic.wizards.com/sites/mtg/files/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg');">
-        </div>
+      <form>
+        <label for="cardGroubBy">Group by</label>
+        <select id="cardGroubBy">
+          <option value="type">Type</option>
+          <option value="color">Color</option>
+          <option value="cmc">Cmc</option>
+        </select>
+      </form>
+      <h3>
+        Preview
+      </h3>
+      <div id="preview">
+        <!-- Card image coming here -->
       </div>
     </div>
   </div>

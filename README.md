@@ -19,8 +19,13 @@ Convert your mtg collections to a PWA mobile app
 - [ ] Differentiate between lands and artifacts
 - [ ] Deterministic grouping
 - [ ] Count in grouping does not count amount per card
+- [ ] Handle dual-sided//aftermath cards
 
 # Release notes
+
+## v0.03
+- fixed preview
+- code refactoring
 
 ## v0.02
 - yaml decks

@@ -8,10 +8,10 @@ ul > li > span.mc {
 }
 
 #preview {
-  background-size: 100%;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100vh;
+  position: fixed;
+}
+#preview > img {
+  max-width: 223px;
 }
 
 header {
@@ -32,9 +32,9 @@ header {
   z-index: 1;
 }
 .navigation .navigation-link, .navigation .navigation-title, .navigation .title {
-    display: inline;
-    font-size: 1.6rem;
-    line-height: 5.2rem;
-    padding: 0;
-    text-decoration: none;
+  display: inline;
+  font-size: 1.6rem;
+  line-height: 5.2rem;
+  padding: 0;
+  text-decoration: none;
 }
