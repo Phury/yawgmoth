@@ -1,82 +1,69 @@
-const decks = [{"id":"95571ea0-c798-42df-a071-28de93926193","displayName":"Aggro Vehicles","type":"deck","uri":"/api/decks/95571ea0-c798-42df-a071-28de93926193"},{"id":"ae7e5fa5-ccdd-459d-9967-5c555cce82b9","displayName":"U/G Crush","type":"deck","uri":"/api/decks/ae7e5fa5-ccdd-459d-9967-5c555cce82b9"},{"id":"57ed6868-18a4-4b90-9ba3-155036b25673","displayName":"A deck","type":"deck","uri":"/api/decks/57ed6868-18a4-4b90-9ba3-155036b25673"},{"id":"492a65cf-dd49-495e-bc8f-54b48055afdd","displayName":"Flip Lands","type":"deck","uri":"/api/decks/492a65cf-dd49-495e-bc8f-54b48055afdd"},{"id":"716e47e2-b494-4225-8693-d4d180729ca9","displayName":"Stormtide Leviathan","type":"deck","uri":"/api/decks/716e47e2-b494-4225-8693-d4d180729ca9"},{"id":"5e0fc21a-0acb-495b-9751-08d4e2140a04","displayName":"Example Deck","type":"deck","uri":"/api/decks/5e0fc21a-0acb-495b-9751-08d4e2140a04"},{"id":"932c9697-602d-43b0-9e2c-dbd05bf67a57","displayName":"Mini control","type":"deck","uri":"/api/decks/932c9697-602d-43b0-9e2c-dbd05bf67a57"},{"id":"bd55dc1b-2bb5-4394-9d48-a6edc819cf77","displayName":"Dickdeck","type":"deck","uri":"/api/decks/bd55dc1b-2bb5-4394-9d48-a6edc819cf77"}];
-
-const deck1 = {"links":{"self":"/api/decks/ae7e5fa5-ccdd-459d-9967-5c555cce82b9"},"id":"ae7e5fa5-ccdd-459d-9967-5c555cce82b9","name":"U/G Crush","submittedBy":"phury","cards":["4 Anticipate","2 Blighted Woodland","4 Yavimaya Coast","4 Contingency Plan","4 Corrupted Grafstone","3 Crush of Tentacles","5 Forest","10 Island","4 Lumbering Falls","3 Nissa's Renewal","3 Part the Waterveil","4 Pieces of the Puzzle","2 Rise from the Tides","2 Seasons Past","4 Splendid Reclamation","2 Wildest Dreams"],"sideboard":null,"maybeboard":null};
-
-const cards = [];
-
-deck1.cards.forEach((elt) => {
-  const space = elt.indexOf(" ");
-  const numberOfCards = parseInt(elt.substring(0, space));
-  const cardName = elt.substring(space+1, elt.length);
-  const url = "https://api.magicthegathering.io/v1/cards?name="+cardName;
-  $.getJSON(url, (data) => {
-    console.log({ message: "Got response from "+url, payload: data });
-    const card = data.cards.find((card) => {
-      return card.imageUrl != null;
-    });
-  	card.amount = numberOfCards;
-    cards.push(card);
-    if (cards.length == deck1.cards.length) {
-    	$('#cardGroubBy').trigger('change');
-    }
-  });
-});
+var decks = [],
+    cards = [],
+    grouping = 'type',
+    currentDeck,
+    mtgCardBack = 'https://magic.wizards.com/sites/mtg/files/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg',
+    currentCard = mtgCardBack;
 
 const CardRepository = {
-	getCardByName: function(cardName) {
-		const url = "https://api.magicthegathering.io/v1/cards?name="+cardName;
-  	$.getJSON(url, (data) => {
+  getCardByName: function(cardName, callback) {
+    const url = "https://api.magicthegathering.io/v1/cards?name="+cardName;
+    $.getJSON(url, (data) => {
       console.log({ message: "Got response from "+url, payload: data });
-      return data.cards.find((card) => {
-        return card.imageUrl != null;
+      const card = data.cards.find((elt) => {
+        return elt.imageUrl != null;
       });
+      console.log({ message: "Found card "+card.name, payload: card });
+      callback(card);
     });
   },
   
-  listDecks: function() {
-		const url = "http://manascrewd.herokuapp.com/api/users/phury/decks/";
-  	$.getJSON(url, (data) => {
-      console.log({ message: "Got response from "+url, payload: data });
-      return data;
+  listDecks: function(callback) {
+    // Load yaml file
+    $.get('data/decks.yaml', (yaml) => {
+      decks = jsyaml.load(yaml).decks;
+      console.log(decks);
+      callback(decks);
     });
   },
   
-  listCards: function(deckId) {
-  	deck1.cards.forEach((elt) => {
+  getDeck: function(deckName) {
+    const deck = decks.find((elt) => { return elt.name === deckName; });
+    currentDeck = deck;
+    return deck;
+  },
+  
+  listCards: function(deckName, callback) {
+    const cards = [];
+  	const cardStr = this.getDeck(deckName).cards;
+    cardStr.forEach((elt) => {
       const space = elt.indexOf(" ");
       const numberOfCards = parseInt(elt.substring(0, space));
       const cardName = elt.substring(space+1, elt.length);
-      const card = this.getCardByName(cardName);
-      card.amount = numberOfCards;
-      return card;
+      this.getCardByName(cardName, (card) => {
+        card.amount = numberOfCards;
+        cards.push(card);
+        if (cards.length == cardStr.length) {
+          callback(cards);
+        }
+      });
     });
   }
 }
 
-$('#cardGroubBy').on('change', (evt) => {
-  const grouping =  $('#cardGroubBy').val();
-  $('#cardComponent')
-  	.empty()
-    .append(CardList(cards, grouping));
-  $('a.preview').on('click', (evt) => {
-  	preview($(evt.currentTarget).attr('href'));
-    return false;
-  });
-});
-
-function preview(image) {
+function CardPreview(image) {
   console.log('showing image '+image);
   $('#preview').css('background-image', 'url("'+image+'")');
 }
 
 function ManaLabel(str) {
 	return (typeof(str) == "undefined") ? "" : str.split(/{(.*?)}/)
-            .filter(str => { return str.trim() != ""; })
-            .map((elt, i) => {
-            	const cost = elt.toLowerCase().replace('/', '');
-              return `<i class="ms ms-cost ms-`+cost+`"></i>`;
-            })
-            .join('');
+      .filter(str => { return str.trim() != ""; })
+      .map((elt, i) => {
+        const cost = elt.toLowerCase().replace('/', '');
+        return `<i class="ms ms-cost ms-`+cost+`"></i>`;
+      })
+      .join('');
 }
 
 function CardTile(card) {
@@ -88,8 +75,9 @@ function CardTile(card) {
   `;
 }
 
-function CardList(cards, grouping) {
-	console.log('grouping by ' + grouping);
+function CardList() {
+  console.log('grouping by ' + grouping);
+  console.log({ message: "cards", payload: cards });
   var cardsGrouped;
 	switch (grouping) {
     default:
@@ -119,45 +107,78 @@ function CardList(cards, grouping) {
   console.log(cardsGrouped);
   
   // Render items
+  
+  if (currentDeck == null) {
+      return '<p>No deck selected</p>';
+  }
   const html = [];
-  html.push('<h3>Cards</h3>');
+  html.push('<h3>'+currentDeck.name+'</h3>');
   Object.keys(cardsGrouped).forEach((group) => {
-  	html.push('<h5>'+group+' ('+cardsGrouped[group].length+')</h5>');
+    html.push('<h5>'+group+' ('+cardsGrouped[group].length+')</h5>');
     html.push('<ul>');
-  	cardsGrouped[group].forEach((card) => {
-  		html.push(CardTile(card));
-  	});
+    cardsGrouped[group].forEach((card) => {
+        html.push(CardTile(card));
+    });
     html.push('</ul>');
   });
   return html.join('');
 }
 
-function DeckList(decks) {
+function DeckList() {
   const html = [];
   html.push('<h3>Decks</h3>');
   html.push('<ul>');
   decks.forEach((deck) => {
-  	html.push('<li><a class="show-deck" href="'+deck.id+'">'+deck.displayName+'</a></li>');
+  	html.push('<li><a class="show-deck" href="'+deck.name+'">'+deck.name+'</a></li>');
   });
   html.push('</ul>');
   return html.join('');
 }
 
-$('#deckListComponent')
-  .empty()
-  .append(DeckList(decks));
-$('a.show-deck').on('click', (evt) => {
-  evt.preventDefault();
-  const cards = CardRepository.listCards($(evt.currentTarget).attr('href'));
-  $('#cardComponent')
-    .empty()
-    .append(CardList(cards, grouping));
-  $('a.preview').on('click', (evt2) => {
-  	evt2.preventDefault();
-    preview($(evt2.currentTarget).attr('href'));
+function YawgmothApp() {
+  CardRepository.listDecks((data) => {
+    decks = data;
+    refresh();
+    
+    // Initialize handlers
+    $('#cardGroubBy').on('change', (evt) => {
+      grouping = $('#cardGroubBy').val();
+      refresh();
+    });
   });
-});
-   
+  
+  function refresh() {
+    // Initialize components
+    $('#deckListComponent')
+      .empty()
+      .append(DeckList());    
+    
+    $('#cardComponent')
+      .empty()
+      .append(CardList());
+    
+    CardPreview(currentCard);
+    
+    // Initialize handlers
+    $('a.preview').on('click', (evt) => {
+      evt.preventDefault();
+      currentCard = $(evt.currentTarget).attr('href');
+      refresh();
+    });
+    
+    $('a.show-deck').on('click', (evt) => {
+      evt.preventDefault();
+      const deckName = $(evt.currentTarget).attr('href');
+      CardRepository.listCards(deckName, (data) => {
+        cards = data;
+        currentCard = mtgCardBack;
+        refresh();
+      });
+    });
+  }
+}
+
+YawgmothApp();   
 	
 
 //$('#cardGroubBy').trigger('change');

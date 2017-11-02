@@ -1,0 +1,56 @@
+decks:
+  - name: Godzilla
+    description: reanimator deck
+    playedBy: Alan Comer
+    cards:
+      - 4 Hidden Horror
+      - 4 Merfolk Traders
+      - 2 Necrosavant
+      - 2 Sliver Queen
+      - 4 Verdant Force
+      - 3 Shivan Dragon
+      - 1 Living Death
+      - 4 Dark Ritual
+      - 4 Mana Leak
+      - 4 Firestorm
+      - 4 Animate Dead
+      - 4 Necromancy
+      - 4 City of Brass
+      - 4 Gemstone Mine
+      - 1 Island
+      - 2 Reflecting Pool
+      - 3 Sulfurous Springs
+      - 1 Swamp
+      - 3 Underground River
+      - 2 Undiscovered Paradise
+    sideboard: 
+      - 4 Dread of Night  
+      - 2 Uktabi Orangutan 
+      - 2 Hydroblast  
+      - 3 Tranquil Domain 4 Pyroblast
+  - name: Deadguy Red
+    description: aggressive red deck
+    playedBy: David Price
+    cards:
+      - 4 Ball Lightning
+      - 2 Goblin Vandal
+      - 4 Jackal Pup
+      - 4 Mogg Fanatic
+      - 2 Mogg Flunkies
+      - 1 Viashino Sandstalker
+      - 4 Fireslinger
+      - 2 Hammer of Bogardan
+      - 4 Fireblast
+      - 4 Incinerate
+      - 4 Shock
+      - 4 Cursed Scroll
+      - 17 Mountain
+      - 4 Wasteland
+    sideboard: 
+      - 3 Bottle Gnomes  
+      - 2 Dwarven Miner 
+      - 2 Dwarven Thaumaturgist  
+      - 1 Final Fortune 
+      - 1 Firestorm  
+      - 4 Pyroblast 
+      - 2 Shattering Pulse

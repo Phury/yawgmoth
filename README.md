@@ -10,14 +10,20 @@ Convert your mtg collections to a PWA mobile app
 
 # Todo
 - [x] POC
-- [ ] parse yaml configuration
-- [ ] separate components
-- [ ] download assets locally
-- [ ] lightbox
-- [ ] footer with links, libraries, licence
+- [x] Parse yaml configuration
+- [ ] Separate components
+- [ ] Download assets locally
+- [ ] Lightbox
+- [ ] Footer with links, libraries, licence
+- [ ] Project gh-pages with tutorial
+- [ ] Differentiate between lands and artifacts
+- [ ] Deterministic grouping
+- [ ] Count in grouping does not count amount per card
 
 # Release notes
 
-## v0.01
+## v0.02
+- yaml decks
 
+## v0.01
 - proof of concept
