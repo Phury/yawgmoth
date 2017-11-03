@@ -1,40 +1,31 @@
-body {
-  background-color: #fff;
+h1, h2, h3, h4, h5 {
+  font-size: 1.1em;
+  font-weight: 500;
 }
-ul > li > span.mc {
-  font-style: italic;
-  font-size: 0.8em;
-  float: right;
+nav .brand-logo  {
+  font-size: 1.3em;
+}
+nav .button-collapse i {
+  font-size: 1.7em;
+}
+.mc {
+  font-size: 0.85em;
 }
 
-#preview {
-  position: fixed;
+.spinner {
+  max-width: 254px;
 }
-#preview > img {
+
+.card-preview {
   max-width: 223px;
-}
-
-header {
-  padding-top: 5rem;
-}
-
-.navigation {
-  background: #f4f5f6;
-  border-bottom: .1rem solid #d1d1d1;
-  display: block;
-  height: 5.2rem;
-  left: 0;
-  max-width: 100%;
-  position: fixed;
-  right: 0;
-  top: 0;
   width: 100%;
-  z-index: 1;
 }
-.navigation .navigation-link, .navigation .navigation-title, .navigation .title {
-  display: inline;
-  font-size: 1.6rem;
-  line-height: 5.2rem;
-  padding: 0;
-  text-decoration: none;
+
+@media (min-width: 1200px) {
+  .decklist {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2;
+  }
+
 }
