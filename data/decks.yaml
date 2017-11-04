@@ -1,6 +1,6 @@
 decks:
-  - name: {B}{W} Zombies
-    description: Amonkhet {B}{W} Zombie deck
+  - name: B/W Zombies
+    description: Amonkhet B/W Zombie deck
     tags: [zombies, budget, tribal, amonkhet]
     submittedBy: Phury
     cards:
@@ -37,7 +37,7 @@ decks:
     sideboard: 
       - 4 Swamp
       
-  - name: {B}{W} Warriors
+  - name: B/W Warriors
     description: Tarkir Budget Warriors deck
     tags: [warrios, budget, tribal, tarkir]
     submittedBy: Phury
@@ -56,7 +56,7 @@ decks:
       - 8 Swamp
       - 10 Plains
            
-  - name: {B}{U} Pirates
+  - name: B/U Pirates mini
     description: A 40 card deck from Ixalan on a budget
     tags: [pirates, mini-deck, budget, tribal, ixalan]
     submittedBy: Phury
