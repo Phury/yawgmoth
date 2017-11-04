@@ -162,7 +162,7 @@ class DeckListComponent extends React.Component {
 class CardListComponent extends React.Component {
   _spinner() {
     const spinners = ["angel", "embalmed", "exerted", "goat", "knight ally", "soldier", "squirrel", "thopter", "angel"];
-    return "/img/tokens/" + spinners[Math.floor(Math.random()*spinners.length)] + ".gif";
+    return "img/tokens/" + spinners[Math.floor(Math.random()*spinners.length)] + ".gif";
   } 
   
   _groupCards(cards, grouping) {
