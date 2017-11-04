@@ -1,6 +1,7 @@
 decks:
-  - name: B/W Zombies
-    description: Amonkhet B/W Zombie deck
+  - name: {B}{W} Zombies
+    description: Amonkhet {B}{W} Zombie deck
+    tags: [zombies, budget, tribal, amonkhet]
     submittedBy: Phury
     cards:
       - 2 Tattered Mummy
@@ -36,8 +37,9 @@ decks:
     sideboard: 
       - 4 Swamp
       
-  - name: B/W Warriors
+  - name: {B}{W} Warriors
     description: Tarkir Budget Warriors deck
+    tags: [warrios, budget, tribal, tarkir]
     submittedBy: Phury
     cards:
       - 4 Herald of Dromoka
@@ -53,3 +55,28 @@ decks:
       - 2 Blighted Steppe
       - 8 Swamp
       - 10 Plains
+           
+  - name: {B}{U} Pirates
+    description: A 40 card deck from Ixalan on a budget
+    tags: [pirates, mini-deck, budget, tribal, ixalan]
+    submittedBy: Phury
+    cards:
+      - 2 Blight Keeper
+      - 1 Dreamcaller Siren
+      - 1 Dusk Legion Dreadnought
+      - 2 Essence Scatter
+      - 2 Favorable Winds
+      - 9 Island
+      - 3 Kitesail Freebooter
+      - 3 Opt
+      - 2 Siren Stormtamer
+      - 1 Sleek Schooner
+      - 3 Storm Fleet Aerialist
+      - 9 Swamp
+      - 2 Unsummon
+    sideboard:
+      - 1 Duress
+      - 1 Essence Extraction
+      - 1 Never // Return
+      - 1 Sentinel Totem
+      - 1 Spell Pierce
