@@ -13,7 +13,7 @@ Convert your mtg collections to a PWA mobile app
 - [x] Parse yaml configuration
 - [ ] Separate components
 - [ ] Download assets locally
-- [ ] Lightbox
+- [x] Lightbox
 - [ ] Footer with links, libraries, licence
 - [ ] Project gh-pages with tutorial
 - [ ] Differentiate between lands and artifacts
@@ -22,6 +22,11 @@ Convert your mtg collections to a PWA mobile app
 - [ ] Handle dual-sided//aftermath cards
 
 # Release notes
+
+## v0.04
+- lightbox
+- update layout (columns in deck list for big screens and responsive display)
+- add Beleren font
 
 ## v0.03
 - fixed preview

@@ -90,7 +90,7 @@ class Navigation extends React.Component {
       <header id="navigation" className="navbar-fixed">
         <nav>
           <div className="nav-wrapper blue">
-            <a href="#" className="brand-logo"><i className="ss ss-nph left"></i>Yawgmoth</a>
+            <a href="#" className="brand-logo">{'\u00A0'}<i className="ss ss-nph">{'\u00A0'}</i>Yawgmoth</a>
           </div>
         </nav>
       </header>
@@ -143,12 +143,12 @@ class DeckListComponent extends React.Component {
     if (this.state.decks == null) return null;
     
     return (
-      <div id="deckListComponent" className="dragend-page col l3">
+      <div id="deckListComponent" className="col l3 s4">
         <h3><i className="ss ss-wth left"></i>Decks</h3>
-        <ul className="">
+        <ul className="collection">
           {this.state.decks.map((deck, i) => {
             return (
-              <li key={i} className="">
+              <li key={i} className="collection-item">
                 <a className="select-deck" href="#" onClick={(e) => this.props.onDeckSelected(e, deck)}>{deck.name}</a>
               </li>
             );
@@ -162,7 +162,7 @@ class DeckListComponent extends React.Component {
 class CardListComponent extends React.Component {
   _spinner() {
     const spinners = ["angel", "embalmed", "exerted", "goat", "knight ally", "soldier", "squirrel", "thopter", "angel"];
-    return "/img/tokens/" + spinners[Math.floor(Math.random()*spinners.length)] + ".gif";
+    return "img/tokens/" + spinners[Math.floor(Math.random()*spinners.length)] + ".gif";
   } 
   
   _groupCards(cards, grouping) {
@@ -229,7 +229,7 @@ class CardListComponent extends React.Component {
   render() {
     if (this.props.selectedDeck == null) {
       return (
-        <div id="cardListComponent" className="dragend-page col l6">
+        <div id="cardListComponent" className="col l9 s8">
           <h3><i className="ss ss-bcore left"></i>Cards</h3>
           <p>No deck selected</p>
         </div>
@@ -238,7 +238,7 @@ class CardListComponent extends React.Component {
     
     if (this.state.isLoading) {
       return (
-        <div id="cardListComponent" className="dragend-page col l6">
+        <div id="cardListComponent" className="col l9 s8">
           <h3><i className="ss ss-bcore left"></i>{this.props.selectedDeck.name}</h3>
           <div className="center"><img className="spinner" src={this._spinner()} /></div>
         </div>
@@ -246,51 +246,29 @@ class CardListComponent extends React.Component {
     }
 
     return (
-      <div id="cardListComponent" className="dragend-page col l6">
+      <div id="cardListComponent" className="col l9 s8">
         <h3><i className="ss ss-bcore left"></i>{this.props.selectedDeck.name}</h3>
         <FilterComponent onGroupingChanged={this.props.onGroupingChanged} />
-        {Object.keys(this.state.cardsGrouped).map((group) => { 
-          const cards = this.state.cardsGrouped[group];
-          return (
-            <div key={group}>
-              <h5>{group} ({cards.length})</h5>
-              <ul className="collection">
-                {cards.map((card, i) => { 
-                  return (
-                    <li key={i} className="collection-item">
-                      {card.amount +" "}<a className="select-card" href="#" onClick={(e) => this.props.onCardSelected(e, card)}>{card.name}</a>
-                      <span className="mc right"><ManaCostLabel manaCost={card.manaCost} /></span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
-}
-
-class CardPreviewComponent extends React.Component {
-  
-  _defaultImageUrl = 'https://magic.wizards.com/sites/mtg/files/image_legacy_migration/magic/images/mtgcom/fcpics/making/mr224_back.jpg'
-  
-  constructor(props) {
-    super(props);
-    this.state = { imageUrl: this._defaultImageUrl, isLoading: true };
-  }
-  
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedCard == null || nextProps.selectedCard == this.props.selectedCard) return;
-    this.setState({ imageUrl: nextProps.selectedCard.imageUrl, isLoading: false });
-  }
-  
-  render() {
-    return (
-      <div id="cardPreviewComponent" className="dragend-page col l3">
-        <h3><i className="ss ss-pbook left"></i>Detail</h3>
-        <img className="card-preview" src={this.state.imageUrl} />
+        <div className="decklist">
+         {Object.keys(this.state.cardsGrouped).map((group) => { 
+            const cards = this.state.cardsGrouped[group];
+            return (
+              <div key={group}>
+                <h5>{group} ({cards.length})</h5>
+                <ul>
+                  {cards.map((card, i) => { 
+                    return (
+                      <li key={i} className="item">
+                        {card.amount}{'\u00A0'}<a className="select-card" data-lightbox="deck" href={card.imageUrl}>{card.name}</a>
+                        <span className="mc right"><ManaCostLabel manaCost={card.manaCost} /></span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -346,8 +324,6 @@ class YawgmothApp extends React.Component {
             onGroupingChanged={this.onGroupingChanged} 
             grouping={this.state.grouping}
             selectedDeck={this.state.selectedDeck} />
-          <CardPreviewComponent 
-            selectedCard={this.state.selectedCard} />
         </main>
       </div>
     );

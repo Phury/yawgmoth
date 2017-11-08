@@ -1,7 +1,23 @@
+@font-face {
+  font-family: 'Beleren Small Caps';
+  src: url('//magarena.github.io/public/css/woff/Beleren%20Small%20Caps.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Beleren';
+  src: url('//magarena.github.io/public/css/woff/Beleren.woff') format('woff');
+}
+
+
 h1, h2, h3, h4, h5 {
   font-size: 1.1em;
   font-weight: 500;
 }
+
+h1, h2, h3, h4, h5, nav .brand-logo {
+  font-family: "Beleren";
+}
+
 nav .brand-logo  {
   font-size: 1.3em;
 }
@@ -20,6 +36,16 @@ nav .button-collapse i {
   max-width: 223px;
   width: 100%;
 }
+
+li.item {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px;
+}
+
+.decklist {
+  margin-top: 1em;
+}
+
 
 @media (min-width: 1200px) {
   .decklist {
