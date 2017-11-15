@@ -23,6 +23,11 @@ Convert your mtg collections to a PWA mobile app
 
 # Release notes
 
+## v0.05
+- use fancybox instead of lightbox
+- update theme color
+- update layout (use card component, collapsible for filter)
+
 ## v0.04
 - lightbox
 - update layout (columns in deck list for big screens and responsive display)
