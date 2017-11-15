@@ -8,6 +8,9 @@
   src: url('//magarena.github.io/public/css/woff/Beleren.woff') format('woff');
 }
 
+body {
+    background-color: #f7f7f7;
+}
 
 h1, h2, h3, h4, h5 {
   font-size: 1.1em;
@@ -40,6 +43,17 @@ nav .button-collapse i {
 li.item {
   border-bottom: 1px solid #e0e0e0;
   padding: 5px;
+}
+
+#deckListComponent {
+  text-align: right;
+}
+#deckListComponent li {
+  padding-right: 10px;
+  border-right: 3px solid transparent;
+}
+#deckListComponent li.active, #deckListComponent li:hover  {
+  border-right: 3px solid #9c27b0;
 }
 
 .decklist {

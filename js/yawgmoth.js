@@ -89,8 +89,8 @@ class Navigation extends React.Component {
     return (
       <header id="navigation" className="navbar-fixed">
         <nav>
-          <div className="nav-wrapper blue">
-            <a href="#" className="brand-logo">{'\u00A0'}<i className="ss ss-nph">{'\u00A0'}</i>Yawgmoth</a>
+          <div className="nav-wrapper purple">
+            <a href="#" className="brand-logo">{'\u00A0'}Yawgmoth</a>
           </div>
         </nav>
       </header>
@@ -106,21 +106,30 @@ class FilterComponent extends React.Component {
   
   render() {
     return (
-      <div className="">
-        <label htmlFor="cardGroubBy">Group by</label>
-        <select 
-            id="cardGroubBy" 
-            className="browser-default" 
-            onChange={(e) => {
-              this.setState({ value: e.target.value });
-              this.props.onGroupingChanged(e, e.target.value);
-            }} 
-            value={this.state.value}>
-          <option value="type">Type</option>
-          <option value="color">Color</option>
-          <option value="cmc">Cmc</option>
-        </select>
-      </div>
+      <ul className="collapsible" data-collapsible="accordion">
+        <li>
+          <div className="collapsible-header"><i className="material-icons">filter_list</i>Filter</div>
+          <div className="collapsible-body">
+            <div className="row">
+              <div className="col s12">
+                <label htmlFor="cardGroubBy">Group by</label>
+                <select 
+                    id="cardGroubBy" 
+                    className="browser-default" 
+                    onChange={(e) => {
+                      this.setState({ value: e.target.value });
+                      this.props.onGroupingChanged(e, e.target.value);
+                    }} 
+                    value={this.state.value}>
+                  <option value="type">Type</option>
+                  <option value="color">Color</option>
+                  <option value="cmc">Cmc</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     );
   }
 }
@@ -143,12 +152,12 @@ class DeckListComponent extends React.Component {
     if (this.state.decks == null) return null;
     
     return (
-      <div id="deckListComponent" className="col l3 s4">
-        <h3><i className="ss ss-wth left"></i>Decks</h3>
-        <ul className="collection">
+      <div id="deckListComponent" className="col l2 s4">
+        <h3><i className="ss ss-wth"></i>{'\u00A0'}Decks</h3>
+        <ul>
           {this.state.decks.map((deck, i) => {
             return (
-              <li key={i} className="collection-item">
+              <li key={i} className={this.props.selectedDeck && this.props.selectedDeck.name == deck.name ? "active" : ""}>
                 <a className="select-deck" href="#" onClick={(e) => this.props.onDeckSelected(e, deck)}>{deck.name}</a>
               </li>
             );
@@ -223,13 +232,15 @@ class CardListComponent extends React.Component {
       .listCards(nextProps.selectedDeck)
       .then((data) => {
         this.setState({ cards: data, cardsGrouped: this._groupCards(data, nextProps.grouping), isLoading: false });
+        // Make filter component collapsible
+        $('.collapsible').collapsible();
       });
   }
   
   render() {
     if (this.props.selectedDeck == null) {
       return (
-        <div id="cardListComponent" className="col l9 s8">
+        <div id="cardListComponent" className="col l8 s8">
           <h3><i className="ss ss-bcore left"></i>Cards</h3>
           <p>No deck selected</p>
         </div>
@@ -238,7 +249,7 @@ class CardListComponent extends React.Component {
     
     if (this.state.isLoading) {
       return (
-        <div id="cardListComponent" className="col l9 s8">
+        <div id="cardListComponent" className="col l8 s8">
           <h3><i className="ss ss-bcore left"></i>{this.props.selectedDeck.name}</h3>
           <div className="center"><img className="spinner" src={this._spinner()} /></div>
         </div>
@@ -246,28 +257,38 @@ class CardListComponent extends React.Component {
     }
 
     return (
-      <div id="cardListComponent" className="col l9 s8">
+      <div id="cardListComponent" className="col l8 s8">
         <h3><i className="ss ss-bcore left"></i>{this.props.selectedDeck.name}</h3>
         <FilterComponent onGroupingChanged={this.props.onGroupingChanged} />
-        <div className="decklist">
-         {Object.keys(this.state.cardsGrouped).map((group) => { 
-            const cards = this.state.cardsGrouped[group];
-            return (
-              <div key={group}>
-                <h5>{group} ({cards.length})</h5>
-                <ul>
-                  {cards.map((card, i) => { 
-                    return (
-                      <li key={i} className="item">
-                        {card.amount}{'\u00A0'}<a className="select-card" data-lightbox="deck" href={card.imageUrl}>{card.name}</a>
-                        <span className="mc right"><ManaCostLabel manaCost={card.manaCost} /></span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            );
-          })}
+        <div className="card">
+          <div className="card-content">
+            <div className="decklist">
+              {Object.keys(this.state.cardsGrouped).map((group) => { 
+                const cards = this.state.cardsGrouped[group];
+                return (
+                  <div key={group}>
+                    <h5>{group} ({cards.length})</h5>
+                    <ul>
+                      {cards.map((card, i) => { 
+                        return (
+                          <li key={i} className="item">
+                            {card.amount}{'\u00A0'}
+                            <a href={card.imageUrl}
+                               className="select-card" 
+                               data-fancybox="deck" 
+                               data-caption={card.name} >
+                                {card.name}
+                            </a>
+                            <span className="mc right"><ManaCostLabel manaCost={card.manaCost} /></span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -316,9 +337,10 @@ class YawgmothApp extends React.Component {
     return (
       <div id="yawgmoth">
         <Navigation />
-        <main id="dragend" className="row">
+        <main className="row">
           <DeckListComponent 
-            onDeckSelected={this.onDeckSelected}/>
+            onDeckSelected={this.onDeckSelected}
+            selectedDeck={this.state.selectedDeck} />
           <CardListComponent 
             onCardSelected={this.onCardSelected} 
             onGroupingChanged={this.onGroupingChanged} 
