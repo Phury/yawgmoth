@@ -1,0 +1,91 @@
+
+@font-face {
+  font-family: 'Beleren Small Caps';
+  src: url('//magarena.github.io/public/css/woff/Beleren%20Small%20Caps.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Beleren';
+  src: url('//magarena.github.io/public/css/woff/Beleren.woff') format('woff');
+}
+
+body {
+}
+
+h1, h2, h3, h4, h5, nav .brand-logo {
+  font-family: "Beleren";
+}
+
+.mc {
+  font-size: 0.85em;
+}
+
+.spinner {
+  max-width: 254px;
+}
+
+.card-preview {
+  max-width: 223px;
+  width: 100%;
+}
+li.item {
+  padding: 5px;
+}
+
+@media (min-width: 964px) {
+  .decklist {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2;
+  }
+
+}
+
+.bd-navbar {
+  background-color: #563d7c;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.bd-navbar .navbar-brand {
+  color: #fff;
+}
+
+.sidebar {
+  border-right: 1px solid rgba(0,0,0,.1);
+  background: #7386D5;
+  color: #fff;
+}
+/* @media (min-width: 768px) */
+.sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* height: calc(100vh - 4rem); */
+  height: 100vh;
+}
+
+.sidebar .sidebar-header {
+  padding: 20px;
+  font-size: 1.7em;
+  /*background: #6d7fcc;*/
+}
+
+.sidebar .sidebar-nav a {
+  color: #fff;
+  font-size: 1.3em;
+  display: block;
+}
+
+.sidebar .sidebar-nav li.active a {
+  font-weight: 500;
+}
+
+
+.lightbox .lb-image {
+  border: none;
+}
+
+.lb-outerContainer {
+  background-color: transparent;
+}
