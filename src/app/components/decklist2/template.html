@@ -1,0 +1,23 @@
+<h1 class="ui header">{{ctrl.deck.name}}</h1>
+<div class="visual-deck-list-2" ng-if="ctrl.deck">
+    <div class="ui pointing secondary menu">
+        <div class="item active">main</div>
+        <div class="item">sideboard</div>
+    </div>
+    <div class="ui tab active">
+        <div class="ui accordion" ng-repeat="card in ctrl.deck.cards track by $index">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{card.quantity}}&nbsp;{{card.name}}
+                <span class="mana-cost pull-right">
+                    <span class="ms ms-cost" ng-class="class"
+                          ng-repeat="class in card.manaCostClasses track by $index">
+                    </span>
+                </span>
+            </div>
+            <div class="content">
+                <img class="ui image" ng-src="{{card.image}}" />
+            </div>
+        </div>
+    </div>
+</div>
