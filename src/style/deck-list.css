@@ -1,0 +1,87 @@
+
+@font-face {
+    font-family: 'Beleren';
+    src: url('https://magarena.github.io/public/css/woff/Beleren.woff') format('woff');
+}
+.card {
+    padding: 0 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    border-bottom: 1px solid #FFF;
+    overflow: hidden;
+}
+.card-bg {
+    width: 100%;
+    position: absolute;
+    height: 30px;
+    background-position: -38px -75px;
+    background-size: 125%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    right: 0;
+    top: 0;
+}
+.split-card .card-bg {
+    transform: rotate(90deg);
+    height: 350px;
+    width: 350px;
+    background-size: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-position: -71px -59px;
+}
+.deck-name {
+    padding: 0 10px;
+    height: 35px;
+    border-bottom: 1px solid #FFF;
+    font-size: 18px;
+    text-align: center;
+}
+.card-flex{
+    z-index: 2;
+}
+.card .card-flex{
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+}
+.divider .card-flex div {
+    width: 100%;
+    text-align: right;
+}
+.visual-deck-list {
+    width:290px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-radius:5px;
+    border-color: rgb(20, 16, 17);
+    background:rgb(20, 16, 17);
+    color: #ffff;
+    font-size: 18px;
+    font-weight: bold;
+    margin:0 auto 15px;
+}
+.visual-deck-list .card-quantity, .visual-deck-list .card-name, .visual-deck-list .deck-name {
+    text-shadow: 2px 2px 5px rgb(20, 16, 17);
+    font-family: "Beleren";
+}
+.visual-deck-list .ms {
+    font-size: 0.65em;
+    margin-left: 1px;
+}
+
+.mana-cost.pull-right {
+    font-size: 0.65em;
+    float: right;
+}
+    .mana-cost .ms {
+        margin-right: 1px;
+    }
+
+#deckCapture {
+    text-align: center;
+}
