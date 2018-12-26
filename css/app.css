@@ -5569,7 +5569,7 @@ i.flag:not(.icon) {
 i.flag:not(.icon):before {
   display: inline-block;
   content: '';
-  background: url(/9c74e172f87984c48ddf5c8108cabe67.png) no-repeat -108px -1976px;
+  background: url(/yawgmoth/9c74e172f87984c48ddf5c8108cabe67.png) no-repeat -108px -1976px;
   width: 16px;
   height: 11px;
 }
@@ -7654,8 +7654,8 @@ a.ui.inverted.grey.header:hover {
 
 @font-face {
   font-family: 'Icons';
-  src: url(/8e3c7f5520f5ae906c6cf6d7f3ddcd19.eot);
-  src: url(/8e3c7f5520f5ae906c6cf6d7f3ddcd19.eot?#iefix) format('embedded-opentype'), url(/0ab54153eeeca0ce03978cc463b257f7.woff2) format('woff2'), url(/faff92145777a3cbaf8e7367b4807987.woff) format('woff'), url(/b87b9ba532ace76ae9f6edfe9f72ded2.ttf) format('truetype'), url(/962a1bf31c081691065fe333d9fa8105.svg#icons) format('svg');
+  src: url(/yawgmoth/8e3c7f5520f5ae906c6cf6d7f3ddcd19.eot);
+  src: url(/yawgmoth/8e3c7f5520f5ae906c6cf6d7f3ddcd19.eot?#iefix) format('embedded-opentype'), url(/yawgmoth/0ab54153eeeca0ce03978cc463b257f7.woff2) format('woff2'), url(/yawgmoth/faff92145777a3cbaf8e7367b4807987.woff) format('woff'), url(/yawgmoth/b87b9ba532ace76ae9f6edfe9f72ded2.ttf) format('truetype'), url(/yawgmoth/962a1bf31c081691065fe333d9fa8105.svg#icons) format('svg');
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -12933,8 +12933,8 @@ i.icon.youtube.play:before {
 
 @font-face {
   font-family: 'outline-icons';
-  src: url(/701ae6abd4719e9c2ada3535a497b341.eot);
-  src: url(/701ae6abd4719e9c2ada3535a497b341.eot?#iefix) format('embedded-opentype'), url(/cd6c777f1945164224dee082abaea03a.woff2) format('woff2'), url(/ef60a4f6c25ef7f39f2d25a748dbecfe.woff) format('woff'), url(/ad97afd3337e8cda302d10ff5a4026b8.ttf) format('truetype'), url(/82f60bd0b94a1ed68b1e6e309ce2e8c3.svg#icons) format('svg');
+  src: url(/yawgmoth/701ae6abd4719e9c2ada3535a497b341.eot);
+  src: url(/yawgmoth/701ae6abd4719e9c2ada3535a497b341.eot?#iefix) format('embedded-opentype'), url(/yawgmoth/cd6c777f1945164224dee082abaea03a.woff2) format('woff2'), url(/yawgmoth/ef60a4f6c25ef7f39f2d25a748dbecfe.woff) format('woff'), url(/yawgmoth/ad97afd3337e8cda302d10ff5a4026b8.ttf) format('truetype'), url(/yawgmoth/82f60bd0b94a1ed68b1e6e309ce2e8c3.svg#icons) format('svg');
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -13439,8 +13439,8 @@ i.icon.star.empty:before {
 
 @font-face {
   font-family: 'brand-icons';
-  src: url(/13db00b7a34fee4d819ab7f9838cc428.eot);
-  src: url(/13db00b7a34fee4d819ab7f9838cc428.eot?#iefix) format('embedded-opentype'), url(/e8c322de9658cbeb8a774b6624167c2c.woff2) format('woff2'), url(/a046592bac8f2fd96e994733faf3858c.woff) format('woff'), url(/c5ebe0b32dc1b5cc449a76c4204d13bb.ttf) format('truetype'), url(/a1a749e89f578a49306ec2b055c073da.svg#icons) format('svg');
+  src: url(/yawgmoth/13db00b7a34fee4d819ab7f9838cc428.eot);
+  src: url(/yawgmoth/13db00b7a34fee4d819ab7f9838cc428.eot?#iefix) format('embedded-opentype'), url(/yawgmoth/e8c322de9658cbeb8a774b6624167c2c.woff2) format('woff2'), url(/yawgmoth/a046592bac8f2fd96e994733faf3858c.woff) format('woff'), url(/yawgmoth/c5ebe0b32dc1b5cc449a76c4204d13bb.ttf) format('truetype'), url(/yawgmoth/a1a749e89f578a49306ec2b055c073da.svg#icons) format('svg');
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -40392,15 +40392,15 @@ body.pushable > .pusher {
  * Global */
 @font-face {
   font-family: 'Mana';
-  src: url(/d260b861a06432c4a5d41fe83e4b3759.eot);
-  src: url(/d260b861a06432c4a5d41fe83e4b3759.eot?#iefix&v=1.4.1) format('embedded-opentype'), url(/f712ab6bed0c5ee70792fcc0ecf0a727.woff) format('woff'), url(/3e00a2f77a2f9fbc4490959ad48af8dd.ttf) format('truetype'), url(/7217c161bf020a6fcf8c953097720ebd.svg#mana) format('svg');
+  src: url(/yawgmoth/d260b861a06432c4a5d41fe83e4b3759.eot);
+  src: url(/yawgmoth/d260b861a06432c4a5d41fe83e4b3759.eot?#iefix&v=1.4.1) format('embedded-opentype'), url(/yawgmoth/f712ab6bed0c5ee70792fcc0ecf0a727.woff) format('woff'), url(/yawgmoth/3e00a2f77a2f9fbc4490959ad48af8dd.ttf) format('truetype'), url(/yawgmoth/7217c161bf020a6fcf8c953097720ebd.svg#mana) format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'MPlantin';
-  src: url(/daf8b76ba2ad29eac149b6a26a5747d7.eot);
-  src: url(/daf8b76ba2ad29eac149b6a26a5747d7.eot?#iefix&v=1.4.1) format('embedded-opentype'), url(/b09923e4e9b689572c4d30429491b892.woff) format('woff'), url(/c64fa9e74b60a46076fce0b1a4b631dc.ttf) format('truetype'), url(/7f51b3545752eb40bb4b63661f584d7d.svg#mplantin) format('svg');
+  src: url(/yawgmoth/daf8b76ba2ad29eac149b6a26a5747d7.eot);
+  src: url(/yawgmoth/daf8b76ba2ad29eac149b6a26a5747d7.eot?#iefix&v=1.4.1) format('embedded-opentype'), url(/yawgmoth/b09923e4e9b689572c4d30429491b892.woff) format('woff'), url(/yawgmoth/c64fa9e74b60a46076fce0b1a4b631dc.ttf) format('truetype'), url(/yawgmoth/7f51b3545752eb40bb4b63661f584d7d.svg#mplantin) format('svg');
   font-weight: normal;
   font-style: normal;
 }
