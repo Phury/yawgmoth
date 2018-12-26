@@ -22,7 +22,8 @@
 hs_err_pid*
 
 # node and webpack stuff
+deck-editor/node_modules/*
+deck-viewer/node_modules/*
 node_modules/*
 src/public/*
 .idea
-package-lock.json

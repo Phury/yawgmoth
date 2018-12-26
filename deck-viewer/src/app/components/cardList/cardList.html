@@ -1,0 +1,21 @@
+<div class="deck section">
+  <div class="deck-bg" ng-style="{'background-image': 'url('+ctrl.deck.pinned+')'}">
+    <h1 class="title">{{ctrl.deck.title}}</h1>
+  </div>
+  <div class="deck-meta ">
+    <h2 class="subtitle">by <a href="#">{{ctrl.deck.author}}</a></h2>
+  </div>
+  <div class="deck-content">
+    <div class="is-pulled-left is-clearfix card-list section" ng-repeat="section in ctrl.deck.cards">
+      <h1 class="subtitle">{{section.type}}&nbsp;<span class="tag">{{section.totalCards}}</span></h1>
+      <ul class="is-pulled-left" ng-repeat="group in section.cards.groups">
+        <li ng-repeat="card in group">
+          1&nbsp;<a href="#" class="toggle-card-preview" ng-click="$event.preventDefault();toggle = !toggle" ng-class="{'active' : toggle}">
+            {{card}}
+            <span class="card-preview"><img src="https://manastack.com/images/XLN/bishop%20of%20rebirth.jpg" /></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
