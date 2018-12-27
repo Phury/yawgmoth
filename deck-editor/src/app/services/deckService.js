@@ -3,15 +3,15 @@ import angular from 'angular';
 class DeckService {
 	constructor($q, $http) {
 		this.$q = $q;
+
 		// get('/data/decks.json') -> deck info
 		// get('/data/' + deck.file) -> deck content
 		// this.decks = [all the deck content]
 
 		let deferred = this.$q.defer();
-
 		this.decks = deferred.promise;
-
 		let promises = [];
+		// TODO: handle url depending on deployment
 		$http.get('/data/decks.json').then(decklist => {
 			angular.forEach(decklist.data, deckInfo => {
 				promises.push($http.get('/data/' + deckInfo.file).then(deckWithDetail => {

@@ -11,7 +11,8 @@ Convert your mtg collections to a PWA mobile app
 
 # Todo
 - [ ] Image cache for visual view
-- [ ] Transform app to web component
+- [ ] PWA 
+- [ ] Web component
 - [ ] Differentiate between lands and artifacts
 - [ ] Grouping
 - [ ] Handle dual-sided//aftermath cards

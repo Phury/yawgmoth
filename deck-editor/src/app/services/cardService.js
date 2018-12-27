@@ -8,12 +8,10 @@ class CardService {
 
 	getCardsFromText(text) {
 		let cards = this.textToCards(text);
-		console.log(cards);
 		return this.getCardsWithDetail(cards);
 	}
 
 	getCardsWithDetail(cards) {
-		//let deferred = this.$q.defer();
 		let promises = cards
 			.filter(card => card.quantity != 0)
 			.map(this.mapToCardWithDetail.bind(this));
