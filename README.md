@@ -3,8 +3,8 @@ Convert your mtg collections to a PWA mobile app
 
 # How to
 - fork this repository
-- create a 'decks.json' metadata file with your deck index
-- create a 'deck.dck' file for each separate deck
+- create a `decks.json` metadata file with your deck index under `deck-editor/src/public/data/`
+- create a `deck.dck` file for each separate deck under `deck-editor/src/public/data/`
 - commit
 - push to github pages
 - enjoy your card collection wherever you are
@@ -13,8 +13,7 @@ Convert your mtg collections to a PWA mobile app
 - [ ] Image cache for visual view
 - [ ] Transform app to web component
 - [ ] Differentiate between lands and artifacts
-- [ ] Deterministic grouping
-- [ ] Count in grouping does not count amount per card
+- [ ] Grouping
 - [ ] Handle dual-sided//aftermath cards
 
 # Release notes

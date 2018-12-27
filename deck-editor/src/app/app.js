@@ -15,17 +15,23 @@ import uiService from './services/uiService';
 import cardService from './services/cardService';
 import deckService from './services/deckService';
 
+
+
+/*
+import deckform from './components/deckform/controller';
+import editor from './views/editor/controller';
+*/
+
 import menu from './components/menu/controller';
 import decklist from './components/decklist/controller';
 import decklist2 from './components/decklist2/controller';
-import deckform from './components/deckform/controller';
 import deckshot from './components/deckshot/controller';
 
-import decks from './views/decks/controller';
-import editor from './views/editor/controller';
-import viewer from './views/viewer/controller';
+import deckList from './views/deckList/controller';
+import deckDetail from './views/deckDetail/controller';
+import visualViewer from './views/visualViewer/controller';
 
-angular.module('kickstartNg', [uiRouter, restangular, menu, decklist, decklist2, deckform, deckshot, uiService, cardService, deckService, decks, editor, viewer])
+angular.module('kickstartNg', [uiRouter, restangular, menu, uiService, cardService, deckService, deckList, deckDetail, visualViewer, decklist, decklist2, deckshot])
     .constant('API_URL', 'https://api.magicthegathering.io/v1/')
     .config(routing)
     .config(['RestangularProvider', 'API_URL', (RestangularProvider, API_URL) => {
