@@ -3,20 +3,20 @@ import angular from 'angular';
 import 'semantic-ui/dist/semantic.js';
 
 class UIService {
-    constructor($timeout) {
-        this.$timeout = $timeout;
-    }
+	constructor($timeout) {
+		this.$timeout = $timeout;
+	}
 
-    accordion() {
-        this.$timeout(() => { $('.ui.accordion').accordion('refresh'); }, 500);
-    }
+	accordion() {
+		this.$timeout(() => { $('.ui.accordion').accordion('refresh'); }, 500);
+	}
 
-    tabs() {
-        this.$timeout(() => { $('.menu .item').tab(); }, 500);
-    }
+	tabs() {
+		this.$timeout(() => { $('.menu .item').tab(); }, 500);
+	}
 
 }
 
 export default angular.module('uiService', [])
-    .service('uiService', ['$timeout', UIService])
-    .name;
+	.service('uiService', ['$timeout', UIService])
+	.name;

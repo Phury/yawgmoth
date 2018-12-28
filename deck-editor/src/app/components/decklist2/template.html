@@ -16,7 +16,31 @@
                 </span>
             </div>
             <div class="content">
-                <img class="ui image" ng-src="{{card.image}}" />
+                <div class="ui grid">
+                    <div class="six wide column">
+                        <img class="ui image" ng-src="{{card.image}}" />
+                    </div>
+                    <div class="ten wide column ">
+                        <div class="ui container segment card-text">
+                            <h5>
+                                {{card.name}}
+                                <span class="mana-cost">
+                                    <span class="ms ms-cost" ng-class="class"
+                                          ng-repeat="class in card.manaCostClasses track by $index">
+                                    </span>
+                                </span>
+                            </h5>
+                            <p>{{card.type}}</p>
+                            <div class="card-text-box" ng-if="card.text">
+                                <p class="card-text-oracle">{{card.text}}</p>
+                                <p class="card-text-flavor" ng-if="card.flavor">{{card.flavor}}</p>
+                            </div>
+                            <div class="card-text-stats" ng-if="card.power">
+                                {{card.power}}/{{card.toughness}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

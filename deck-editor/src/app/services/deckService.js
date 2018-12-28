@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 class DeckService {
-	constructor($q, $http) {
+	constructor($q, $http, cardService) {
 		this.$q = $q;
 
 		// get('/data/decks.json') -> deck info
@@ -18,6 +18,7 @@ class DeckService {
 					return {
 						name: deckInfo.name,
 						format: deckInfo.format,
+						icon: cardService.getCardWithDetail({name: deckInfo.icon}).image,
 						cards: deckWithDetail.data
 					};
 				}));
@@ -40,5 +41,5 @@ class DeckService {
 }
 
 export default angular.module('deckService', [])
-	.service('deckService', ['$q', '$http', DeckService])
+	.service('deckService', ['$q', '$http', 'cardService', DeckService])
 	.name;
