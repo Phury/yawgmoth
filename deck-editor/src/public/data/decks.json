@@ -1,14 +1,38 @@
 [
   {
-    "file": "deck1.dck",
+    "file": "standard/pauper/merfolks.dck",
     "icon": "River Heralds' Boon",
-    "name": "pauper merfolks",
+    "name": "pauper U/G merfolks",
     "format": "standard pauper"
   },
   {
-    "file": "deck2.dck",
+    "file": "pauper/dimir_alchemy.dck",
     "icon": "Forbidden Alchemy",
     "name": "Dimir Alchemy",
     "format": "pauper"
+  },
+  {
+    "file": "standard/pauper/bg_saprolings.dck",
+    "icon": "Yavimaya Sapherd",
+    "name": "pauper B/G saprolings",
+    "format": "standard pauper"
+  },
+  {
+    "file": "standard/pauper/ub_surveil.dck",
+    "icon": "Unexplained Disappearance",
+    "name": "pauper U/B surveil",
+    "format": "standard pauper"
+  },
+  {
+    "file": "standard/pauper/ub_control.dck",
+    "icon": "Devious Cover-Up",
+    "name": "pauper dimir control",
+    "format": "standard pauper"
+  },
+  {
+    "file": "standard/pauper/bg_undergrowth.dck",
+    "icon": "Rhizome Lurcher",
+    "name": "pauper B/G undergrowth",
+    "format": "standard pauper"
   }
 ]

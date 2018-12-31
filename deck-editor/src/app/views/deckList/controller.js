@@ -23,7 +23,6 @@ class DecksCtrl {
 	$onInit() {
 		this.deckService.getDecks().then(decks => {
 			this.decks = decks;
-			console.log(this.decks);
 		});
 	}
 }

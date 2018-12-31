@@ -15,28 +15,65 @@ class DeckService {
 		$http.get('/data/decks.json').then(decklist => {
 			angular.forEach(decklist.data, deckInfo => {
 				promises.push($http.get('/data/' + deckInfo.file).then(deckWithDetail => {
-					return {
-						name: deckInfo.name,
-						format: deckInfo.format,
-						icon: cardService.getCardWithDetail({name: deckInfo.icon}).image,
-						cards: deckWithDetail.data
-					};
+					function groupBy(cards, grouping) {
+						switch (grouping) {
+							case 'TYPE':
+								return cards.then(cards => {
+									return {
+										lands: cards.filter(card => card.type && card.type.indexOf("Land") !== -1),
+										creatures: cards.filter(card => card.type && card.type.indexOf("Creature") !== -1),
+										instants: cards.filter(card => card.type && card.type.indexOf("Instant") !== -1),
+										sorceries: cards.filter(card => card.type && card.type.indexOf("Sorcery") !== -1),
+										artifacts: cards.filter(card => card.type && card.type.indexOf("Artifact") !== -1 && !card.type.indexOf("Creature") !== -1)
+									};
+								});
+							default:
+								let grouping = {
+									main: []
+								};
+								let group = 'main';
+								return cards.then(cards => {
+									angular.forEach(cards, card => {
+										if (card._type !== 'card') {
+											group = card.name;
+											grouping[group] = [];
+										} else {
+											grouping[group].push(card);
+										}
+									});
+									return grouping;
+								});
+						}
+					}
+
+					return groupBy(cardService.getCardsFromText(deckWithDetail.data), 'T').then(cards => {
+						return {
+							name: deckInfo.name,
+								format: deckInfo.format,
+							icon: cardService.getCardWithDetail({_type: 'card', name: deckInfo.icon}).image,
+							cards: cards
+							//cards: cardService.getCardsFromText(deckWithDetail.data)
+						}
+					});
 				}));
 			});
 			return this.$q.all(promises);
 		}).then(decks => {
-			this.decks = decks;
+			//this.decks = decks;
 			deferred.resolve(decks);
 		});
 	}
 
-	getDecks() {
-		return this.$q.when(this.decks);
+	getDeck(index) {
+		let deferred = this.$q.defer();
+		this.getDecks().then(decks => {
+			deferred.resolve(decks[index])
+		});
+		return deferred.promise;
 	}
 
-	updateDeck(index, deck) {
-		this.decks[index] = deck;
-		console.log(this.decks);
+	getDecks() {
+		return this.$q.when(this.decks);
 	}
 }
 

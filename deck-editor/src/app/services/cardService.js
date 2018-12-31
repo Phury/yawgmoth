@@ -7,15 +7,13 @@ class CardService {
 	}
 
 	getCardsFromText(text) {
-		let cards = this.textToCards(text);
-		return this.getCardsWithDetail(cards);
+		return this.getCardsWithDetail(this.textToCards(text));
 	}
 
 	getCardsWithDetail(cards) {
-		let promises = cards
+		return this.$q.all(cards
 			.filter(card => card.quantity !== 0)
-			.map(this.getCardWithDetail.bind(this));
-		return this.$q.all(promises);
+			.map(this.getCardWithDetail.bind(this)));
 	}
 
 	sanitizeCardName(cardName) {
@@ -24,19 +22,26 @@ class CardService {
 	}
 
 	getCardWithDetail(card) {
-		let cardName = this.sanitizeCardName(card.name);
-		let cardFromCache = this.getOrDownloadCard(cardName);
-		cardFromCache.quantity = card.quantity;
-		return cardFromCache;
+		if (card._type === 'card' && card.quantity !== 0) {
+			let cardName = this.sanitizeCardName(card.name);
+			let cardFromCache = this.getOrDownloadCard(cardName);
+			cardFromCache.quantity = card.quantity;// TODO: quantity is a feature of decks and does not belong here
+			return cardFromCache;
+		} else {
+			return card;
+		}
 	}
 
 	getOrDownloadCard(cardName) {
 		if (!sessionStorage.getItem(cardName)) {
-			return this.restangular.all('cards').customGET('', { name: "\""+cardName+"\"" }).then(searchResult => {
+			return this.restangular.all('cards').customGET('', {
+				name: "\""+cardName+"\""
+			}).then(searchResult => {
 				let cardWithDetail = searchResult.cards.find(card => { return card != null && card.imageUrl != null; });
 				return cardWithDetail == null ? { name: cardName } : cardWithDetail;
 			}).then(cardWithDetail => {
 				sessionStorage.setItem(cardName, JSON.stringify({
+					_type: 'card',
 					name: cardName,
 					image: cardWithDetail.imageUrl,
 					manaCost: cardWithDetail.manaCost,
@@ -73,10 +78,19 @@ class CardService {
 
 	textToCards(text) {
 		return text.split('\n').map(cardLine => {
-			let firstSpace = cardLine.indexOf(' ');
-			return {
-				quantity: (firstSpace == -1) ? 0 :  cardLine.substring(0, firstSpace),
-				name: (firstSpace == -1) ? cardLine : cardLine.substring(firstSpace+1, cardLine.length)
+			let sanitized = cardLine.trim();
+			let firstSpace = sanitized.indexOf(' ');
+			if (sanitized.indexOf('#') == 0) {
+				return {
+					_type: "separator",
+					name: sanitized.substring(1, sanitized.length)
+				}
+			} else {
+				return {
+					_type: "card",
+					quantity: (firstSpace == -1) ? 0 :  sanitized.substring(0, firstSpace),
+					name: (firstSpace == -1) ? sanitized : sanitized.substring(firstSpace+1, sanitized.length)
+				}
 			}
 		});
 	}

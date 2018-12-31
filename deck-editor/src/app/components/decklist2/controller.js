@@ -2,27 +2,25 @@ import angular from 'angular';
 import template from './template.html';
 
 class DeckList2Ctrl {
-	constructor($scope, uiService, deckService, cardService) {
+	constructor($scope, uiService, deckService) {
 		this.$scope = $scope;
 		this.uiService = uiService;
 		this.deckService = deckService;
-		this.cardService = cardService;
 	}
 
 	$onInit() {
 		this.deckIndex = this.$scope.$parent.ctrl.deckIndex;
-		this.deckService.getDecks().then(decks => {
-			let deck = decks[this.deckIndex];
-			this.cardService.getCardsFromText(deck.cards).then(cards => {
-				this.deck = {name: deck.name, cards: cards};
-				this.uiService.accordion();
-			});
+		this.deckService.getDeck(this.deckIndex).then(deck => {
+			this.deck = deck;
+			this.selectedBoard = 'main';
+			this.uiService.accordion();
+			this.uiService.tabs();
 		});
 	}
 }
 
 export default angular.module('ksDeckList2', [])
-	.controller('DeckList2Ctrl', ['$scope', 'uiService', 'deckService', 'cardService', DeckList2Ctrl])
+	.controller('DeckList2Ctrl', ['$scope', 'uiService', 'deckService', DeckList2Ctrl])
 	.component('ksDeckList2', {
 		template: template,
 		controllerAs: 'ctrl',
