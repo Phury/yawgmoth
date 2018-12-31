@@ -40388,7 +40388,23 @@ body.pushable > .pusher {
 .dot.u { background-color: #489FF8; }
 .dot.b { background-color: #7D8080; }
 .dot.r { background-color: #EA4025; }
-.dot.g { background-color: #61D836; }/**
+.dot.g { background-color: #61D836; }
+
+
+div.deck-icon {
+    float: left;
+    background-size: 175%;
+    background-position: 65% 20%;
+    width: 55px;
+    height: 55px;
+    margin-right: 15px;
+}
+
+div.card-text > * {
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+}
+
+div.card-text > *:last-child { border-bottom: 0px; }/**
  * Global */
 @font-face {
   font-family: 'Mana';
