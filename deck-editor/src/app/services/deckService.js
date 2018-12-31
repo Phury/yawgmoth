@@ -12,9 +12,9 @@ class DeckService {
 		this.decks = deferred.promise;
 		let promises = [];
 		// TODO: handle url depending on deployment
-		$http.get('/data/decks.json').then(decklist => {
+		$http.get('/yawgmoth/data/decks.json').then(decklist => {
 			angular.forEach(decklist.data, deckInfo => {
-				promises.push($http.get('/data/' + deckInfo.file).then(deckWithDetail => {
+				promises.push($http.get('/yawgmoth/data/' + deckInfo.file).then(deckWithDetail => {
 					function groupBy(cards, grouping) {
 						switch (grouping) {
 							case 'TYPE':
