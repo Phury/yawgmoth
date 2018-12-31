@@ -9,13 +9,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="robots" content="index,follow">
 	<style>
-		/*
-		mocky deck: http://www.mocky.io/v2/5bc6fe9d3200002c000b0584
-		 */
 
 @font-face {
-  font-family: 'Beleren';
-  src: url('https://magarena.github.io/public/css/woff/Beleren.woff') format('woff');
+	font-family: 'Beleren';
+	src: url('https://magarena.github.io/public/css/woff/Beleren.woff') format('woff');
 }
 .card {
 	padding: 0 10px;
@@ -28,25 +25,25 @@
 	overflow: hidden;
 }
 .card-bg {
-    width: 100%;
-    position: absolute;
-    height: 30px;
-    background-position: -38px -75px;
-    background-size: 125%;
-    background-repeat: no-repeat;
+	width: 100%;
+	position: absolute;
+	height: 30px;
+	background-position: -38px -75px;
+	background-size: 125%;
+	background-repeat: no-repeat;
 	image-rendering: pixelated;
-    right: 0;
-    top: 0;
+	right: 0;
+	top: 0;
 }
 .split-card .card-bg {
-    transform: rotate(90deg);
-    height: 350px;
-    width: 350px;
-    background-size: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    background-position: -71px -59px;
+	transform: rotate(90deg);
+	height: 350px;
+	width: 350px;
+	background-size: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	background-position: -71px -59px;
 }
 .deck-name {
 	padding: 0 10px;
@@ -64,8 +61,8 @@
 	justify-content: space-between;
 }
 .divider .card-flex div {
-    width: 100%;
-    text-align: right;
+	width: 100%;
+	text-align: right;
 }
 .visual-deck-list {
 	width:290px;
@@ -199,7 +196,7 @@
 <script  src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
 html2canvas(document.querySelector("#visualDeckList")).then(canvas => {
-    document.body.appendChild(canvas)
+	document.body.appendChild(canvas)
 });
 </script>
 </body>

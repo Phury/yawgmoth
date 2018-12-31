@@ -23,10 +23,6 @@ class DeckDetailCtrl {
 			this.deck = decks[this.deckIndex];
 		});
 	}
-
-	updatePreview() {
-		this.deckService.updateDeck(this.deckIndex, this.deck);
-	}
 }
 
 

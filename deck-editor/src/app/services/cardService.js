@@ -7,40 +7,55 @@ class CardService {
 	}
 
 	getCardsFromText(text) {
-		let cards = this.textToCards(text);
-		return this.getCardsWithDetail(cards);
+		return this.getCardsWithDetail(this.textToCards(text));
 	}
 
 	getCardsWithDetail(cards) {
-		let promises = cards
-			.filter(card => card.quantity != 0)
-			.map(this.mapToCardWithDetail.bind(this));
-		return this.$q.all(promises);
+		return this.$q.all(cards
+			.filter(card => card.quantity !== 0)
+			.map(this.getCardWithDetail.bind(this)));
 	}
 
 	sanitizeCardName(cardName) {
-		let sanitized = ((cardName.indexOf('\/\/') == -1) ? cardName : cardName.split('\/\/')[0]).trim(); // Handle split cards
+		let sanitized = ((cardName.indexOf('\/\/') === -1) ? cardName : cardName.split('\/\/')[0]).trim(); // Handle split cards
 		return sanitized.replace(new RegExp('’', 'g'), '\'');
 	}
 
-	mapToCardWithDetail(card) {
-		let cardName = this.sanitizeCardName(card.name);
-		let cardFromCache = this.getOrDownloadCard(cardName);
-		cardFromCache.quantity = card.quantity;
-		return cardFromCache;
+	getCardWithDetail(card) {
+		if (card._type === 'card' && card.quantity !== 0) {
+			let cardName = this.sanitizeCardName(card.name);
+			let cardFromCache = this.getOrDownloadCard(cardName);
+			cardFromCache.quantity = card.quantity;// TODO: quantity is a feature of decks and does not belong here
+			return cardFromCache;
+		} else {
+			return card;
+		}
 	}
 
 	getOrDownloadCard(cardName) {
 		if (!sessionStorage.getItem(cardName)) {
-			return this.restangular.all('cards').customGET('', { name: "\""+cardName+"\"" }).then(searchResult => {
+			return this.restangular.all('cards').customGET('', {
+				name: "\""+cardName+"\""
+			}).then(searchResult => {
 				let cardWithDetail = searchResult.cards.find(card => { return card != null && card.imageUrl != null; });
-				return cardWithDetail == null ? { name: card.name } : cardWithDetail;
+				return cardWithDetail == null ? { name: cardName } : cardWithDetail;
 			}).then(cardWithDetail => {
 				sessionStorage.setItem(cardName, JSON.stringify({
+					_type: 'card',
 					name: cardName,
 					image: cardWithDetail.imageUrl,
 					manaCost: cardWithDetail.manaCost,
-					manaCostClasses: this.getManaCostClasses(cardWithDetail.manaCost)
+					manaCostClasses: this.getManaCostClasses(cardWithDetail.manaCost),
+					originalText: cardWithDetail.originalText,
+					originalType: cardWithDetail.originalType,
+					rarity: cardWithDetail.rarity,
+					type: cardWithDetail.type,
+					set: cardWithDetail.set,
+					setName: cardWithDetail.setName,
+					text: cardWithDetail.text,
+					flavor: cardWithDetail.flavor,
+					power: cardWithDetail.power,
+					toughness: cardWithDetail.toughness
 				}));
 				return JSON.parse(sessionStorage.getItem(cardName));
 			});
@@ -63,55 +78,21 @@ class CardService {
 
 	textToCards(text) {
 		return text.split('\n').map(cardLine => {
-			let firstSpace = cardLine.indexOf(' ');
-			return {
-				quantity: (firstSpace == -1) ? 0 :  cardLine.substring(0, firstSpace),
-				name: (firstSpace == -1) ? cardLine : cardLine.substring(firstSpace+1, cardLine.length)
+			let sanitized = cardLine.trim();
+			let firstSpace = sanitized.indexOf(' ');
+			if (sanitized.indexOf('#') == 0) {
+				return {
+					_type: "separator",
+					name: sanitized.substring(1, sanitized.length)
+				}
+			} else {
+				return {
+					_type: "card",
+					quantity: (firstSpace == -1) ? 0 :  sanitized.substring(0, firstSpace),
+					name: (firstSpace == -1) ? sanitized : sanitized.substring(firstSpace+1, sanitized.length)
+				}
 			}
 		});
-	}
-
-	getExampleDeck() {
-		return {
-			name: "Mono-black Control",
-			cards: this.getExampleCards()
-		}
-	}
-
-	getExampleCards() {
-		return [
-			{
-				name: "Azor, the Lawbringer",
-				image: "https://img.scryfall.com/cards/large/en/rix/154.jpg?1524752117",
-				quantity: 1
-			},
-			{
-				name: "Muldrotha, the Gravetide",
-				image: "https://img.scryfall.com/cards/large/en/dom/199.jpg?1534549734",
-				quantity: 2
-			},
-			{
-				name: "Tatyova, Benthic Druid",
-				image: "https://img.scryfall.com/cards/large/en/dom/206.jpg?1524792075",
-				quantity: 3
-			},
-			{
-				name: "Raff Capashen, Ship's Mage",
-				image: "https://img.scryfall.com/cards/large/en/dom/202.jpg?1524792034",
-				quantity: 4
-			},
-			{
-				name: "Jodah, Archmage Eternal",
-				image: "https://img.scryfall.com/cards/large/en/dom/198.jpg?1524791992",
-				quantity: 5
-			},
-			{
-				name: "Flower // Flourish",
-				image: "https://img.scryfall.com/cards/large/front/f/e/feb4b39f-d309-49ba-b427-240b7fdc1099.jpg?1539735483",
-				quantity: 2,
-				split: true
-			}
-		]
 	}
 }
 
