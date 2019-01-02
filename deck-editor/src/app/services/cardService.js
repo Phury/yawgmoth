@@ -7,11 +7,11 @@ class CardService {
 	}
 
 	getCardListWithDetail(cards) {
-		let cardListWithDetail = [];
+		let acc = [];
 		angular.forEach(cards, cardLine => {
-			cardListWithDetail.push(this.getCardWithDetail(this.parseCard(cardLine)));
+			acc.push(this.getCardWithDetail(this.parseCard(cardLine)));
 		});
-		return cardListWithDetail;
+		return acc;
 	}
 
 
@@ -70,16 +70,16 @@ class CardService {
 
 	getManaCostClasses(mc) {
 		return mc == null ? [] : mc.split(/{(.*?)}/)
-			.filter(str => { return str.trim() != ""; })
-			.map(elt => { return 'ms-' + elt.toLowerCase().replace('/', '') });
+			.filter(str => str.trim() != "")
+			.map(elt => 'ms-' + elt.toLowerCase().replace('/', ''));
 	}
 
 	cardsToText(cards) {
-		return cards.map(card => { return card.quantity + ' ' + card.name; }).join('\n');
+		return cards.map(card => card.quantity + ' ' + card.name).join('\n');
 	}
 
 	parseCardList(text) {
-		return text.split('\n').map(cardLine => { this.parseCard(cardLine); });
+		return text.split('\n').map(this.parseCard.bind(this));
 	}
 
 	parseCard(cardLine) {

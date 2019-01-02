@@ -16,6 +16,10 @@ class DeckList2Ctrl {
 			this.selectedBoard = 'main';
 			this.uiService.accordion();
 			this.uiService.tabs();
+
+			this.deck.cards.main = this.deckService.groupBy(this.deck.cards.main, 'TYPE');
+
+			console.log(this.deck);
 		});
 	}
 }

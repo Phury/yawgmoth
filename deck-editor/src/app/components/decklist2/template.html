@@ -7,46 +7,59 @@
              data-tab="{{board}}">{{board}}</div>
     </div>
     <div class="ui tab"
-         ng-repeat="(board, cards) in ctrl.deck.cards"
+         ng-repeat="(board, groupedCards) in ctrl.deck.cards"
          ng-class="{active: ctrl.selectedBoard === board}"
          data-tab="{{board}}">
-        <div class="ui accordion" ng-repeat="card in cards track by $index">
-            <div class="title">
-                <i class="dropdown icon"></i>
-                {{card.quantity}}&nbsp;{{card.name}}
-                <span class="mana-cost pull-right">
+
+        <div ng-repeat="(group, cards) in groupedCards track by $index">
+            <h5 class="ui header" ng-if="cards.length">{{group}}</h5>
+            <div class="ui accordion"
+                 ng-repeat="card in cards track by $index"
+                 ng-if="cards.length">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    {{card.quantity}}&nbsp;{{card.name}}
+                    <span class="mana-cost pull-right">
                     <span class="ms ms-cost" ng-class="class"
                           ng-repeat="class in card.manaCostClasses track by $index">
                     </span>
                 </span>
-            </div>
-            <div class="content">
-                <div class="ui grid">
-                    <div class="six wide column">
-                        <img class="ui image" ng-src="{{card.image}}" />
-                    </div>
-                    <div class="ten wide column ">
-                        <div class="ui container segment card-text">
-                            <h5>
-                                {{card.name}}
-                                <span class="mana-cost">
+                </div>
+                <div class="content">
+                    <div class="ui grid">
+                        <div class="six wide column">
+                            <img class="ui image" ng-src="{{card.image}}" />
+                        </div>
+                        <div class="ten wide column ">
+                            <div class="ui container segment card-text">
+                                <h5>
+                                    {{card.name}}
+                                    <span class="mana-cost">
                                     <span class="ms ms-cost" ng-class="class"
                                           ng-repeat="class in card.manaCostClasses track by $index">
                                     </span>
                                 </span>
-                            </h5>
-                            <p>{{card.type}}</p>
-                            <div class="card-text-box" ng-if="card.text">
-                                <p class="card-text-oracle">{{card.text}}</p>
-                                <p class="card-text-flavor" ng-if="card.flavor">{{card.flavor}}</p>
-                            </div>
-                            <div class="card-text-stats" ng-if="card.power">
-                                {{card.power}}/{{card.toughness}}
+                                </h5>
+                                <p>{{card.type}}</p>
+                                <div class="card-text-box" ng-if="card.text">
+                                    <p class="card-text-oracle">{{card.text}}</p>
+                                    <p class="card-text-flavor" ng-if="card.flavor">{{card.flavor}}</p>
+                                </div>
+                                <div class="card-text-stats" ng-if="card.power">
+                                    {{card.power}}/{{card.toughness}}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--
+        <div class="ui accordion" ng-repeat="card in cards track by $index">
+
+        </div>
+        -->
+
     </div>
 </div>
