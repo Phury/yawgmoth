@@ -22,10 +22,7 @@
 hs_err_pid*
 
 # node and webpack stuff
-deck-editor/node_modules/*
-deck-editor/dist/*
-deck-viewer/node_modules/*
-deck-viewer/dist/*
 node_modules/*
+dist/*
 src/public/*
 .idea
