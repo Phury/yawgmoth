@@ -6,30 +6,32 @@ class CardService {
 		this.restangular = Restangular;
 	}
 
-	getCardsFromText(text) {
-		return this.getCardsWithDetail(this.textToCards(text));
+	getCardListWithDetail(cards) {
+		let cardListWithDetail = [];
+		angular.forEach(cards, cardLine => {
+			cardListWithDetail.push(this.getCardWithDetail(this.parseCard(cardLine)));
+		});
+		return cardListWithDetail;
 	}
 
-	getCardsWithDetail(cards) {
-		return this.$q.all(cards
-			.filter(card => card.quantity !== 0)
-			.map(this.getCardWithDetail.bind(this)));
-	}
-
-	sanitizeCardName(cardName) {
-		let sanitized = ((cardName.indexOf('\/\/') === -1) ? cardName : cardName.split('\/\/')[0]).trim(); // Handle split cards
-		return sanitized.replace(new RegExp('’', 'g'), '\'');
-	}
 
 	getCardWithDetail(card) {
 		if (card._type === 'card' && card.quantity !== 0) {
 			let cardName = this.sanitizeCardName(card.name);
-			let cardFromCache = this.getOrDownloadCard(cardName);
-			cardFromCache.quantity = card.quantity;// TODO: quantity is a feature of decks and does not belong here
-			return cardFromCache;
+			return this.getOrDownloadCard(cardName).then(cardFromCache => {
+				// TODO: quantity is a feature of decks and does not belong here
+				cardFromCache.quantity = card.quantity;
+				return cardFromCache;
+			});
 		} else {
-			return card;
+			return this.$q.when(card);
 		}
+	}
+
+
+	sanitizeCardName(cardName) {
+		let sanitized = ((cardName.indexOf('\/\/') === -1) ? cardName : cardName.split('\/\/')[0]).trim(); // Handle split cards
+		return sanitized.replace(new RegExp('’', 'g'), '\'');
 	}
 
 	getOrDownloadCard(cardName) {
@@ -40,7 +42,7 @@ class CardService {
 				let cardWithDetail = searchResult.cards.find(card => { return card != null && card.imageUrl != null; });
 				return cardWithDetail == null ? { name: cardName } : cardWithDetail;
 			}).then(cardWithDetail => {
-				sessionStorage.setItem(cardName, JSON.stringify({
+				let card = {
 					_type: 'card',
 					name: cardName,
 					image: cardWithDetail.imageUrl,
@@ -56,11 +58,13 @@ class CardService {
 					flavor: cardWithDetail.flavor,
 					power: cardWithDetail.power,
 					toughness: cardWithDetail.toughness
-				}));
-				return JSON.parse(sessionStorage.getItem(cardName));
+				};
+				sessionStorage.setItem(cardName, JSON.stringify(card));
+				return card;
 			});
 		} else {
-			return JSON.parse(sessionStorage.getItem(cardName));
+			let card = JSON.parse(sessionStorage.getItem(cardName));
+			return this.$q.when(card);
 		}
 	}
 
@@ -71,28 +75,28 @@ class CardService {
 	}
 
 	cardsToText(cards) {
-		return cards.map(card => {
-			return card.quantity + ' ' + card.name;
-		}).join('\n');
+		return cards.map(card => { return card.quantity + ' ' + card.name; }).join('\n');
 	}
 
-	textToCards(text) {
-		return text.split('\n').map(cardLine => {
-			let sanitized = cardLine.trim();
-			let firstSpace = sanitized.indexOf(' ');
-			if (sanitized.indexOf('#') == 0) {
-				return {
-					_type: "separator",
-					name: sanitized.substring(1, sanitized.length)
-				}
-			} else {
-				return {
-					_type: "card",
-					quantity: (firstSpace == -1) ? 0 :  sanitized.substring(0, firstSpace),
-					name: (firstSpace == -1) ? sanitized : sanitized.substring(firstSpace+1, sanitized.length)
-				}
+	parseCardList(text) {
+		return text.split('\n').map(cardLine => { this.parseCard(cardLine); });
+	}
+
+	parseCard(cardLine) {
+		let sanitized = cardLine.trim();
+		let firstSpace = sanitized.indexOf(' ');
+		if (sanitized.indexOf('#') == 0) {
+			return {
+				_type: "separator",
+				name: sanitized.substring(1, sanitized.length)
 			}
-		});
+		} else {
+			return {
+				_type: "card",
+				quantity: (firstSpace == -1) ? 0 :  sanitized.substring(0, firstSpace),
+				name: (firstSpace == -1) ? sanitized : sanitized.substring(firstSpace+1, sanitized.length)
+			}
+		}
 	}
 }
 

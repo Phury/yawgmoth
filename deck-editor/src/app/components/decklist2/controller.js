@@ -2,7 +2,8 @@ import angular from 'angular';
 import template from './template.html';
 
 class DeckList2Ctrl {
-	constructor($scope, uiService, deckService) {
+	constructor($q, $scope, uiService, deckService) {
+		this.$q = $q;
 		this.$scope = $scope;
 		this.uiService = uiService;
 		this.deckService = deckService;
@@ -20,7 +21,7 @@ class DeckList2Ctrl {
 }
 
 export default angular.module('ksDeckList2', [])
-	.controller('DeckList2Ctrl', ['$scope', 'uiService', 'deckService', DeckList2Ctrl])
+	.controller('DeckList2Ctrl', ['$q', '$scope', 'uiService', 'deckService', DeckList2Ctrl])
 	.component('ksDeckList2', {
 		template: template,
 		controllerAs: 'ctrl',
