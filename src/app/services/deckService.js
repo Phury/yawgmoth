@@ -1,6 +1,8 @@
 import angular from 'angular';
 import yaml from 'js-yaml';
 
+const BASE_URL = '/yawgmoth/data/'
+
 class DeckService {
 	constructor($q, $http, cardService) {
 		this.$q = $q;
@@ -14,10 +16,10 @@ class DeckService {
 		// this.decks = [all the deck content]
 
 		let acc = [];
-		$http.get('/data/decks.yml').then(yamlIndex => {
+		$http.get(BASE_URL + 'decks.yml').then(yamlIndex => {
 			let index = yaml.safeLoad(yamlIndex.data);
 			angular.forEach(index.files, indexFile => {
-				acc.push($http.get('/data/' + indexFile).then(yamlFile => {
+				acc.push($http.get(BASE_URL + indexFile).then(yamlFile => {
 					let deck = yaml.safeLoad(yamlFile.data);
 					return this.cardService.getCardWithDetail({_type: 'card', name: deck.meta.icon}).then(icon => {
 						let deckWithIcon = {
