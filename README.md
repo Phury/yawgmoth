@@ -1,5 +1,5 @@
 # Yawgmoth
-Convert your mtg collections to a PWA mobile app
+The static mtg deck viewer
 
 # How to
 - fork this repository
