@@ -40277,7 +40277,7 @@ body.pushable > .pusher {
     font-family: 'Beleren';
     src: url('https://magarena.github.io/public/css/woff/Beleren.woff') format('woff');
 }
-.card {
+.card, .divider {
     padding: 0 10px;
     position: relative;
     display: -webkit-box;
@@ -40293,6 +40293,11 @@ body.pushable > .pusher {
     border-bottom: 1px solid #FFF;
     overflow: hidden;
 }
+
+.divider {
+    text-align: right;
+}
+
 .card-bg {
     width: 100%;
     position: absolute;
@@ -40329,7 +40334,7 @@ body.pushable > .pusher {
 .card-flex{
     z-index: 2;
 }
-.card .card-flex{
+.card .card-flex, .divider .card-flex {
     width: 100%;
     display:-webkit-box;
     display:-ms-flexbox;
@@ -40337,10 +40342,6 @@ body.pushable > .pusher {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-}
-.divider .card-flex div {
-    width: 100%;
-    text-align: right;
 }
 .visual-deck-list {
     width:290px;
@@ -40400,9 +40401,19 @@ div.deck-icon {
     margin-right: 15px;
 }
 
-div.card-text > * {
-    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+.ui.segment.card-text {
+    padding: 0;
 }
+    div.card-text > * {
+        border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+        padding: 1em;
+    }
+    div.card-text .card-text-flavor {
+        font-style: italic;
+    }
+
+
+
 
 div.card-text > *:last-child { border-bottom: 0px; }/**
  * Global */

@@ -1,0 +1,16 @@
+meta:
+  icon: Veiled Shade
+  name: pauper mono black
+  format: standard pauper
+cards:
+  main:
+    - 24 Swamp
+    - 4 Dead Weight
+    - 4 Vampire Neonate
+    - 4 Dusk Legion Zealot
+    - 4 Moment of Craving
+    - 4 Vicious Offering
+    - 4 Deathbloom Thallid
+    - 4 Veiled Shade
+    - 4 Eviscerate
+    - 4 Epicure of Blood
