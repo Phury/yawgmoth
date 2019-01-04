@@ -1,0 +1,19 @@
+<div class="ui container">
+	<table class="ui single line table">
+		<thead>
+		<tr>
+			<th>Deck</th>
+			<th>Format</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="deck in ctrl.decks track by $index">
+			<td>
+                <div class="deck-icon" ng-style="{'background-image': 'url('+deck.icon+')'}"></div>
+                <a ui-sref="editor({deckIndex: $index})">{{deck.name | lowercase }}</a>
+            </td>
+			<td>{{deck.format}}</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

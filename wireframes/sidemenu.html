@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Yawgmoth</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Convert your mtg collections to a PWA mobile app">
-  <meta name="author" content="Pierre-Henri Van de Velde">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="robots" content="index,follow">
+	<title>Yawgmoth</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="description" content="Convert your mtg collections to a PWA mobile app">
+	<meta name="author" content="Pierre-Henri Van de Velde">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="robots" content="index,follow">
 
-  <!--[if lt IE 9]>
-  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js">
-  </script>
-  <![endif]-->
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js">
+	</script>
+	<![endif]-->
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  <script src="//fiddle.jshell.net/js/babel/babel.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js"></script>
-  <script src="//unpkg.com/react@16/umd/react.development.js"></script>
-  <script src="//unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="//fiddle.jshell.net/js/babel/babel.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js"></script>
+	<script src="//unpkg.com/react@16/umd/react.development.js"></script>
+	<script src="//unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
-  <link rel="stylesheet" type="text/css" href="../css/main.css" />
-  <link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Mana/bower_components/mana/css/mana.min.css" />
-  <link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Keyrune/node_modules/keyrune/css/keyrune.min.css" />
-  
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
+	<link rel="stylesheet" type="text/css" href="../src/wireframes/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Mana/bower_components/mana/css/mana.min.css" />
+	<link rel="stylesheet" type="text/css" href="//andrewgioia.github.io/Keyrune/node_modules/keyrune/css/keyrune.min.css" />
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <div id="app">
-    <header id="navigation" class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper blue">
-          <a href="#" class="brand-logo"><i class="ss ss-nph left"></i>Yawgmoth</a>
-          <ul class="right">
-            <li class=""><a href="#" data-activates="mobile-menu" class="button-collapse show-on-large"><i class="material-icons">menu</i></a></li>
-          </ul>
-            
-          <ul class="side-nav" id="mobile-menu">
-            <li class=""><a class="select-deck" href="#">B/W Zombies</a></li>
-            <li class=""><a class="select-deck" href="#">B/W Warriors</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-    
-    <main class="container">
-      <div class="row">
-        <div id="cardListComponent" class="dragend-page col l8 s12">
-          <h3><i class="ss ss-bcore left"></i>B/W Warriors</h3><div class=""><label for="cardGroubBy">Group by</label><select id="cardGroubBy" class="browser-default"><option value="type">Type</option><option value="color">Color</option><option value="cmc">Cmc</option></select></div>
-          <div class="decklist">
-            <div><h5>White (4)</h5><ul class="collection"><li class="collection-item">4 <a class="select-card" href="#">Herald of Dromoka</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">4 <a class="select-card" href="#">Seeker of the Way</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">4 <a class="select-card" href="#">Dragon Hunter</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Champion of Arashin</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-3"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li></ul></div><div><h5>Gold (2)</h5><ul class="collection"><li class="collection-item">1 <a class="select-card" href="#">Chief of the Scale</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Chief of the Edge</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li></ul></div><div><h5>Black (4)</h5><ul class="collection"><li class="collection-item">2 <a class="select-card" href="#">Bellowing Saddlebrute</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-3"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Disowned Ancestor</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Sultai Emissary</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">1 <a class="select-card" href="#">Hand of Silumgar</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li></ul></div><div><h5>Colorless (3)</h5><ul class="collection"><li class="collection-item">2 <a class="select-card" href="#">Blighted Steppe</a><span class="mc right"></span></li><li class="collection-item">8 <a class="select-card" href="#">Swamp</a><span class="mc right"></span></li><li class="collection-item">10 <a class="select-card" href="#">Plains</a><span class="mc right"></span></li></ul></div>
-          </div>
-        </div>
-        
-        <div id="cardPreviewComponent" class="dragend-page col l4 s12">
-          
-          <div class="row">
-            <div class="col s12">
-              <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#preview-tab">Preview</a></li>
-                <li class="tab col s3"><a href="#oracle-tab">Oracle</a></li>
-              </ul>
-            </div>
-            <div id="preview-tab" class="col s12">
-              <h3><i class="ss ss-pbook left"></i>Detail</h3>
-              <img class="card-preview" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429670&amp;type=card">
-            </div>
-            <div id="oracle-tab" class="col s12">
-            </div>
-          </div>
-        </div>
+	<div id="app">
+		<header id="navigation" class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper blue">
+					<a href="#" class="brand-logo"><i class="ss ss-nph left"></i>Yawgmoth</a>
+					<ul class="right">
+						<li class=""><a href="#" data-activates="mobile-menu" class="button-collapse show-on-large"><i class="material-icons">menu</i></a></li>
+					</ul>
+						
+					<ul class="side-nav" id="mobile-menu">
+						<li class=""><a class="select-deck" href="#">B/W Zombies</a></li>
+						<li class=""><a class="select-deck" href="#">B/W Warriors</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		
+		<main class="container">
+			<div class="row">
+				<div id="cardListComponent" class="dragend-page col l8 s12">
+					<h3><i class="ss ss-bcore left"></i>B/W Warriors</h3><div class=""><label for="cardGroubBy">Group by</label><select id="cardGroubBy" class="browser-default"><option value="type">Type</option><option value="color">Color</option><option value="cmc">Cmc</option></select></div>
+					<div class="decklist">
+						<div><h5>White (4)</h5><ul class="collection"><li class="collection-item">4 <a class="select-card" href="#">Herald of Dromoka</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">4 <a class="select-card" href="#">Seeker of the Way</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">4 <a class="select-card" href="#">Dragon Hunter</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Champion of Arashin</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-3"></i><i class="ms ms-cost ms-shadow ms-w"></i></span></li></ul></div><div><h5>Gold (2)</h5><ul class="collection"><li class="collection-item">1 <a class="select-card" href="#">Chief of the Scale</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Chief of the Edge</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-w"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li></ul></div><div><h5>Black (4)</h5><ul class="collection"><li class="collection-item">2 <a class="select-card" href="#">Bellowing Saddlebrute</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-3"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Disowned Ancestor</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">2 <a class="select-card" href="#">Sultai Emissary</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li><li class="collection-item">1 <a class="select-card" href="#">Hand of Silumgar</a><span class="mc right"><i class="ms ms-cost ms-shadow ms-1"></i><i class="ms ms-cost ms-shadow ms-b"></i></span></li></ul></div><div><h5>Colorless (3)</h5><ul class="collection"><li class="collection-item">2 <a class="select-card" href="#">Blighted Steppe</a><span class="mc right"></span></li><li class="collection-item">8 <a class="select-card" href="#">Swamp</a><span class="mc right"></span></li><li class="collection-item">10 <a class="select-card" href="#">Plains</a><span class="mc right"></span></li></ul></div>
+					</div>
+				</div>
+				
+				<div id="cardPreviewComponent" class="dragend-page col l4 s12">
+					
+					<div class="row">
+						<div class="col s12">
+							<ul class="tabs">
+								<li class="tab col s3"><a class="active" href="#preview-tab">Preview</a></li>
+								<li class="tab col s3"><a href="#oracle-tab">Oracle</a></li>
+							</ul>
+						</div>
+						<div id="preview-tab" class="col s12">
+							<h3><i class="ss ss-pbook left"></i>Detail</h3>
+							<img class="card-preview" src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=429670&amp;type=card">
+						</div>
+						<div id="oracle-tab" class="col s12">
+						</div>
+					</div>
+				</div>
 
-        
-        
-      </div>
-  </main>
+				
+				
+			</div>
+	</main>
 <script>
 $( document ).ready(function(){
-  $(".button-collapse").sideNav({
-    menuWidth: 600
-  });
-});   
+	$(".button-collapse").sideNav({
+		menuWidth: 600
+	});
+});	 
 </script>
 </body>
 </html>
