@@ -3,7 +3,7 @@
     font-family: 'Beleren';
     src: url('https://magarena.github.io/public/css/woff/Beleren.woff') format('woff');
 }
-.card {
+.card, .divider {
     padding: 0 10px;
     position: relative;
     display: flex;
@@ -13,6 +13,11 @@
     border-bottom: 1px solid #FFF;
     overflow: hidden;
 }
+
+.divider {
+    text-align: right;
+}
+
 .card-bg {
     width: 100%;
     position: absolute;
@@ -44,14 +49,10 @@
 .card-flex{
     z-index: 2;
 }
-.card .card-flex{
+.card .card-flex, .divider .card-flex {
     width: 100%;
     display:flex;
     justify-content: space-between;
-}
-.divider .card-flex div {
-    width: 100%;
-    text-align: right;
 }
 .visual-deck-list {
     width:290px;

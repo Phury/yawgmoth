@@ -9,11 +9,11 @@ class CardService {
 	getCardListWithDetail(cards) {
 		let acc = [];
 		angular.forEach(cards, cardLine => {
-			acc.push(this.getCardWithDetail(this.parseCard(cardLine)));
+			let card = this.parseCard(cardLine);
+			acc.push(this.getCardWithDetail(card));
 		});
 		return acc;
 	}
-
 
 	getCardWithDetail(card) {
 		if (card._type === 'card' && card.quantity !== 0) {
@@ -27,7 +27,6 @@ class CardService {
 			return this.$q.when(card);
 		}
 	}
-
 
 	sanitizeCardName(cardName) {
 		let sanitized = ((cardName.indexOf('\/\/') === -1) ? cardName : cardName.split('\/\/')[0]).trim(); // Handle split cards

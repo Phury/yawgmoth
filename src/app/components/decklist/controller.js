@@ -1,7 +1,10 @@
 import angular from 'angular';
 import template from './template.html';
 
+const SEPARATOR = {_type: 'separator', name: 'sideboard'};
+
 class DeckListCtrl {
+
 	constructor($q, $scope, $stateParams, deckService) {
 		this.$q = $q;
 		this.$scope = $scope;
@@ -10,8 +13,13 @@ class DeckListCtrl {
 	}
 
 	$onInit() {
-		this.deckService.getDeck(this.deckIndex).then(deck => {
-			this.deck = deck;
+		let deckIndex = this.$scope.$parent.ctrl.deckIndex;
+		this.deckService.getDeckWithCards(deckIndex).then(deck => {
+			this.deck = {
+				name: deck.name,
+				cards: deck.cards.main.concat([SEPARATOR].concat(deck.cards.sideboard))
+			};
+			console.log(this.deck);
 		});
 	}
 }

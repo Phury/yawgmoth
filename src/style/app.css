@@ -24,8 +24,18 @@ div.deck-icon {
     margin-right: 15px;
 }
 
-div.card-text > * {
-    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+.ui.segment.card-text {
+    padding: 0;
 }
+    div.card-text > * {
+        border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+        padding: 1em;
+    }
+    div.card-text .card-text-flavor {
+        font-style: italic;
+    }
+
+
+
 
 div.card-text > *:last-child { border-bottom: 0px; }

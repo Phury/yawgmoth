@@ -2,20 +2,19 @@
     <div class="deck-name">
         <div>{{ctrl.deck.name}}</div>
     </div>
-    <div class="board" ng-repeat="(board, cards) in ctrl.deck.cards">
-        <div class="card" ng-repeat="card in cards track by $index">
-            <div class="card-bg" style="background-image:url('{{card.image}}')"></div>
-            <div class="card-darken"></div>
-            <div class="card-flex">
-                <div>
-                    <span class="card-quantity">{{card.quantity}}&nbsp;</span>
-                    <span class="card-name"><small>{{card.name}}</small></span>
-                </div>
-                <div class="mana-cost">
+    <div ng-repeat="card in ctrl.deck.cards track by $index"
+         ng-class="{ card: card._type === 'card', divider: card._type === 'separator' }" >
+        <div class="card-bg" style="background-image:url('{{card.image}}')"></div>
+        <div class="card-darken"></div>
+        <div class="card-flex">
+            <div>
+                <span class="card-quantity">{{card.quantity}}&nbsp;</span>
+                <span class="card-name"><small>{{card.name}}</small></span>
+            </div>
+            <div class="mana-cost">
                     <span class="ms ms-cost ms-shadow" ng-class="class"
                           ng-repeat="class in card.manaCostClasses track by $index">
                     </span>
-                </div>
             </div>
         </div>
     </div>
