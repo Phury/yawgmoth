@@ -1,45 +1,27 @@
 # Yawgmoth
-The static mtg deck viewer
 
-# How to
-- fork this repository
-- create a `decks.json` metadata file with your deck index under `deck-editor/src/public/data/`
-- create a `deck.dck` file for each separate deck under `deck-editor/src/public/data/`
-- commit
-- push to github pages
-- enjoy your card collection wherever you are
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
 
-# Todo
-- [ ] Image cache for visual view
-- [ ] PWA 
-- [ ] Web component
-- [ ] Differentiate between lands and artifacts
-- [ ] Grouping
-- [ ] Handle dual-sided//aftermath cards
+## Development server
 
-# Release notes
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## v2.0
-- re-write of the application in semantic UI
-- use webpack to build project
-- visual view of a deck
+## Code scaffolding
 
-## v0.05
-- use fancybox instead of lightbox
-- update theme color
-- update layout (use card component, collapsible for filter)
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## v0.04
-- lightbox
-- update layout (columns in deck list for big screens and responsive display)
-- add Beleren font
+## Build
 
-## v0.03
-- fixed preview
-- code refactoring
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## v0.02
-- yaml decks
+## Running unit tests
 
-## v0.01
-- proof of concept
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
