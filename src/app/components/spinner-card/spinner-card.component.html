@@ -1,0 +1,7 @@
+<div *ngIf="(card | async) as card">
+  <!--<img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=409619&amp;type=card" />-->
+  <img src="{{card.imgUrl}}" />
+</div>
+<div *ngIf="!(card | async)">
+  <img src="{{spinnerCard}}" />
+</div>

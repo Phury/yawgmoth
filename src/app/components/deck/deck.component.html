@@ -1,0 +1,15 @@
+<h3>{{meta.name}}</h3>
+<div class="row">
+  <section class="preview">
+    <ygm-spinner-card [card]="selectedCard$"></ygm-spinner-card>
+  </section>
+  <section class="card list">
+    <ul>
+      <li *ngFor="let card of (deck$ | async)?.cards">
+        {{card.amount}}
+        <a (click)="selectedCard$.next(card)">{{card.name}}</a>
+        <ygm-mana [cost]="card.manaCost"></ygm-mana>
+      </li>
+    </ul>
+  </section>
+</div>
