@@ -19,7 +19,7 @@ export class CsvService {
         obj[el] = cells[i];
       });
       acc.push(obj);
-      console.log(acc);
+      //console.log(acc);
       return acc;
     }, []);
   }

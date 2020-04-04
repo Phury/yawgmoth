@@ -21,7 +21,8 @@ header, footer {
   text-align: center;
 
 }
-  header > h1 {
+  .deck-list {
+    padding: .4rem;
   }
   section.preview {
     width: 100%;
