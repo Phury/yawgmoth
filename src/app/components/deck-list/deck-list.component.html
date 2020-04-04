@@ -1,6 +1,6 @@
-<div *ngFor="let meta of (meta$ | async)" ng-class-odd="left" class="columns">
-  <!--<ygm-deck [meta]="meta"></ygm-deck>-->
-  <div class="column col-6">
+<div class="columns">
+  <div *ngFor="let meta of (meta$ | async)" ng-class-odd="left" class="column col-sm-6 col-4">
+    <!--<ygm-deck [meta]="meta"></ygm-deck>-->
     <ygm-deck-card [meta]="meta"></ygm-deck-card>
   </div>
 </div>

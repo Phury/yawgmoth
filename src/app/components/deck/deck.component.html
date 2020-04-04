@@ -1,15 +1,17 @@
 <div *ngIf="(meta$ | async) as meta">
   <h3>{{meta.name}}</h3>
 
+  <!--
   <details class="accordion">
     <summary class="accordion-header" [ngClass]="filters.showContent ? 'active' : ''">
-      <button (click)="toggleContent(filters)" >filters</button>
+      filters
     </summary>
     <div class="accordion-body">
       <p>filters here</p>
     </div>
   </details>
-
+  -->
+  
   <div class="container">
 
     <div class="columns col-gapless">
@@ -19,7 +21,8 @@
       </div>
       <div class="column col-9 col-sm-12 lg-list">
         <details class="accordion" *ngFor="let card of (deck$ | async)?.cards">
-          <summary class="accordion-header" (click)="toggleContent(card)" [ngClass]="card.showContent ? 'active' : ''">
+          <summary class="accordion-header" [ngClass]="card.showContent ? 'active' : ''">
+            <i class="icon icon-photo" (click)="toggleContent(card)"></i>
             {{card.amount}}
             <span (click)="selectedCard$.next(card)">{{card.name}}&nbsp;</span>
             <ygm-mana [cost]="card.manaCost"></ygm-mana>

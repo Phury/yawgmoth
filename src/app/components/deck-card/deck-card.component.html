@@ -2,8 +2,10 @@
   <div class="card-image">
     <img src="{{card.imgArtUrl}}" class="img-responsive" />
   </div>
-  <div class="card-body">
-    <h1><a [routerLink]="['/decks', meta.id]" [state]="meta" class="button">{{meta.name}}</a></h1>
+  <div class="card-header">
+    <div class="card-title h5">
+      <a [routerLink]="['/decks', meta.id]" [state]="meta" class="button">{{meta.name}}</a>
+    </div>
   </div>
 </div>
 <pre *ngIf="false">

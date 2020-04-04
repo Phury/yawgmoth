@@ -9,9 +9,20 @@ h1 {
 i.ms {
   font-size: 0.7em;
 }
+/** override framework */
+.card {
+  border: 0;
+  box-shadow: 0 0.25rem 1rem rgba(48,55,66,.15);
+}
+
 
 /** custom */
+header, footer {
+  text-align: center;
 
+}
+  header > h1 {
+  }
   section.preview {
     width: 100%;
   }
@@ -36,6 +47,7 @@ i.ms {
 .dot.b { background-color: #7D8080; }
 .dot.r { background-color: #EA4025; }
 .dot.g { background-color: #61D836; }
+
 
 
 /* Small devices (tablets, 768px and up) */
