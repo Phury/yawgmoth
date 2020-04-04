@@ -16,10 +16,12 @@ export class MtgService {
       map(mtgCard => ({
         externalId: mtgCard['id'],
         name: mtgCard['name'],
+        typeLine: mtgCard['type_line'],
+        oracleText: mtgCard['oracle_text'],
         imgUrl: mtgCard['image_uris']['normal'], //small, normal, large, png, art_crop, border_crop
+        imgArtUrl: mtgCard['image_uris']['art_crop'], //small, normal, large, png, art_crop, border_crop
         cmc: mtgCard['cmc'],
         manaCost: mtgCard['mana_cost'],
-        oracle: mtgCard['oracle_text'],
         rarity: mtgCard['rarity'],
         amount: 1,
       }))

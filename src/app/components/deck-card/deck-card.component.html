@@ -1,0 +1,12 @@
+<div class="card" *ngIf="(previewCard$ | async) as card">
+  <div class="card-image">
+    <img src="{{card.imgArtUrl}}" class="img-responsive" />
+  </div>
+  <div class="card-body">
+    <h1><a [routerLink]="['/decks', meta.id]" [state]="meta" class="button">{{meta.name}}</a></h1>
+  </div>
+</div>
+<pre *ngIf="false">
+{{meta | json}}
+{{previewCard$ | async | json}}
+</pre>

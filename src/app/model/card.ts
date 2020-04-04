@@ -1,10 +1,14 @@
 export interface Card {
   name: string;
-  amount: number;
+  typeLine?: string;
+  oracleText?: string;
   externalId?: string;
   cmc?: number;
   manaCost?: string;
   imgUrl?: string;
-  oracle?: string;
+  imgArtUrl?: string;
   rarity?: string;
+  /*ui */
+  amount?: number;
+  showContent?: boolean;
 }
