@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
@@ -11,6 +12,7 @@ import { DeckListComponent } from './components/deck-list/deck-list.component';
 import { CollectionComponent } from './components/collection/collection.component';
 import { DeckCardComponent } from './components/deck-card/deck-card.component';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
+import { KeyruneComponent } from './components/keyrune/keyrune.component';
 
 const appRoutes: Routes = [
   //{ path: 'decks/:id',      component: HeroDetailComponent },
@@ -56,12 +58,14 @@ const appRoutes: Routes = [
     CollectionComponent,
     DefaultLayoutComponent,
     DeckCardComponent,
-    NavigationComponent
+    NavigationComponent,
+    KeyruneComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes), //, { enableTracing: true }),
     BrowserModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

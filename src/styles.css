@@ -21,9 +21,26 @@ header, footer {
   text-align: center;
 
 }
-  .deck-list {
-    padding: .4rem;
+  .deck-view .column {
+    padding: 0.4em;
   }
+    .deck-view .card {
+      /*height: 100%;*/
+      position: relative;
+    }
+
+      .deck-view .card .card-header {
+        position: absolute;
+        bottom: 1.7em;
+        right: 0.7em;
+        background-color: #4CAF50;
+        padding: 0.3em;
+      }
+        .deck-view .card .card-header a {
+          color: #fff;
+        }
+
+
   section.preview {
     width: 100%;
   }
