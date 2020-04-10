@@ -8,6 +8,7 @@ import { DeckService } from '../../services/deck.service';
   templateUrl: './deck-list.component.html',
 })
 export class DeckListComponent implements OnInit {
+  view: string = 'B';
   meta$: Observable<DeckMeta[]>;
 
   constructor(private deckService: DeckService) { }
@@ -16,4 +17,11 @@ export class DeckListComponent implements OnInit {
     this.meta$ = this.deckService.listAllMetadata();
   }
 
+  toggleView(): void {
+    this.view = (this.view === 'A' ? 'B' : 'A');
+  }
+
+  viewClass(elt: string): string[] {
+    return elt === this.view ? ['btn-primary'] : [];
+  }
 }

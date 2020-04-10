@@ -1,0 +1,12 @@
+<div class="tile" *ngIf="(previewCard$ | async) as card">
+  <div class="tile-icon">
+	<figure class="avatar avatar-xl">
+	    <img src="{{card.imgArtUrl}}" />
+	</figure>
+  </div>
+  <div class="tile-content">
+  	<p>
+	  <a [routerLink]="['/decks', meta.id]" [state]="meta" class="button">{{meta.name}}</a>
+	</p>
+  </div>
+</div>

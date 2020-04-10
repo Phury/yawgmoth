@@ -19,27 +19,45 @@ i.ms {
 /** custom */
 header, footer {
   text-align: center;
-
 }
-  .deck-view .column {
+.navbar.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  background: #fff;
+  width: 100%;
+}
+  .navbar.fixed  .layout .container {
+    margin-top: 100px;
+  }
+
+.deck-card-view .column {
+  padding: 0.4em;
+}
+  .deck-card-view .card {
+    /*height: 100%;*/
+    position: relative;
+  }
+
+    .deck-card-view .card .card-header {
+      position: absolute;
+      bottom: 1.7em;
+      right: 0.7em;
+      background-color: #4CAF50;
+      padding: 0.3em;
+    }
+      .deck-card-view .card .card-header a {
+        color: #fff;
+      }
+
+
+
+  .deck-tile-view .column {
     padding: 0.4em;
   }
-    .deck-view .card {
-      /*height: 100%;*/
-      position: relative;
+    .deck-tile-view .avatar img {
+      border-radius: 0;
     }
-
-      .deck-view .card .card-header {
-        position: absolute;
-        bottom: 1.7em;
-        right: 0.7em;
-        background-color: #4CAF50;
-        padding: 0.3em;
-      }
-        .deck-view .card .card-header a {
-          color: #fff;
-        }
-
 
   section.preview {
     width: 100%;

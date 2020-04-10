@@ -1,5 +1,22 @@
-<div class="columns deck-view">
-  <div *ngFor="let meta of (meta$ | async)" class="column col-sm-6 col-4">
-    <ygm-deck-card [meta]="meta"></ygm-deck-card>
+<div class="float-right">
+  <div class="btn-group btn-group-block">
+    <button class="btn" (click)="toggleView()" [ngClass]="viewClass('A')">A</button>
+    <button class="btn" (click)="toggleView()" [ngClass]="viewClass('B')">B</button>
+  </div> 
+</div>
+<div class="clearfix"></div>
+<div *ngIf="view === 'A'">
+  <div class="columns deck-card-view">
+    <div *ngFor="let meta of (meta$ | async)" class="column col-sm-6 col-4">
+      <ygm-deck-card [meta]="meta"></ygm-deck-card>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="view === 'B'">
+  <div class="columns deck-tile-view">
+    <div *ngFor="let meta of (meta$ | async)"  class="column col-12">
+      <ygm-deck-tile [meta]="meta"></ygm-deck-tile>
+    </div>
   </div>
 </div>

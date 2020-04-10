@@ -13,6 +13,7 @@ import { CollectionComponent } from './components/collection/collection.componen
 import { DeckCardComponent } from './components/deck-card/deck-card.component';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
 import { KeyruneComponent } from './components/keyrune/keyrune.component';
+import { DeckTileComponent } from './components/deck-tile/deck-tile.component';
 
 const appRoutes: Routes = [
   //{ path: 'decks/:id',      component: HeroDetailComponent },
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     DefaultLayoutComponent,
     DeckCardComponent,
     NavigationComponent,
-    KeyruneComponent
+    KeyruneComponent,
+    DeckTileComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes), //, { enableTracing: true }),
