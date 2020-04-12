@@ -1,12 +1,9 @@
-name	id	format	previewCard	previewCard
-Mono blue twiddle storm	twiddleStorm	modern	Twiddle	Psychic Puppetry
-Land Grant Phoenix	landGrantPhoenix	legacy	Arclight Phoenix	Land Grant
-Mono green control	mgc	modern	Eternal Witness	Mwonvuli Acid-Moss
-Mono green karn	mgk	modern	Eternal Witness	Karn, the great Creator
-Mono green planeswalkers	mgp	pioneer	Nissa, Who Shakes the World
-Izzet pyromancer	ur_pyro	pioneer	Arclight Phoenix	Young Pyromancer
-U/W Gpg	uw_gpg	pioneer	Angel of Invention	Champion of Wits
-bant reclamation	uwg_reclamation	pioneer	Wilderness Reclamation	Sphinx's Revelation
-U/W Cycling	uw_cycling	pioneer	Drake Haven
-Mono Red Keld	piokeld	The flame of keld
-Mono Red Prowess	prowess	Monastery Swiftspear
+name;id;format;previewCard
+Mono Green Control;modern_mgc;modern;Plow Under
+Twiddle Storm;modern_twiddlestorm;modern;Psychic Puppetry
+Mono Green Planeswalkers;pioneer_mgpwalkers;pioneer;Vivien, Arkbow Ranger
+Izzet Phoenix;pioneer_urphoenix;pioneer;Arclight Phoenix
+U_W Cycling;pioneer_uwcycling;pioneer;Drake Haven
+Mono Red Keld;pioneer_keld;pioneer;Soul-Scar Mage
+Mono Red Keld;modern_keld;modern;Monastery Swiftspear
+Underworld Dredge;standard_underworlddredge;standard;Drowned Secrets
