@@ -4,11 +4,10 @@
   </div>
   <div class="card-header">
     <div class="card-subtitle">
-      <a [routerLink]="['/decks', meta.id]" [state]="meta" class="button">{{meta.name}}</a>
+      <a [routerLink]="['/decks', meta.id]" [state]="meta" class="btn btn-success">{{meta.name}}</a>
+    </div>
+    <div class="card-action">
+      <span class="chip">{{meta.format}}</span>
     </div>
   </div>
 </div>
-<pre *ngIf="false">
-{{meta | json}}
-{{previewCard$ | async | json}}
-</pre>

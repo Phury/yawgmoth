@@ -8,20 +8,16 @@ import { DeckService } from '../../services/deck.service';
   templateUrl: './deck-list.component.html',
 })
 export class DeckListComponent implements OnInit {
-  view: string = 'B';
+  selectedView: string;
   meta$: Observable<DeckMeta[]>;
 
   constructor(private deckService: DeckService) { }
 
   ngOnInit(): void {
-    this.meta$ = this.deckService.listAllMetadata();
+    this.meta$ = this.deckService.listAllDecks();
   }
 
-  toggleView(): void {
-    this.view = (this.view === 'A' ? 'B' : 'A');
-  }
-
-  viewClass(elt: string): string[] {
-    return elt === this.view ? ['btn-primary'] : [];
+  toggleView(evt: any): void {
+    this.selectedView = evt;
   }
 }

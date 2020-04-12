@@ -11,5 +11,6 @@ export interface DeckMeta {
 export interface Deck {
   name: string;
   cards: Card[];
+  sideboard?: Card[];
   meta?: DeckMeta;
 }

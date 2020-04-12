@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, flatMap, tap, catchError } from 'rxjs/operators';
+import { map, flatMap, tap, filter } from 'rxjs/operators';
 import { Deck, DeckMeta } from '../../model/deck';
 import { Card } from '../../model/card';
 import { DeckService } from '../../services/deck.service';
+import { LoggerService } from 'src/app/services/logger.service';
+
 
 @Component({
   selector: 'ygm-deck',
@@ -12,12 +14,12 @@ import { DeckService } from '../../services/deck.service';
 })
 export class DeckComponent implements OnInit {
   meta$: Observable<DeckMeta>;
-  deck$: Observable<Deck>;
-  selectedCard$: Subject<Card>;
-  filters: {showContent:boolean};
+  mainboardGrouped$: Observable<Map<string, Card[]>>;
+  sideboard$: Observable<Card[]>;
 
   constructor(
-    public route: ActivatedRoute,
+    private log: LoggerService,
+    private route: ActivatedRoute,
     private deckService: DeckService) { }
 
   ngOnInit(): void {
@@ -33,19 +35,26 @@ export class DeckComponent implements OnInit {
     */
     const deckId = this.route.parent.snapshot.url[1].path;
     this.meta$ = this.deckService.findMetadataById(deckId);
-    this.deck$ = this.meta$.pipe(
+    const deck$ = this.meta$.pipe(
       flatMap(meta => this.deckService.getDeckById(meta.id))
     );
-    this.selectedCard$ = new Subject<any>();
-    this.deck$.pipe(
-      map((deck: Deck) => deck.cards[0]),
-      tap(card => this.selectedCard$.next(card))
+    this.mainboardGrouped$ = deck$.pipe(
+      map(deck => deck.cards.reduce((acc, card) => {
+        if (card.sideboard) {
+          // skip
+        } else if (acc.has(card.types[0])) {
+          acc.get(card.types[0]).push(card);
+        } else {
+          acc.set(card.types[0], [card]);
+        }
+        return acc;
+      }, new Map<string, Card[]>()))
     );
-    this.filters = { showContent: true };
-  }
-
-  toggleContent(section: {showContent:boolean}) {
-    section.showContent = !section.showContent;
+    this.sideboard$ = deck$.pipe(
+      map(deck => deck.cards.filter(c => c.sideboard)),
+      //filter(cards => cards.filter(c => c.sideboard)),
+      tap(cards => this.log.debug(cards)),
+    );
   }
 
 }

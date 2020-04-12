@@ -1,0 +1,27 @@
+2 Decimator of the Provinces
+2 Gurmag Angler
+4 Haunted Dead
+4 Narcomoeba
+4 Prized Amalgam
+4 Satyr Wayfinder
+2 Scrapheap Scrounger
+4 Stitcher's Supplier
+4 Botanical Sanctum
+2 Forest
+4 Llanowar Wastes
+1 Overgrown Tomb
+6 Swamp
+2 Westvale Abbey  Flip
+1 Woodland Cemetery
+4 Grisly Salvage
+4 Creeping Chill
+2 Driven / Despair
+4 Gather the Pack
+
+# sideboard
+3 Abrupt Decay
+1 Back to Nature
+3 Caustic Caterpillar
+2 Doom Blade
+4 Duress
+2 Murderous Cut

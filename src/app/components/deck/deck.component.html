@@ -2,44 +2,57 @@
   <h3>{{meta.name}}</h3>
 
   <!--
-  <details class="accordion">
-    <summary class="accordion-header" [ngClass]="filters.showContent ? 'active' : ''">
-      filters
-    </summary>
-    <div class="accordion-body">
-      <p>filters here</p>
-    </div>
-  </details>
-  -->
+  <div class="float-right">
+    <div class="btn-group btn-group-block">
+      <button class="btn">Filter</button>
+    </div> 
+  </div>
   
-  <div class="container">
-
-    <div class="columns col-gapless">
-      <div class="column col-3 col-sm-12">
-        <img class="mtg-card" src="{{(selectedCard$ | async)?.imgUrl}}" (click)="selectedCard$.next()" />
-        <!-- <ygm-spinner-card [card]="selectedCard$"></ygm-spinner-card> -->
+  <div class="" >
+    <form>
+      <div class="form-group">
+        <select class="form-select">
+          <option>Choose an option</option>
+          <option>Slack</option>
+          <option>Skype</option>
+          <option>Hipchat</option>
+        </select>
       </div>
-      <div class="column col-9 col-sm-12 lg-list">
-        <details class="accordion" *ngFor="let card of (deck$ | async)?.cards">
+    </form>
+  </div>
+
+  <div class="clearfix"></div>
+  -->
+
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-sm-12 lg-list">
+        <div *ngFor="let entry of (mainboardGrouped$ | async) | keyvalue">
+          <h5 class="card-type-title">{{entry.key}}</h5>
+          <details *ngFor="let card of entry.value" class="accordion">
+            <summary class="accordion-header" [ngClass]="card.showContent ? 'active' : ''">
+              <i class="icon icon-photo"></i>
+              {{card.amount}}
+              <span>{{card.name}}&nbsp;</span>
+              <ygm-mana [cost]="card.manaCost"></ygm-mana>
+            </summary>
+            <div class="accordion-body">
+              <ygm-card-tile [card]="card"></ygm-card-tile>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="column col-4 col-sm-12">
+        <h5 class="card-type-title">sideboard</h5>
+        <details *ngFor="let card of (sideboard$ | async)" class="accordion">
           <summary class="accordion-header" [ngClass]="card.showContent ? 'active' : ''">
-            <i class="icon icon-photo" (click)="toggleContent(card)"></i>
+            <i class="icon icon-photo"></i>
             {{card.amount}}
-            <span (click)="selectedCard$.next(card)">{{card.name}}&nbsp;</span>
+            <span>{{card.name}}&nbsp;</span>
             <ygm-mana [cost]="card.manaCost"></ygm-mana>
           </summary>
           <div class="accordion-body">
-            <div class="container">
-              <div class="columns col-gapless">
-                <div class="column col-3">
-                  <img class="mtg-card" src="{{card.imgUrl}}" />
-                </div>
-                <div class="column col-9">
-                  <p>{{card.name}}&nbsp;<ygm-mana [cost]="card.manaCost"></ygm-mana></p>
-                  <p>{{card.typeLine}}</p>
-                  <p>{{card.oracleText}}</p>
-                </div>
-              </div>
-            </div>
+            <ygm-card-tile [card]="card"></ygm-card-tile>
           </div>
         </details>
       </div>

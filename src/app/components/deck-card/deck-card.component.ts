@@ -10,7 +10,6 @@ import { MtgService } from '../../services/mtg.service';
   templateUrl: './deck-card.component.html',
 })
 export class DeckCardComponent implements OnInit {
-  readonly env = env;
   @Input() meta: DeckMeta;
   previewCard$: Observable<Card>;
 

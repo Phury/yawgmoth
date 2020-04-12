@@ -1,6 +1,10 @@
+
+export const CARD_TYPES = ['land', 'instant', 'sorcery', 'enchantment', 'creature', 'planeswalker', 'artifact'];
+
 export interface Card {
   name: string;
   typeLine?: string;
+  types?: string[]
   oracleText?: string;
   externalId?: string;
   cmc?: number;
@@ -9,6 +13,7 @@ export interface Card {
   imgArtUrl?: string;
   rarity?: string;
   /*ui */
+  sideboard?: boolean;
   amount?: number;
   showContent?: boolean;
 }

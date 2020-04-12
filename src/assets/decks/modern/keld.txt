@@ -1,0 +1,21 @@
+4 Boros Charm
+4 Fiery Temper
+4 Lightning Bolt
+4 Lightning Helix
+4 Searing Blaze
+4 Ghitu Lavarunner
+4 Monastery Swiftspear
+4 Clifftop Retreat
+2 Inspiring Vantage
+10 Mountain
+4 Sacred Foundry
+4 Lava Spike
+4 Rift Bolt
+4 The Flame of Keld
+
+# sideboard
+4 By Force
+2 Deflecting Palm
+4 Fanatical Firebrand
+2 Searing Blood
+3 Wear
