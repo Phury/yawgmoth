@@ -1,8 +1,7 @@
 <div class="float-right">
   <ygm-toggle 
-      [initialValue]="'tileView'"
-      [values]="['cardView', 'tileView']"
-      [labels]="['Card view', 'Tile view']"
+      [initialValue]="viewModes[0]"
+      [values]="viewModes"
       (valueChange)="toggleView($event)">
   </ygm-toggle>
 </div>

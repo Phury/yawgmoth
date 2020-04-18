@@ -6,7 +6,9 @@ import { Deck, DeckMeta } from '../../model/deck';
 import { Card } from '../../model/card';
 import { DeckService } from '../../services/deck.service';
 import { LoggerService } from 'src/app/services/logger.service';
+import { KeyValue } from '@angular/common';
 
+const CARD_TYPE_GROUPES = ['creature', 'planeswalker', 'instant', 'sorcery', 'artifact', 'enchantment', 'land'];
 
 @Component({
   selector: 'ygm-deck',
@@ -48,13 +50,23 @@ export class DeckComponent implements OnInit {
           acc.set(card.types[0], [card]);
         }
         return acc;
-      }, new Map<string, Card[]>()))
+      }, this.cardMap()))
     );
     this.sideboard$ = deck$.pipe(
       map(deck => deck.cards.filter(c => c.sideboard)),
       //filter(cards => cards.filter(c => c.sideboard)),
-      tap(cards => this.log.debug(cards)),
+      tap(cards => this.log.debug(cards, this)),
     );
+  }
+
+  private cardMap(): Map<string, Card[]> {
+    return new Map<string, Card[]>();
+  }
+
+  groupingOrder = (a: KeyValue<string, Card[]>, b: KeyValue<string, Card[]>): number => {
+    const indexOfA = CARD_TYPE_GROUPES.indexOf(a.key);
+    const indexOfB = CARD_TYPE_GROUPES.indexOf(b.key);
+    return indexOfB > indexOfA ? -1 : (indexOfA > indexOfB ? 1 : 0);
   }
 
 }

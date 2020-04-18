@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, of } from 'rxjs';
-import { flatMap, map, find, tap } from 'rxjs/operators';
+import { Observable, forkJoin, of, merge } from 'rxjs';
+import { flatMap, map, find, tap, share } from 'rxjs/operators';
 import { MtgService } from './mtg.service';
 import { Deck, DeckMeta } from '../model/deck';
 import { Card } from '../model/card';
@@ -19,18 +19,20 @@ export class DeckService {
 
   public listAllDecks(): Observable<DeckMeta[]> {
     return this.getCsv('assets/decks.csv').pipe(
-      flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[]))
+      flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[])),
+      share(),
     );
   }
 
   public listAllWishDecks(): Observable<DeckMeta[]> {
     return this.getCsv('assets/wishdecks.csv').pipe(
-      flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[]))
+      flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[])),
+      share(),
     );
   }
 
   public findMetadataById(deckId: string): Observable<DeckMeta> {
-    return this.listAllDecks().pipe(
+    return merge(this.listAllDecks(), this.listAllWishDecks()).pipe(
       flatMap(meta => meta),
       find(meta => meta.id === deckId)
     );

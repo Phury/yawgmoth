@@ -26,7 +26,6 @@ export class CollectionComponent implements OnInit {
       this.searchFilter$.pipe(startWith('')),
     ]).pipe(
       map(([elements, search]) => elements
-        //.filter(() => search.length >= 3)
         .filter(state => state.cardName.toLowerCase().startsWith(search.toLowerCase()))
       ),
     );

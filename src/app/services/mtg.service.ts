@@ -16,7 +16,7 @@ export class MtgService {
 
   public getCardByName(cardName: string): Observable<Card> {
     return this.http.get(`https://api.scryfall.com/cards/named?exact=${cardName}`).pipe(
-      tap(mtgCard => this.log.debug(mtgCard)),
+      tap(mtgCard => this.log.debug(mtgCard, this)),
       map(mtgCard => this.toModel(mtgCard)),
     );
   }

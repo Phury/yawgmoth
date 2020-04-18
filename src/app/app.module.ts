@@ -18,9 +18,11 @@ import { KeyruneComponent } from './components/keyrune/keyrune.component';
 import { DeckTileComponent } from './components/deck-tile/deck-tile.component';
 import { CardTileComponent } from './components/card-tile/card-tile.component';
 import { ToggleComponent } from './core/toggle/toggle.component';
+import { CompareComponent } from './pages/compare/compare.component';
+import { DropdownComponent } from './core/dropdown/dropdown.component';
 
 const appRoutes: Routes = [
-  //{ path: 'decks/:id',      component: HeroDetailComponent },
+  // { path: 'decks/:id',      component: HeroDetailComponent },
   {
     path: 'decks',
     component: DefaultLayoutComponent,
@@ -40,7 +42,7 @@ const appRoutes: Routes = [
   {
     path: 'collection',
     component: DefaultLayoutComponent,
-    data: { title: 'Your collection' },
+    data: { title: 'Your cards' },
     children: [
       { path: '', component: CollectionComponent },
     ]
@@ -59,6 +61,14 @@ const appRoutes: Routes = [
     data: { title: 'Mtg metagame' },
     children: [
       { path: '', component: MetaListComponent },
+    ]
+  },
+  {
+    path: 'compare',
+    component: DefaultLayoutComponent,
+    data: { title: 'Compare decks' },
+    children: [
+      { path: '', component: CompareComponent },
     ]
   },
   {
@@ -85,7 +95,9 @@ const appRoutes: Routes = [
     CardTileComponent,
     WishListComponent,
     MetaListComponent,
-    ToggleComponent
+    ToggleComponent,
+    CompareComponent,
+    DropdownComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes), //, { enableTracing: true }),

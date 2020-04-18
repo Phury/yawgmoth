@@ -1,0 +1,39 @@
+<div class="columns">
+	<div class="column col-6">
+		<ygm-dropdown 
+			[initialValue]="{ value: 'source', label: 'Soure' }"
+			[selectValues]="(sources$ | async)"
+			(valueChange)="selectedSource$.next($event)">
+		</ygm-dropdown>
+	</div>
+	<div class="column col-6">
+		
+	</div>
+</div>
+
+<div class="container">
+	<div class="columns">
+		<div *ngIf="source$ | async as cards; else empty">
+			<div class="column col-6">
+				<div *ngFor="let card of cards">
+					{{card?.amount}} {{card?.name}}
+				</div>
+			</div>
+			<div class="column col-6">
+				<div *ngFor="let card of (difference$ | async)">
+					{{card.name}} {{card.owned}} {{card.required}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ difference$ | async | json}}
+<ng-template #empty>
+	<div class="empty">
+		<div class="empty-icon">
+			<i class="icon icon-people"></i>
+		</div>
+		<p class="empty-title h5">You have no new messages</p>
+		<p class="empty-subtitle">Click the button to start a conversation.</p>
+	</div>
+</ng-template>

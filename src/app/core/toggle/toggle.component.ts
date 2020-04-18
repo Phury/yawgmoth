@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Item } from '../item';
 
 @Component({
   selector: 'ygm-toggle',
@@ -6,26 +7,29 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 })
 export class ToggleComponent implements OnInit {
 
-  @Input() values: any[];
-  @Input() labels: string[];
-  @Input() initialValue: any;
-  currentValue: any;
+  @Input() values: Item[];
+  @Input() initialValue: Item;
   @Output() valueChange = new EventEmitter();
+  active: Item;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.currentValue = this.initialValue;
-    this.valueChange.emit(this.currentValue);
+    this.active = this.initialValue;
+    this.onValueChanged();
+  }
+
+  onValueChanged(): void {
+    this.valueChange.emit(this.active.value);
   }
 
   toggle(): void {
-    this.currentValue = (this.currentValue === this.values[0] ? this.values[1] : this.values[0]);
-    this.valueChange.emit(this.currentValue);
+    this.active = (this.active === this.values[0] ? this.values[1] : this.values[0]);
+    this.onValueChanged();
   }
 
-  selectedClass(selectedValue: string): string[] {
-    return selectedValue === this.currentValue ? ['btn-primary'] : [];
+  selectedClass(selectedItem: Item): string[] {
+    return selectedItem.value === this.active.value ? ['btn-primary'] : [];
   }
 
 }
