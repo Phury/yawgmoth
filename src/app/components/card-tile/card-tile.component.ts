@@ -7,14 +7,14 @@ import { Card } from 'src/app/model/card';
 })
 export class CardTileComponent implements OnInit {
   @Input() card: Card;
-  showFace: string = 'front';
+  showFace = 'front';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  toggleFace() {
+  toggle() {
     this.showFace = (this.showFace === 'front' ? 'back' : 'front');
   }
 }

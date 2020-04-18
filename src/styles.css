@@ -130,7 +130,8 @@ header, footer {
     }
 
     .tile-icon.transform > img.rotate {
-      transform: rotate(270deg);
+      transition: transform 350ms;
+      transform: rotate(90deg) scale(0.75);
     }
 
 .card-type-title {
