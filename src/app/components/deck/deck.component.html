@@ -1,15 +1,72 @@
-<h3>{{meta.name}}</h3>
-<div class="row">
-  <section class="preview">
-    <ygm-spinner-card [card]="selectedCard$"></ygm-spinner-card>
-  </section>
-  <section class="card list">
-    <ul>
-      <li *ngFor="let card of (deck$ | async)?.cards">
-        {{card.amount}}
-        <a (click)="selectedCard$.next(card)">{{card.name}}</a>
-        <ygm-mana [cost]="card.manaCost"></ygm-mana>
-      </li>
-    </ul>
-  </section>
+<div *ngIf="(meta$ | async) as meta">
+  <h3>{{meta.name}}</h3>
+
+  <div class="float-right">
+    <a class="btn btn-primary"  [routerLink]="['/compare', meta.id]">compare</a>
+  </div>
+  <div class="clearfix"></div>
+
+  <!--
+  <div class="float-right">
+    <div class="btn-group btn-group-block">
+      <button class="btn">Filter</button>
+    </div> 
+  </div>
+  
+  <div class="" >
+    <form>
+      <div class="form-group">
+        <select class="form-select">
+          <option>Choose an option</option>
+          <option>Slack</option>
+          <option>Skype</option>
+          <option>Hipchat</option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <div class="clearfix"></div>
+  -->
+
+  <div class="container">
+    <div class="columns">
+      <div class="column col-8 col-sm-12 lg-list">
+        <div *ngFor="let entry of (mainboardGrouped$ | async) | keyvalue: groupingOrder">
+          <h5 class="card-type-title">
+            {{entry.key}}
+            <!-- <span>({{(sideboard$ | async)?[entry.key].lenght}})</span> --> 
+          </h5>
+          <details *ngFor="let card of entry.value" class="accordion">
+            <summary class="accordion-header">
+              <i class="icon icon-photo"></i>
+              {{card.amount}}
+              <span>{{card.name}}&nbsp;</span>
+              <ygm-mana [cost]="card.manaCost"></ygm-mana>
+            </summary>
+            <div class="accordion-body">
+              <ygm-card-tile [card]="card"></ygm-card-tile>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="column col-4 col-sm-12">
+        <h5 class="card-type-title">
+          sideboard
+          <!-- <span>({{(sideboard$ | async)?.lenght}})</span> -->
+        </h5>
+        <details *ngFor="let card of (sideboard$ | async)" class="accordion">
+          <summary class="accordion-header">
+            <i class="icon icon-photo"></i>
+            {{card.amount}}
+            <span>{{card.name}}&nbsp;</span>
+            <ygm-mana [cost]="card.manaCost"></ygm-mana>
+          </summary>
+          <div class="accordion-body">
+            <ygm-card-tile [card]="card"></ygm-card-tile>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
 </div>

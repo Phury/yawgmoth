@@ -1,0 +1,24 @@
+<div class="float-right">
+  <ygm-toggle 
+      [initialValue]="viewModes[0]"
+      [values]="viewModes"
+      (valueChange)="toggleView($event)">
+  </ygm-toggle>
+</div>
+<div class="clearfix"></div>
+
+<div *ngIf="selectedView === 'cardView'" class="container">
+  <div class="columns deck-card-view">
+    <div *ngFor="let meta of (meta$ | async)" class="column col-4 col-sm-12">
+      <ygm-deck-card [meta]="meta"></ygm-deck-card>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedView === 'tileView'" class="container grid-lg">
+  <div class="columns deck-tile-view">
+    <div *ngFor="let meta of (meta$ | async)" class="column col-6 col-sm-12">
+      <ygm-deck-tile [meta]="meta"></ygm-deck-tile>
+    </div>
+  </div>
+</div>

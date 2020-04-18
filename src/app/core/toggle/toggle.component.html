@@ -1,0 +1,8 @@
+<div class="btn-group btn-group-block">
+	<button *ngFor="let item of values" 
+		class="btn btn-sm" 
+		(click)="toggle()" 
+		[ngClass]="selectedClass(item)">
+		{{item.label}}
+	</button>
+</div>

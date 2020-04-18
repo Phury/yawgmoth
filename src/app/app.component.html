@@ -1,12 +1,1 @@
-<h1>
-  <span class="dot w"></span>
-  <span class="dot u"></span>
-  <span class="dot b"></span>
-  <span class="dot r"></span>
-  <span class="dot g"></span>
-  {{title}}
-</h1>
-<div *ngFor="let meta of (meta$ | async)">
-  <ygm-deck [meta]="meta"></ygm-deck>
-  <div *ngIf="env.DEBUG">{{meta | json}}</div>
-</div>
+<router-outlet></router-outlet>

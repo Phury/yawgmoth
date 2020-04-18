@@ -13,6 +13,9 @@ export class ManaComponent implements OnInit {
   }
 
   manaClasses(): string[][] { // TODO: compute on @Input setter
+    if (!this.cost) {
+      return [[]];
+    }
     return this.cost.split(/{(.*?)}/)
       .filter(str => str.trim() != "")
       .map(token => token.toLowerCase().replace('/', ''))

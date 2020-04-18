@@ -1,0 +1,13 @@
+<div class="card" *ngIf="(previewCard$ | async) as card">
+  <div class="card-image">
+    <img src="{{card.imgArtUrl}}" class="img-responsive" />
+  </div>
+  <div class="card-header">
+    <div class="card-subtitle">
+      <a [routerLink]="['/decks', meta.id]" [state]="meta" class="btn btn-success">{{meta.name}}</a>
+    </div>
+    <div class="card-action">
+      <span class="chip">{{meta.format}}</span>
+    </div>
+  </div>
+</div>

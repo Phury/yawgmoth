@@ -1,0 +1,39 @@
+<div class="columns">
+	<div class="column col-6">
+		<ygm-dropdown 
+			[initialValue]="{ value: 'source', label: 'Select' }"
+			[selectValues]="(sources$ | async)"
+			(valueChange)="selectedSource$.next($event)">
+		</ygm-dropdown>
+	</div>
+	<div class="column col-6">
+		
+	</div>
+</div>
+<div class="spacer"></div>
+
+<div class="container">
+	<div class="columns">
+		<div class="column col-6" *ngIf="source$ | async as cards; else empty">
+			<div *ngFor="let card of cards">
+				{{card?.amount}} {{card?.name}}
+			</div>
+		</div>
+		<div class="column col-6" *ngIf="difference$ | async as compare">
+			<ng-container *ngFor="let card of compare">
+				<div *ngIf="card.owned - card.required < 0">
+					{{card.owned - card.required}} {{card.name}} 
+				</div>
+			</ng-container>
+		</div>
+	</div>
+	<ng-template #empty>
+		<div class="empty column col-12">
+			<div class="empty-icon">
+				<i class="icon icon-copy"></i>
+			</div>
+			<p class="empty-title h5">No deck selected</p>
+			<p class="empty-subtitle">Select a deck to compare with your collection.</p>
+		</div>
+	</ng-template>
+</div>

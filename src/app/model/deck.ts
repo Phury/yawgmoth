@@ -5,10 +5,12 @@ export interface DeckMeta {
   name?: string;
   format?: string;
   author?: string;
+  previewCard?: string;
 }
 
 export interface Deck {
   name: string;
   cards: Card[];
+  sideboard?: Card[];
   meta?: DeckMeta;
 }

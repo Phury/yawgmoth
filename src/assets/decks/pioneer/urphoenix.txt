@@ -1,0 +1,23 @@
+4 Arclight Phoenix
+4 Thing in the Ice
+4 Young Pyromancer
+4 Chart a Course
+2 Strategic Planning
+3 Treasure Cruise
+3 Fiery Temper
+4 Izzet Charm
+4 Lightning Axe
+4 Opt
+4 Shock
+6 Island
+6 Mountain
+4 Steam Vents
+4 Sulfur Falls
+
+# sideboard
+3 Aether Gust
+3 Anger of the Gods
+1 Crackling Drake
+2 Fry
+2 Improbable Alliance
+4 Negate
