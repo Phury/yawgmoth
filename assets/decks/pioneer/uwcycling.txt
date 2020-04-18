@@ -18,7 +18,7 @@
 2 Settle the Wreckage
 1 Teferi, Hero of Dominaria
 
-#sideboard
+# sideboard
 4 Leyline of the Void
 2 Dovin's Veto
 2 Forsake the Worldly
