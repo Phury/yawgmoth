@@ -43,9 +43,10 @@ header, footer {
   font-size: 1.5rem;
 }
 
-  .layout > .container {
-    margin-top: 130px;
-  }
+.app-content {
+  margin-top: 130px;
+  min-height: calc(100vh - 180px);
+}
 
   .shadow {
     box-shadow: 0 0.25rem 1rem rgba(48,55,66,.15);
@@ -81,9 +82,6 @@ header, footer {
     .deck-tile-view .column {
       padding: 0.4em;
     }
-    .deck-tile-view .tile-content {
-      margin-top: 1.5em;
-    }
     .deck-tile-view figure {
       margin: 0.3em;
     }
@@ -94,9 +92,6 @@ header, footer {
         height: 100%;
       }
 
-  .card-tile-view .tile-content {
-    margin-top: 1.5em;
-  }
     .card-tile-view .tile-content p {
       margin: 0 0 0.2rem;
       border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -107,6 +102,37 @@ header, footer {
       .card-tile-view .card-oracle {
         font-size: 0.8em;
       }
+      .card-tile-view .card-flavor {
+        font-size: 0.8em;
+        font-style: italic;
+      }
+
+  .tile-content {
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+  }
+  .tile-icon.transform {
+    position: relative;
+  }
+  .tile-icon.transform .actions {
+    margin-top: 2em;
+  }
+    .tile-icon.transform > img.front {
+      position: absolute;
+      top: 25px;
+      left: 15px;
+    }
+    .tile-icon.transform > img.front, .tile-icon.transform > img.back {
+      z-index: -1;
+    }
+    .tile-icon.transform > img.front.visible {
+      z-index: 5;
+    }
+
+    .tile-icon.transform > img.rotate {
+      transition: transform 350ms;
+      transform: rotate(90deg) scale(0.75);
+    }
 
 .card-type-title {
   border-bottom: 1px solid #3b4351;

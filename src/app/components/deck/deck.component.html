@@ -38,15 +38,7 @@
             <!-- <span>({{(sideboard$ | async)?[entry.key].lenght}})</span> --> 
           </h5>
           <details *ngFor="let card of entry.value" class="accordion">
-            <summary class="accordion-header">
-              <i class="icon icon-photo"></i>
-              {{card.amount}}
-              <span>{{card.name}}&nbsp;</span>
-              <ygm-mana [cost]="card.manaCost"></ygm-mana>
-            </summary>
-            <div class="accordion-body">
-              <ygm-card-tile [card]="card"></ygm-card-tile>
-            </div>
+            <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
           </details>
         </div>
       </div>
@@ -56,17 +48,26 @@
           <!-- <span>({{(sideboard$ | async)?.lenght}})</span> -->
         </h5>
         <details *ngFor="let card of (sideboard$ | async)" class="accordion">
-          <summary class="accordion-header">
-            <i class="icon icon-photo"></i>
-            {{card.amount}}
-            <span>{{card.name}}&nbsp;</span>
-            <ygm-mana [cost]="card.manaCost"></ygm-mana>
-          </summary>
-          <div class="accordion-body">
-            <ygm-card-tile [card]="card"></ygm-card-tile>
-          </div>
+          <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
         </details>
       </div>
     </div>
   </div>
 </div>
+<ng-template #cardDetail let-card="card">
+  <summary class="accordion-header">
+    <i class="icon icon-photo"></i>
+    {{card.amount}}
+    <ng-container *ngIf="card.faces; else normal">
+      <span>{{card.faces[0].name}}&nbsp;</span>
+      <ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+    </ng-container>
+    <ng-template #normal>
+      <span>{{card.name}}&nbsp;</span>
+      <ygm-mana [cost]="card.manaCost"></ygm-mana>
+    </ng-template>
+  </summary>
+  <div class="accordion-body">
+    <ygm-card-tile [card]="card"></ygm-card-tile>
+  </div>
+</ng-template>

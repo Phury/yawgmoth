@@ -17,8 +17,8 @@ export class ManaComponent implements OnInit {
       return [[]];
     }
     return this.cost.split(/{(.*?)}/)
-      .filter(str => str.trim() != "")
+      .filter(str => str.trim() !== '')
       .map(token => token.toLowerCase().replace('/', ''))
-      .map(cost => ['ms', 'ms-cost', 'ms-'+cost]);
+      .map(cost => ['ms', 'ms-cost', 'ms-' + cost]);
   }
 }
