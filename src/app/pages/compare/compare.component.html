@@ -1,7 +1,7 @@
 <div class="columns">
 	<div class="column col-6">
 		<ygm-dropdown 
-			[initialValue]="{ value: 'source', label: 'Soure' }"
+			[initialValue]="{ value: 'source', label: 'Select' }"
 			[selectValues]="(sources$ | async)"
 			(valueChange)="selectedSource$.next($event)">
 		</ygm-dropdown>
@@ -10,6 +10,7 @@
 		
 	</div>
 </div>
+<div class="spacer"></div>
 
 <div class="container">
 	<div class="columns">
@@ -29,10 +30,10 @@
 	<ng-template #empty>
 		<div class="empty column col-12">
 			<div class="empty-icon">
-				<i class="icon icon-people"></i>
+				<i class="icon icon-copy"></i>
 			</div>
-			<p class="empty-title h5">You have no new messages</p>
-			<p class="empty-subtitle">Click the button to start a conversation.</p>
+			<p class="empty-title h5">No deck selected</p>
+			<p class="empty-subtitle">Select a deck to compare with your collection.</p>
 		</div>
 	</ng-template>
 </div>

@@ -20,64 +20,9 @@ import { CardTileComponent } from './components/card-tile/card-tile.component';
 import { ToggleComponent } from './core/toggle/toggle.component';
 import { CompareComponent } from './pages/compare/compare.component';
 import { DropdownComponent } from './core/dropdown/dropdown.component';
+import { appRouting } from './app.routing';
+import { CardTableComponent } from './components/card-table/card-table.component';
 
-const appRoutes: Routes = [
-  // { path: 'decks/:id',      component: HeroDetailComponent },
-  {
-    path: 'decks',
-    component: DefaultLayoutComponent,
-    data: { title: 'Your decks' },
-    children: [
-      { path: '', component: DeckListComponent },
-    ]
-  },
-  {
-    path: 'decks/:id',
-    component: DefaultLayoutComponent,
-    data: { title: 'Deck details' },
-    children: [
-    { path: '', component: DeckComponent },
-    ]
-  },
-  {
-    path: 'collection',
-    component: DefaultLayoutComponent,
-    data: { title: 'Your cards' },
-    children: [
-      { path: '', component: CollectionComponent },
-    ]
-  },
-  {
-    path: 'wishlist',
-    component: DefaultLayoutComponent,
-    data: { title: 'Your wishlist' },
-    children: [
-      { path: '', component: WishListComponent },
-    ]
-  },
-  {
-    path: 'meta',
-    component: DefaultLayoutComponent,
-    data: { title: 'Mtg metagame' },
-    children: [
-      { path: '', component: MetaListComponent },
-    ]
-  },
-  {
-    path: 'compare',
-    component: DefaultLayoutComponent,
-    data: { title: 'Compare decks' },
-    children: [
-      { path: '', component: CompareComponent },
-    ]
-  },
-  {
-    path: '',
-    redirectTo: '/decks',
-    pathMatch: 'full'
-  },
-  //{ path: '**', component: PageNotFoundComponent }
-];
 
 @NgModule({
   declarations: [
@@ -97,10 +42,11 @@ const appRoutes: Routes = [
     MetaListComponent,
     ToggleComponent,
     CompareComponent,
-    DropdownComponent
+    DropdownComponent,
+    CardTableComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes), //, { enableTracing: true }),
+    RouterModule.forRoot(appRouting), //, { enableTracing: true }),
     BrowserModule,
     HttpClientModule,
     FormsModule,

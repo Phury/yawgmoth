@@ -19,4 +19,10 @@ export class CollectionService {
       flatMap(csv => of(this.csvService.parse(csv) as Collectible[]))
     );
   }
+
+  getWishCards(): Observable<Collectible[]> {
+    return this.http.get('assets/wishcards.csv', { responseType: 'text'}).pipe(
+      flatMap(csv => of(this.csvService.parse(csv) as Collectible[]))
+    );
+  }
 }

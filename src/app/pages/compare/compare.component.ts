@@ -6,6 +6,7 @@ import { Card } from 'src/app/model/card';
 import { CompareService, Diff } from 'src/app/services/compare.service';
 import { CollectionService } from 'src/app/services/collection.service';
 import { Item } from 'src/app/core/item';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ygm-compare',
@@ -21,7 +22,8 @@ export class CompareComponent implements OnInit {
   constructor(
     private deckService: DeckService,
     private collectionService: CollectionService,
-    private compareService: CompareService) { }
+    private compareService: CompareService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.sources$ = this.deckService.listAllDecks().pipe(
@@ -38,6 +40,12 @@ export class CompareComponent implements OnInit {
     this.difference$ = combineLatest([this.source$, this.collectionService.getCollection()]).pipe(
       map(([cards, collection]) => this.compareService.diff(cards, collection)),
     );
+
+    const deckId = this.route.parent.snapshot.url[1].path;
+    if (deckId) {
+      console.log(deckId);
+      this.selectedSource$.next(deckId);
+    }
   }
 
 }
