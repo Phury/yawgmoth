@@ -28,7 +28,6 @@ export class CompareComponent implements OnInit {
       map(decks => decks.map(deck => deck.id)),
       map(deckIds => deckIds.map(deckId => ({ value: deckId, label: deckId.split('_').join('/') }))),
     );
-    // const selected = 'legacy_landgrantphoenix';
     this.source$ = this.selectedSource$.pipe(
       map(next => this.deckService.getDeckById(next)),
       flatMap(deck$ => deck$.pipe(

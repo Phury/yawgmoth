@@ -5,6 +5,7 @@
     <a class="btn btn-primary"  [routerLink]="['/compare']">compare</a>
   </div>
   <div class="clearfix"></div>
+
   <!--
   <div class="float-right">
     <div class="btn-group btn-group-block">
@@ -37,7 +38,7 @@
             <!-- <span>({{(sideboard$ | async)?[entry.key].lenght}})</span> --> 
           </h5>
           <details *ngFor="let card of entry.value" class="accordion">
-            <summary class="accordion-header" [ngClass]="card.showContent ? 'active' : ''">
+            <summary class="accordion-header">
               <i class="icon icon-photo"></i>
               {{card.amount}}
               <span>{{card.name}}&nbsp;</span>
@@ -55,7 +56,7 @@
           <!-- <span>({{(sideboard$ | async)?.lenght}})</span> -->
         </h5>
         <details *ngFor="let card of (sideboard$ | async)" class="accordion">
-          <summary class="accordion-header" [ngClass]="card.showContent ? 'active' : ''">
+          <summary class="accordion-header" [ngClass]="card.showDetails ? 'active' : ''">
             <i class="icon icon-photo"></i>
             {{card.amount}}
             <span>{{card.name}}&nbsp;</span>

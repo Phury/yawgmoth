@@ -38,7 +38,8 @@ export class DeckComponent implements OnInit {
     const deckId = this.route.parent.snapshot.url[1].path;
     this.meta$ = this.deckService.findMetadataById(deckId);
     const deck$ = this.meta$.pipe(
-      flatMap(meta => this.deckService.getDeckById(meta.id))
+      flatMap(meta => this.deckService.getDeckById(meta.id)),
+      // tap(deck => deck.cards.forEach(card => card.showDetails$ = new Subject<boolean>())),
     );
     this.mainboardGrouped$ = deck$.pipe(
       map(deck => deck.cards.reduce((acc, card) => {
@@ -54,8 +55,7 @@ export class DeckComponent implements OnInit {
     );
     this.sideboard$ = deck$.pipe(
       map(deck => deck.cards.filter(c => c.sideboard)),
-      //filter(cards => cards.filter(c => c.sideboard)),
-      tap(cards => this.log.debug(cards, this)),
+      // tap(cards => this.log.debug(cards, this)),
     );
   }
 

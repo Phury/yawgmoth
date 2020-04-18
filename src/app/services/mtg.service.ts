@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Card, CARD_TYPES } from '../model/card';
 import { LoggerService } from './logger.service';
 
@@ -18,6 +18,11 @@ export class MtgService {
     return this.http.get(`https://api.scryfall.com/cards/named?exact=${cardName}`).pipe(
       tap(mtgCard => this.log.debug(mtgCard, this)),
       map(mtgCard => this.toModel(mtgCard)),
+      catchError((error) => {
+        // TODO: handle display of erroneous card
+        console.error(error);
+        return of({name: cardName, amount: 0, types: []} as Card);
+      }),
     );
   }
 

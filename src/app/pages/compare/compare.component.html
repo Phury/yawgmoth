@@ -13,27 +13,26 @@
 
 <div class="container">
 	<div class="columns">
-		<div *ngIf="source$ | async as cards; else empty">
-			<div class="column col-6">
-				<div *ngFor="let card of cards">
-					{{card?.amount}} {{card?.name}}
-				</div>
-			</div>
-			<div class="column col-6">
-				<div *ngFor="let card of (difference$ | async)">
-					{{card.name}} {{card.owned}} {{card.required}}
-				</div>
+		<div class="column col-6" *ngIf="source$ | async as cards; else empty">
+			<div *ngFor="let card of cards">
+				{{card?.amount}} {{card?.name}}
 			</div>
 		</div>
+		<div class="column col-6" *ngIf="difference$ | async as compare">
+			<ng-container *ngFor="let card of compare">
+				<div *ngIf="card.owned - card.required < 0">
+					{{card.owned - card.required}} {{card.name}} 
+				</div>
+			</ng-container>
+		</div>
 	</div>
+	<ng-template #empty>
+		<div class="empty column col-12">
+			<div class="empty-icon">
+				<i class="icon icon-people"></i>
+			</div>
+			<p class="empty-title h5">You have no new messages</p>
+			<p class="empty-subtitle">Click the button to start a conversation.</p>
+		</div>
+	</ng-template>
 </div>
-{{ difference$ | async | json}}
-<ng-template #empty>
-	<div class="empty">
-		<div class="empty-icon">
-			<i class="icon icon-people"></i>
-		</div>
-		<p class="empty-title h5">You have no new messages</p>
-		<p class="empty-subtitle">Click the button to start a conversation.</p>
-	</div>
-</ng-template>

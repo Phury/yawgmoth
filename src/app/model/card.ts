@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 
 export const CARD_TYPES = ['land', 'instant', 'sorcery', 'enchantment', 'creature', 'planeswalker', 'artifact'];
 
@@ -15,5 +16,5 @@ export interface Card {
   /*ui */
   sideboard?: boolean;
   amount?: number;
-  showContent?: boolean;
+  showDetails$?: Subject<boolean>;
 }

@@ -16,9 +16,10 @@ export class CompareService {
   constructor() { }
 
   diff(cards: Card[], collection: Collectible[]): Diff[] {
-    console.log(cards);
+    // console.log(cards);
     return (cards || []).reduce((acc, card) => {
-      const inCollection = collection.find(elt => elt.cardName === card.name);
+      const inCollection = this.findAllMatchingCards(card.name, collection);
+      // console.log(inCollection);
       if (!inCollection) {
         acc.push({
           name: card.name,
@@ -28,7 +29,7 @@ export class CompareService {
       } else {
         acc.push({
           name: card.name,
-          owned: 0,
+          owned: inCollection.quantity,
           required: card.amount,
         });
       }
@@ -36,7 +37,12 @@ export class CompareService {
     }, []);
   }
 
-  private findInCollection(cardName: string, collection: Collectible[]): Collectible {
-    return ;
+  private findAllMatchingCards(cardName: string, collection: Collectible[]): {name: string, quantity: number} {
+    return collection
+        .filter(elt => elt.cardName === cardName)
+        .reduce((withAmount: {name: string, quantity: number}, item: Collectible) => {
+          withAmount.quantity += item.quantity;
+          return withAmount;
+        }, {name: cardName, quantity: 0});
   }
 }
