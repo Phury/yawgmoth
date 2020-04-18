@@ -6,11 +6,15 @@ import { Card } from 'src/app/model/card';
   templateUrl: './card-tile.component.html',
 })
 export class CardTileComponent implements OnInit {
-  @Input() card: Card
+  @Input() card: Card;
+  showFace: string = 'front';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  toggleFace() {
+    this.showFace = (this.showFace === 'front' ? 'back' : 'front');
+  }
 }
