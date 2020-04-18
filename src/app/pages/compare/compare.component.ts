@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from 'src/app/services/deck.service';
-import { Observable, combineLatest, Subject } from 'rxjs';
+import { Observable, combineLatest, Subject, zip } from 'rxjs';
 import { map, tap, flatMap } from 'rxjs/operators';
 import { Card } from 'src/app/model/card';
 import { CompareService, Diff } from 'src/app/services/compare.service';
@@ -26,9 +26,13 @@ export class CompareComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.sources$ = this.deckService.listAllDecks().pipe(
-      map(decks => decks.map(deck => deck.id)),
-      map(deckIds => deckIds.map(deckId => ({ value: deckId, label: deckId.split('_').join('/') }))),
+    this.sources$ = combineLatest([
+      this.deckService.listAllDecks(),
+      this.deckService.listAllWishDecks(),
+    ]).pipe(
+      map(([owned, wished]) => owned.concat(wished)),
+      // tap(decks => console.log(decks)),
+      map(decks => decks.map(deck => ({ value: deck.id, label: deck.id.split('_').join('/') }))),
     );
     this.source$ = this.selectedSource$.pipe(
       map(next => this.deckService.getDeckById(next)),
@@ -37,7 +41,10 @@ export class CompareComponent implements OnInit {
         map(cards => cards.filter(card => card != null)),
       )),
     );
-    this.difference$ = combineLatest([this.source$, this.collectionService.getCollection()]).pipe(
+    this.difference$ = combineLatest([
+      this.source$,
+      this.collectionService.getCollection()
+    ]).pipe(
       map(([cards, collection]) => this.compareService.diff(cards, collection)),
     );
 
