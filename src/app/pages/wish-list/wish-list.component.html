@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container grid-lg">
   <h2>Decks</h2>
-  <div class="container grid-lg">
+  <div class="container">
     <div class="columns deck-tile-view">
       <div *ngFor="let meta of (meta$ | async)" class="column col-6 col-sm-12">
         <ygm-deck-tile [meta]="meta"></ygm-deck-tile>

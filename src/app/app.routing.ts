@@ -6,6 +6,7 @@ import { CollectionComponent } from './pages/collection/collection.component';
 import { WishListComponent } from './pages/wish-list/wish-list.component';
 import { MetaListComponent } from './pages/meta-list/meta-list.component';
 import { CompareComponent } from './pages/compare/compare.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const appRouting: Routes = [
   // { path: 'decks/:id',      component: HeroDetailComponent },
@@ -39,6 +40,14 @@ export const appRouting: Routes = [
     data: { title: 'Your wishlist' },
     children: [
       { path: '', component: WishListComponent },
+    ]
+  },
+  {
+    path: 'settings',
+    component: DefaultLayoutComponent,
+    data: { title: 'User settings' },
+    children: [
+      { path: '', component: SettingsComponent },
     ]
   },
   {

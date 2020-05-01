@@ -1,0 +1,26 @@
+<!--
+	pull-out menu by: https://stephaniewalter.design
+	source: https://codepen.io/GeoffreyCrofte/pen/ajKVRq
+
+-->
+<div class="device">
+	<div class="container">
+		<button id="burger" class="open-main-nav" 
+			(click)="toggleMenu()"
+			[ngClass]="status ? 'is-open' : ''">
+			<span class="burger"></span>
+			<span class="burger-text">Menu</span>
+		</button>
+		<nav class="main-nav" id="main-nav" [ngClass]="status ? 'is-open' : ''" (click)="toggleMenu()">
+			<ul>
+				<li><a [routerLink]="['/decks']" (click)="toggleMenu()">My decks</a></li>
+				<li><a [routerLink]="['/collection']" (click)="toggleMenu()">Collection</a></li>
+				<li><a [routerLink]="['/wishlist']" (click)="toggleMenu()">Wishlist</a></li>
+				<!--
+					<li><a [routerLink]="['/settings']" (click)="toggleMenu()">Settings<i class="icon icon-people"></i></a></li>
+					<li><a [routerLink]="['/meta']">Meta</a></li>
+				-->
+			</ul>
+		</nav>
+	</div>
+</div>

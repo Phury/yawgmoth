@@ -22,6 +22,8 @@ import { CompareComponent } from './pages/compare/compare.component';
 import { DropdownComponent } from './core/dropdown/dropdown.component';
 import { appRouting } from './app.routing';
 import { CardTableComponent } from './components/card-table/card-table.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { CardTableComponent } from './components/card-table/card-table.component
     ToggleComponent,
     CompareComponent,
     DropdownComponent,
-    CardTableComponent
+    CardTableComponent,
+    SettingsComponent,
+    PullOutMenuComponent
   ],
   imports: [
     RouterModule.forRoot(appRouting), //, { enableTracing: true }),
