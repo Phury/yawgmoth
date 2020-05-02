@@ -18,6 +18,9 @@ i.ms {
     border-radius: 7px;
   }
 
+.accordion .accordion-header {
+  padding: 0;
+}
 
 /** ui extensions **/
 div.spacer {
@@ -74,40 +77,11 @@ header, footer {
       background-color: rgba(238, 240, 243, 0.7);
       font-size: 0.7em;
     }
-
-
-    .deck-tile-view .column {
+    
+  .deck-tile-view .column {
       padding: 0.4em;
-    }
-    .deck-tile-view figure {
-      margin: 0.3em;
-    }
-    .deck-tile-view .deck-icon {    
-      height: 6rem;
-    }
-      .deck-tile-view .deck-icon img {
-        height: 100%;
-      }
-
-    .card-tile-view .tile-content p {
-      margin: 0 0 0.2rem;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-      .card-tile-view .tile-content .tile-title {
-        font-weight: bold;
-      }
-      .card-tile-view .card-oracle {
-        font-size: 0.8em;
-      }
-      .card-tile-view .card-flavor {
-        font-size: 0.8em;
-        font-style: italic;
-      }
-
-  .tile-content {
-    margin-top: 1.5em;
-    margin-left: 1.5em;
   }
+
   .tile-icon.transform {
     position: relative;
   }
@@ -133,7 +107,11 @@ header, footer {
 
 .card-type-title {
   border-bottom: 1px solid #3b4351;
+  margin-top: 1em;
 }
+  .card-type-title span {
+    font-size: 0.7em;
+  }
 
   section.preview {
     width: 100%;
@@ -211,3 +189,16 @@ green: #d4ebd0
 blue: #a4c5c6
 yellow: #ffeb99
 */
+
+
+/* lightbox overrides */
+.lightbox .lb-overlay.animation,
+.lightbox .lb-content.animation,
+.lightbox .lb-container .lb-image {
+  animation-duration: 0.1s !important;
+}
+
+.lightbox div.lb-container img {
+  border:0;
+  border-radius:0;
+}

@@ -8,29 +8,22 @@
                 Display
                 </a>
             </li>
-            <li class="menu-item">
-                <a href="#">
-                Connectors
-                </a>
-            </li>
         </ul>
     </div>
-    <div class="column col-9 col-md-12">
-        <h2>Display</h2>
+    <div class="column col-8 col-md-12">
         <section>
             <h3 class="card-title h5">Deck list display</h3>
-            <div class="columns">
-                <div class="column col-sm-10">
-                    <p>You can select to display your deck listings in tile mode or card mode.</p>
-                </div>
-                <div class="column col-sm-2">         
-                    <ygm-toggle 
-                        [initialValue]="settings.display.viewModes[0]"
-                        [values]="settings.display.viewModes"
-                        (valueChange)="settings.toggleDisplay($event)">
-                    </ygm-toggle>
-                </div>
-            </div>
+            <p>You can select to display your deck listings in tile mode or card mode.</p>
+            <label class="form-radio" *ngFor="let viewMode of settings.viewModes">
+                <input type="radio" [ngModel]="settings.selectedViewMode" 
+                    (ngModelChange)="onViewModeChange($event)" 
+                    name="selectedViewMode" 
+                    value="{{viewMode.value}}" />
+                <i class="form-icon"></i> {{viewMode.label}}
+            </label>     
+        </section>
+        <section>
+            <button class="btn btn-primary" (click)="onSave()">Save</button>
         </section>
         <!--
         <h2>Connectors</h2>

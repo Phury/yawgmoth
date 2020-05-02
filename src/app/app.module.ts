@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LightboxModule } from 'ngx-lightbox';
 import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
@@ -24,6 +25,8 @@ import { appRouting } from './app.routing';
 import { CardTableComponent } from './components/card-table/card-table.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.component';
+import { ImportComponent } from './pages/import/import.component';
+import { CardPillComponent } from './components/card-pill/card-pill.component';
 
 
 @NgModule({
@@ -47,13 +50,16 @@ import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.comp
     DropdownComponent,
     CardTableComponent,
     SettingsComponent,
-    PullOutMenuComponent
+    PullOutMenuComponent,
+    ImportComponent,
+    CardPillComponent,
   ],
   imports: [
     RouterModule.forRoot(appRouting), //, { enableTracing: true }),
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    LightboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

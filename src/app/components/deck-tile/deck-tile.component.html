@@ -5,11 +5,10 @@
 	</figure>
   </div>
   <div class="tile-content">
-  	<p>
-	  <a [routerLink]="['/decks', meta.id]" [state]="meta" class="btn btn-success">{{meta.name}}</a>
-	</p>
-	<p>
-      <span class="chip">{{meta.format}}</span>
-	</p>
+	<h5>
+		<a [routerLink]="['/decks', meta.id]" [state]="meta">{{meta.name}}</a>
+	</h5>
+	<br/>
+    <span class="chip">{{meta.format}}</span>
   </div>
 </div>

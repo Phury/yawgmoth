@@ -14,3 +14,14 @@ export interface Deck {
   sideboard?: Card[];
   meta?: DeckMeta;
 }
+
+
+export interface DeckInfo {
+  id?: string;
+  name?: string;
+  format?: string;
+  preview?: string;
+  author?: string;
+  cards: string;
+  sideboard?: string;
+}

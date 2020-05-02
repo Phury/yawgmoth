@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeckService } from 'src/app/services/deck.service';
-import { Observable, combineLatest, Subject, zip } from 'rxjs';
-import { map, tap, flatMap } from 'rxjs/operators';
+import { Observable, combineLatest, Subject, zip, BehaviorSubject } from 'rxjs';
+import { map, tap, flatMap, defaultIfEmpty } from 'rxjs/operators';
 import { Card } from 'src/app/model/card';
 import { CompareService, Diff } from 'src/app/services/compare.service';
 import { CollectionService } from 'src/app/services/collection.service';
@@ -11,13 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ygm-compare',
   templateUrl: './compare.component.html',
+  styleUrls: ['./compare.component.css']
 })
 export class CompareComponent implements OnInit {
 
   sources$: Observable<Item[]>;
   source$: Observable<Card[]>;
   difference$: Observable<Diff[]>;
-  selectedSource$ = new Subject<string>();
+  selectedSource$: Subject<string>;
 
   constructor(
     private deckService: DeckService,
@@ -26,15 +27,17 @@ export class CompareComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.sources$ = combineLatest([
-      this.deckService.listAllDecks(),
-      this.deckService.listAllWishDecks(),
-    ]).pipe(
-      map(([owned, wished]) => owned.concat(wished)),
-      // tap(decks => console.log(decks)),
+    const deckId = this.route.parent.snapshot.url[1].path;
+    if (deckId) {
+      console.log(deckId);
+    }
+    this.selectedSource$ = new Subject();
+
+    this.sources$ = this.deckService.listAll().pipe(
       map(decks => decks.map(deck => ({ value: deck.id, label: deck.id.split('_').join('/') }))),
     );
     this.source$ = this.selectedSource$.pipe(
+      defaultIfEmpty(deckId),
       map(next => this.deckService.getDeckById(next)),
       flatMap(deck$ => deck$.pipe(
         map(deck => deck.cards.concat(deck.sideboard)),
@@ -47,12 +50,6 @@ export class CompareComponent implements OnInit {
     ]).pipe(
       map(([cards, collection]) => this.compareService.diff(cards, collection)),
     );
-
-    const deckId = this.route.parent.snapshot.url[1].path;
-    if (deckId) {
-      console.log(deckId);
-      this.selectedSource$.next(deckId);
-    }
   }
 
 }

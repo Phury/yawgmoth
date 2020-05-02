@@ -4,6 +4,7 @@ import { Card } from 'src/app/model/card';
 @Component({
   selector: 'ygm-card-tile',
   templateUrl: './card-tile.component.html',
+  styleUrls: ['./card-tile.component.css']
 })
 export class CardTileComponent implements OnInit {
   @Input() card: Card;

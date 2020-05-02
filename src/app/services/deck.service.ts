@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, of, merge } from 'rxjs';
-import { flatMap, map, find, tap, share } from 'rxjs/operators';
+import { Observable, forkJoin, of, merge, combineLatest } from 'rxjs';
+import { flatMap, map, find, shareReplay } from 'rxjs/operators';
 import { MtgService } from './mtg.service';
-import { Deck, DeckMeta } from '../model/deck';
+import { Deck, DeckMeta, DeckInfo } from '../model/deck';
 import { Card } from '../model/card';
 import { CsvService } from './csv.service';
 
@@ -17,17 +17,26 @@ export class DeckService {
     private mtgService: MtgService,
     private csvService: CsvService) { }
 
+  public listAll(): Observable<DeckMeta[]> {
+    return combineLatest([
+      this.listAllDecks(),
+      this.listAllWishDecks(),
+    ]).pipe(
+      map(([owned, wished]) => owned.concat(wished)),
+    );
+  }
+
   public listAllDecks(): Observable<DeckMeta[]> {
     return this.getCsv('assets/decks.csv').pipe(
       flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[])),
-      share(),
+      shareReplay(1),
     );
   }
 
   public listAllWishDecks(): Observable<DeckMeta[]> {
     return this.getCsv('assets/wishdecks.csv').pipe(
       flatMap(csv => of(this.csvService.parse(csv) as DeckMeta[])),
-      share(),
+      shareReplay(1),
     );
   }
 
@@ -38,28 +47,38 @@ export class DeckService {
     );
   }
 
+  public preview(deckInfo: DeckInfo): Observable<Deck> {
+    return of(deckInfo).pipe(
+      map(d => d.cards),
+      map(deckTxt => this.parseDeckText(deckTxt)),
+      flatMap(o => o),
+      map(cards => ({name: deckInfo.name, cards: cards})),
+    );
+  }
+
   public getDeckById(deckId: string): Observable<Deck> {
     const deckPath = deckId.split('_').join('/');
     return this.http.get(`assets/decks/${deckPath}.txt`, { responseType: 'text' as 'json'}).pipe(
-      map((deckTxt: string) => {
-        let currentSection = 'mainboard';
-        const cards$ = deckTxt.split(/\r?\n/)
-            .filter(str => str && str.length > 0)
-            .map(line => {
-              const partial = this.parseCardLine(line, currentSection);
-              if (partial.section !== currentSection) {
-                currentSection = partial.section;
-              }
-              return partial;
-            })
-            .filter(partial => partial.name !== null)
-            .map(partial => this.getCard(partial)); // [Observable<Card>]
-        return forkJoin(cards$); // Observable<Card[]>
-      }),
+      map((deckTxt: string) => this.parseDeckText(deckTxt)),
       flatMap(o => o),
-      // tap(cards => console.log(cards)),
       map(cards => ({name: deckId, cards: cards})),
     );
+  }
+
+  private parseDeckText(deckTxt: string): Observable<Card[]> {
+    let currentSection = 'mainboard';
+    const cards$ = deckTxt.split(/\r?\n/)
+        .filter(str => str && str.length > 0)
+        .map(line => {
+          const partial = this.parseCardLine(line, currentSection);
+          if (partial.section !== currentSection) {
+            currentSection = partial.section;
+          }
+          return partial;
+        })
+        .filter(partial => partial.name !== null)
+        .map(partial => this.getCard(partial)); // [Observable<Card>]
+    return forkJoin(cards$); // Observable<Card[]>
   }
 
   private getCard(partial: {name: string, amount: number, section: string}): Observable<Card> {

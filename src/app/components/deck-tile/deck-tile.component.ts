@@ -7,6 +7,7 @@ import { MtgService } from 'src/app/services/mtg.service';
 @Component({
   selector: 'ygm-deck-tile',
   templateUrl: './deck-tile.component.html',
+  styleUrls: ['./deck-tile.component.css']
 })
 export class DeckTileComponent implements OnInit {
   @Input() meta: DeckMeta;
