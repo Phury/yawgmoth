@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="columns">
+    <div class="column col-3 col-md-12">
+        <ul class="menu">
+            <li class="divider" data-content="Settings"></li>
+            <li class="menu-item">
+                <a href="#">
+                Display
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#">
+                Connectors
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="column col-9 col-md-12">
+        <h2>Display</h2>
+        <section>
+            <h3 class="card-title h5">Deck list display</h3>
+            <div class="columns">
+                <div class="column col-sm-10">
+                    <p>You can select to display your deck listings in tile mode or card mode.</p>
+                </div>
+                <div class="column col-sm-2">         
+                    <ygm-toggle 
+                        [initialValue]="settings.display.viewModes[0]"
+                        [values]="settings.display.viewModes"
+                        (valueChange)="settings.toggleDisplay($event)">
+                    </ygm-toggle>
+                </div>
+            </div>
+        </section>
+        <!--
+        <h2>Connectors</h2>
+        <section class="card" *ngFor="let connector of settings.connectors">
+            <div class="card-header">
+                <h3 class="card-title h5">{{connector.connectorName}}</h3>
+                <p>{{connector.connectorDescription}}</p>
+            </div>
+            <form class="card-body">
+                <div class="form-group">
+                    <label class="form-label" for="input-1">dbuser</label>
+                    <input class="form-input" type="text" [(ngModel)]="connector.dbuser" name="dbuser">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-2">dbpassword</label>
+                    <input class="form-input" type="text" [(ngModel)]="connector.dbpassword" name="dbpassword">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-3">dbhost</label>
+                    <input class="form-input" type="text" [(ngModel)]="connector.dbhost" name="dbhost">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="input-4">database</label>
+                    <input class="form-input" type="text" [(ngModel)]="connector.database" name="database">
+                </div>
+                <button class="btn">test</button>
+                &nbsp;
+                <button class="btn btn-success">save</button>
+            </form>
+        </section>
+        -->
+    </div>
+  </div>
+</div>

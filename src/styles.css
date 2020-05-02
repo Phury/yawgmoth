@@ -44,7 +44,7 @@ header, footer {
 }
 
 .app-content {
-  margin-top: 130px;
+  margin-top: 64px;
   min-height: calc(100vh - 180px);
 }
 
@@ -66,9 +66,6 @@ header, footer {
       position: absolute;
       bottom: 1em;
       right: 0.7em;
-      /*
-      background-color: #4CAF50;
-      */
     }
     .deck-card-view .card .card-action {
       text-align: right;
@@ -183,7 +180,7 @@ header, footer {
     }
     .navbar .logo-section h1:first-letter {
         visibility:visible;
-    }?
+    }
     .navbar .navbar-section:not(:first-child):last-child {
       justify-content: left !important;
     }
@@ -204,3 +201,13 @@ header, footer {
             column-count: 2;
   }
 }
+
+
+
+/* 
+theme 
+purple: #856c8b
+green: #d4ebd0
+blue: #a4c5c6
+yellow: #ffeb99
+*/
