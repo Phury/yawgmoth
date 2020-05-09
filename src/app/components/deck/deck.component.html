@@ -21,7 +21,8 @@
             {{entry.key}}
             <span>({{entry.value.length}})</span>
           </h5>
-          <details *ngFor="let card of entry.value" class="accordion">
+          <details *ngFor="let card of entry.value" class="accordion" 
+                   (click)="card.showDetails=true">
             <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
           </details>
         </div>
@@ -31,7 +32,8 @@
           sideboard
           <span>({{(sideboard$ | async)?.length}})</span>
         </h5>
-        <details *ngFor="let card of (sideboard$ | async)" class="accordion">
+        <details *ngFor="let card of (sideboard$ | async)" class="accordion" 
+                 (click)="card.showDetails=true">
           <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
         </details>
       </div>

@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { LightboxModule } from 'ngx-lightbox';
 import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { NavigationComponent } from './layouts/navigation/navigation.component';
@@ -27,6 +26,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.component';
 import { ImportComponent } from './pages/import/import.component';
 import { CardPillComponent } from './components/card-pill/card-pill.component';
+import { CardIconPreviewComponent } from './components/card-icon-preview/card-icon-preview.component';
 
 
 @NgModule({
@@ -53,13 +53,13 @@ import { CardPillComponent } from './components/card-pill/card-pill.component';
     PullOutMenuComponent,
     ImportComponent,
     CardPillComponent,
+    CardIconPreviewComponent,
   ],
   imports: [
     RouterModule.forRoot(appRouting), //, { enableTracing: true }),
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    LightboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

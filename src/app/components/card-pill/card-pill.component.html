@@ -1,5 +1,5 @@
 <ng-container [ngSwitch]="card.layout">
-    <i class="icon icon-photo" (click)="open()"></i>
+    <ygm-card-icon-preview [card]="card"></ygm-card-icon-preview>
     <ng-container *ngSwitchDefault> 
         {{card.amount}}
         {{card.faces[0].name}}

@@ -1,10 +1,11 @@
 <div class="collection-search-view" *ngIf="searchable">
 	<form>
-		<div class="has-icon-right">
-			<input type="text" class="form-input" placeholder="search" name="searchFilter"
+		<div class="has-btn-right">
+			<input type="text" class="form-input" name="searchFilter"
                 [(ngModel)]="searchFilter" 
                 (keyup.enter)="searchFilter$.next($event.target.value)" />
-			<i class="form-icon icon icon-search"></i>
+			<button class="btn btn-primary" 
+				(click)="searchFilter$.next(searchFilter)">search</button>
 		</div>
 	</form>
 </div>
@@ -22,7 +23,7 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let item of (filterdCards$ | async)" >
-				<td><i class="icon icon-photo"></i></td>
+				<td><ygm-card-icon-preview [card]="item"></ygm-card-icon-preview></td>
 				<td>{{item.cardName}}</td>
 				<td><ygm-keyrune [symbol]="item.set"></ygm-keyrune></td>
 				<td>{{item.setNumber}}</td>

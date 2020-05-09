@@ -1,0 +1,8 @@
+<span class="ttip" [ngClass]="active ? 'active' : ''">
+	<i class="icon icon-photo" (click)="toggle()"></i>
+	<span>
+	    <img [src]="card.faces ? card.faces[0].imgUrl : card.imgUrl"
+	         (click)="toggle()"
+	         *ngIf="active" />
+	</span>
+</span>

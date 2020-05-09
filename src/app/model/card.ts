@@ -29,5 +29,5 @@ export interface Card {
   /*ui */
   sideboard?: boolean;
   amount?: number;
-  showDetails$?: Subject<boolean>;
+  showDetails: boolean;
 }

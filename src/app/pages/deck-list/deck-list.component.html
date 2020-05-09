@@ -1,16 +1,18 @@
-<ng-container [ngSwitch]="selectedView">
-  <ng-container *ngSwitchDefault>
-    <div class="columns deck-tile-view">
-      <div *ngFor="let meta of (meta$ | async)" class="column col-6 col-sm-12">
-        <ygm-deck-tile [meta]="meta"></ygm-deck-tile>
+<div class="container grid-lg">
+  <ng-container [ngSwitch]="selectedView">
+    <ng-container *ngSwitchDefault>
+      <div class="columns deck-tile-view">
+        <div *ngFor="let meta of (meta$ | async)" class="column col-6 col-sm-12">
+          <ygm-deck-tile [meta]="meta"></ygm-deck-tile>
+        </div>
       </div>
-    </div>
-  </ng-container>
-  <ng-container *ngSwitchCase="'cardView'">
-    <div class="columns deck-card-view">
-      <div *ngFor="let meta of (meta$ | async)" class="column col-4 col-sm-12">
-        <ygm-deck-card [meta]="meta"></ygm-deck-card>
+    </ng-container>
+    <ng-container *ngSwitchCase="'cardView'">
+      <div class="columns deck-card-view">
+        <div *ngFor="let meta of (meta$ | async)" class="column col-4 col-sm-12">
+          <ygm-deck-card [meta]="meta"></ygm-deck-card>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </ng-container>
-</ng-container>
+</div>

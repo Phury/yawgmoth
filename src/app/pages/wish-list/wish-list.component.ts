@@ -12,6 +12,7 @@ import { CollectionService } from 'src/app/services/collection.service';
 export class WishListComponent implements OnInit {
 
   meta$: Observable<DeckMeta[]>;
+  stash$: Observable<Deck[]>;
   wishCards$: Observable<Collectible[]>;
 
   constructor(
@@ -20,6 +21,7 @@ export class WishListComponent implements OnInit {
 
   ngOnInit(): void {
     this.meta$ = this.deckService.listAllWishDecks();
+    this.stash$ = this.deckService.listAllStashedDecks();
     this.wishCards$ = this.collectionService.getWishCards();
   }
 

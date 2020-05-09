@@ -5,14 +5,18 @@
 			<!-- adventure/split as default layout because ngSwitchCase is limited to 1 value match -->
 			<ng-container *ngSwitchDefault> 
 				<div class="tile-icon transform">
-					<img class="mtg-card" src="{{card.imgUrl}}" [ngClass]="showFace == 'front' ? '' : 'rotate'" />
+					<img class="mtg-card" src="{{card.imgUrl}}" 
+						 [ngClass]="showFace == 'front' ? '' : 'rotate'" 
+						 *ngIf="card.showDetails" />
 					<div class="text-center actions" *ngIf="card.layout === 'split'">
 						<button class="btn btn-sm" (click)="toggle()">rotate</button>
 					</div>
 				</div>
 				<div class="tile-content">
 					<div *ngFor="let face of card.faces">
-						<p class="tile-title">{{face.name}}&nbsp;<ygm-mana [cost]="face.manaCost"></ygm-mana></p>
+						<p class="tile-title">
+							{{face.name}}&nbsp;<ygm-mana [cost]="face.manaCost"></ygm-mana>
+						</p>
 						<p class="tile-subtitle">{{face.typeLine}}</p>
 						<p *ngIf="face.oracleText" class="card-oracle">{{face.oracleText}}</p>
 						<p *ngIf="face.flavorText" class="card-flavor">{{face.flavorText}}</p>
@@ -22,7 +26,8 @@
 
 			<ng-container *ngSwitchCase="'normal'">
 				<div class="tile-icon">
-					<img class="mtg-card" src="{{card.imgUrl}}" />
+					<img class="mtg-card" src="{{card.imgUrl}}"
+						 *ngIf="card.showDetails" />
 				</div>
 				<div class="tile-content">
 					<p class="tile-subtitle">{{card.typeLine}}</p>
@@ -33,15 +38,21 @@
 
 			<ng-container *ngSwitchCase="'transform'">
 				<div class="tile-icon transform">
-					<img class="mtg-card back" src="{{card.faces[1].imgUrl}}" [ngClass]="showFace == 'front' ? '' : 'visible'" />
-					<img class="mtg-card front" src="{{card.faces[0].imgUrl}}" [ngClass]="showFace == 'front' ? 'visible' : ''" />
+					<img class="mtg-card back" src="{{card.faces[1].imgUrl}}" 
+						 [ngClass]="showFace == 'front' ? '' : 'visible'" 
+						 *ngIf="card.showDetails" />
+					<img class="mtg-card front" src="{{card.faces[0].imgUrl}}" 
+						 [ngClass]="showFace == 'front' ? 'visible' : ''" 
+						 *ngIf="card.showDetails" />
 					<div class="text-center actions">
 						<button class="btn btn-sm" (click)="toggle()">transform</button>
 					</div>
 				</div>
 				<div class="tile-content">
 					<div *ngFor="let face of card.faces">
-						<p class="tile-title">{{face.name}}&nbsp;<ygm-mana [cost]="face.manaCost"></ygm-mana></p>
+						<p class="tile-title">
+							{{face.name}}&nbsp;<ygm-mana [cost]="face.manaCost"></ygm-mana>
+						</p>
 						<p class="tile-subtitle">{{face.typeLine}}</p>
 						<p *ngIf="face.oracleText" class="card-oracle">{{face.oracleText}}</p>
 						<p *ngIf="face.flavorText" class="card-flavor">{{face.flavorText}}</p>

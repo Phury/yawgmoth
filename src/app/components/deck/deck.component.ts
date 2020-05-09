@@ -39,11 +39,10 @@ export class DeckComponent implements OnInit {
     this.meta$ = this.deckService.findMetadataById(deckId);
     const deck$ = this.meta$.pipe(
       flatMap(meta => this.deckService.getDeckById(meta.id)),
-      // tap(deck => deck.cards.forEach(card => card.showDetails$ = new Subject<boolean>())),
     );
     this.mainboardGrouped$ = deck$.pipe(
       map(deck => deck.cards.reduce((acc, card) => {
-        if (card.sideboard) {
+        if (card.board === 'sideboard') {
           // skip
         } else if (acc.has(card.types[0])) {
           acc.get(card.types[0]).push(card);
@@ -54,8 +53,7 @@ export class DeckComponent implements OnInit {
       }, this.cardMap()))
     );
     this.sideboard$ = deck$.pipe(
-      map(deck => deck.cards.filter(c => c.sideboard)),
-      // tap(cards => this.log.debug(cards, this)),
+      map(deck => deck.cards.filter(c => c.board === 'sideboard')),
     );
   }
 

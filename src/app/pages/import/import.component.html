@@ -1,4 +1,5 @@
 <div class="container grid-lg">
+    <h2>Import</h2>
     <div class="columns">
         <div class="column col-4">
             <form>
@@ -20,10 +21,8 @@
                 </div>
                 <div class="form-group">
                     <button class="btn" (click)="preview()">preview</button>
-                    <!--
                     &nbsp;
-                    <button class="btn btn-primary">save</button>
-                    -->
+                    <button class="btn btn-primary" (click)="save()">save</button>
                 </div>
             </form>
         </div>
@@ -38,11 +37,10 @@
                     <div class="empty-icon">
                         <i class="icon icon-copy"></i>
                     </div>
-                    <p class="empty-title h5">No deck selected</p>
-                    <p class="empty-subtitle">Select a deck to compare with your collection.</p>
+                    <p class="empty-title h5">Deck preview</p>
+                    <p class="empty-subtitle">Click on 'preview' to generate your deck</p>
                 </div>
             </ng-template>
         </div>
     </div>
-    
 </div>

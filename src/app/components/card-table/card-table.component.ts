@@ -6,12 +6,13 @@ import { debounceTime, distinctUntilChanged, startWith, map } from 'rxjs/operato
 @Component({
   selector: 'ygm-card-table',
   templateUrl: './card-table.component.html',
+  styleUrls: ['./card-table.component.css']
 })
 export class CardTableComponent implements OnInit {
 
   @Input() searchable: boolean = true;
   @Input() cards$: Observable<Collectible[]>;
-  searchFilter: string;
+  searchFilter: string = '';
   searchFilter$ = new Subject<string>();
   filterdCards$: Observable<Collectible[]>;
 

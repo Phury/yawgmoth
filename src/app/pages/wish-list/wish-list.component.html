@@ -11,7 +11,17 @@
   <h2>Cards</h2>
   <div class="container">
     <ygm-card-table [cards$]="wishCards$" [searchable]="false"></ygm-card-table>
-  </div>
-  
+  </div>    
+
+  <ng-conainer *ngIf="(stash$ | async)">
+      <h2>Stash</h2>
+      <div class="container">
+          <div class="columns deck-tile-view">
+              <div *ngFor="let meta of (stash$ | async)" class="column col-6 col-sm-12">
+                  <ygm-deck-tile [meta]="meta"></ygm-deck-tile>
+              </div>
+          </div>
+      </div>
+  </ng-conainer>
 </div>
 

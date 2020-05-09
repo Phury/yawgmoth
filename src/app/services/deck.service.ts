@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, merge, combineLatest } from 'rxjs';
-import { flatMap, map, find, shareReplay } from 'rxjs/operators';
+import { flatMap, map, find, shareReplay, tap } from 'rxjs/operators';
 import { MtgService } from './mtg.service';
 import { Deck, DeckMeta, DeckInfo } from '../model/deck';
 import { Card } from '../model/card';
@@ -40,6 +40,23 @@ export class DeckService {
     );
   }
 
+  public listAllStashedDecks(): Observable<Deck[]> {
+    return of(this.loadFromLocalStorage()).pipe(
+      shareReplay(1),
+    );
+  }
+
+  private loadFromLocalStorage(): Deck[] {
+    let decks: Deck[] = JSON.parse(localStorage.getItem('decks'));
+    return (decks === null ? [] : decks);
+  }
+
+  public store(deck: Deck) {
+    let decks = this.loadFromLocalStorage();
+    decks.push(deck);
+    localStorage.setItem('decks', JSON.stringify(decks));
+  }
+
   public findMetadataById(deckId: string): Observable<DeckMeta> {
     return merge(this.listAllDecks(), this.listAllWishDecks()).pipe(
       flatMap(meta => meta),
@@ -53,6 +70,7 @@ export class DeckService {
       map(deckTxt => this.parseDeckText(deckTxt)),
       flatMap(o => o),
       map(cards => ({name: deckInfo.name, cards: cards})),
+      tap(deck => console.log(deck)),
     );
   }
 
@@ -83,7 +101,7 @@ export class DeckService {
 
   private getCard(partial: {name: string, amount: number, section: string}): Observable<Card> {
     return this.mtgService.getCardByName(partial.name).pipe(
-      map(card => ({...card, amount: partial.amount, sideboard: partial.section.toLowerCase() === 'sideboard'}))
+      map(card => ({...card, amount: partial.amount, board: partial.section.toLowerCase()}))
     );
   }
 

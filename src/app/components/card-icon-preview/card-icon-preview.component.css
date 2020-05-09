@@ -1,0 +1,28 @@
+.icon-photo {
+    cursor: pointer;
+}
+
+.ttip {
+  position: relative;
+  display: inline-block;
+}
+
+.ttip>span {
+  visibility: hidden;
+  width: 120px;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  top: 1.5em;
+  /*left:-75px;*/
+  z-index: 1;
+}
+
+.ttip>span>img {
+  max-height: 250px;
+}
+
+
+/*.ttip:hover>span,*/ .ttip.active>span {
+  visibility: visible;
+}

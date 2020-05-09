@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LightboxConfig } from 'ngx-lightbox';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,7 @@ import { LightboxConfig } from 'ngx-lightbox';
 export class AppComponent implements OnInit {
   title = 'yawgmoth';
 
-  constructor(private lightboxConfig: LightboxConfig) {
-    // override default config
-    lightboxConfig.fadeDuration = 0;
+  constructor() {
   }
 
   ngOnInit(): void {
