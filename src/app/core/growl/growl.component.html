@@ -1,0 +1,6 @@
+<div class="notifications">
+	<div class="toast" [ngClass]="'toast-' + growl.type" *ngFor="let growl of notifications.slice().reverse()">
+		<button class="btn btn-clear float-right" (click)="clear(growl)"></button>
+		{{growl.message}}
+	</div>
+</div>

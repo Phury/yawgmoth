@@ -12,6 +12,8 @@ export interface Deck {
   name: string;
   cards: Card[];
   sideboard?: Card[];
+  companion?: Card;
+  commander?: Card;
   meta?: DeckMeta;
 }
 

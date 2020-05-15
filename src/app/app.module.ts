@@ -27,6 +27,8 @@ import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.comp
 import { ImportComponent } from './pages/import/import.component';
 import { CardPillComponent } from './components/card-pill/card-pill.component';
 import { CardIconPreviewComponent } from './components/card-icon-preview/card-icon-preview.component';
+import { CopyClipboardDirective } from './directives/copy-clipboard';
+import { GrowlComponent } from './core/growl/growl.component';
 
 
 @NgModule({
@@ -54,6 +56,8 @@ import { CardIconPreviewComponent } from './components/card-icon-preview/card-ic
     ImportComponent,
     CardPillComponent,
     CardIconPreviewComponent,
+	CopyClipboardDirective,
+	GrowlComponent,
   ],
   imports: [
     RouterModule.forRoot(appRouting), //, { enableTracing: true }),

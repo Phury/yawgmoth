@@ -27,7 +27,7 @@ export interface Card {
   layout?: string;
   faces?: CardFace[]
   /*ui */
-  sideboard?: boolean;
+  board?: string;
   amount?: number;
   showDetails: boolean;
 }

@@ -1,46 +1,46 @@
 <div class="container grid-lg">
-    <h2>Import</h2>
-    <div class="columns">
-        <div class="column col-4">
-            <form>
-                <div class="form-group">
-                    <label class="form-label" for="input-1">deck title</label>
-                    <input class="form-input" type="text" [(ngModel)]="deck.name" name="name" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-1">deck format</label>
-                    <input class="form-input" type="text" [(ngModel)]="deck.format" name="format" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-1">preview card</label>
-                    <input class="form-input" type="text" [(ngModel)]="deck.preview" name="preview" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="input-1">cards</label>
-                    <textarea  class="form-input" [(ngModel)]="deck.cards" name="cards" rows="10"></textarea>
-                </div>
-                <div class="form-group">
-                    <button class="btn" (click)="preview()">preview</button>
-                    &nbsp;
-                    <button class="btn btn-primary" (click)="save()">save</button>
-                </div>
-            </form>
-        </div>
-        <div class="column col-8">
-            <div *ngIf="preview$ | async as deck; else empty">
-                <div *ngFor="let card of deck.cards">
-                    <ygm-card-pill [card]="card"></ygm-card-pill>
-                </div>
-            </div>
-            <ng-template #empty>
-                <div class="empty">
-                    <div class="empty-icon">
-                        <i class="icon icon-copy"></i>
-                    </div>
-                    <p class="empty-title h5">Deck preview</p>
-                    <p class="empty-subtitle">Click on 'preview' to generate your deck</p>
-                </div>
-            </ng-template>
-        </div>
-    </div>
+	<h2>Import</h2>
+	<div class="columns">
+		<div class="column col-4">
+			<div class="panel">
+				<form>
+					<div class="panel-body">
+						<label class="form-label" for="input-1">deck title</label>
+						<input class="form-input" type="text" [(ngModel)]="deckForm.name" name="name" />
+						<label class="form-label" for="input-1">deck format</label>
+						<input class="form-input" type="text" [(ngModel)]="deckForm.format" name="format" />
+						<label class="form-label" for="input-1">preview card</label>
+						<input class="form-input" type="text" [(ngModel)]="deckForm.preview" name="preview" />
+						<label class="form-label" for="input-1">cards</label>
+						<textarea  class="form-input" [(ngModel)]="deckForm.cards" name="cards" rows="10"></textarea>
+					</div>
+					<div class="panel-footer">
+						<button class="btn btn-block" (click)="preview()">update preview</button>
+					</div>
+				</form>
+			</div>
+			<br/>
+		</div>
+		<div class="column col-8">
+			<div *ngIf="preview$ | async as deck; else empty">
+				<div *ngFor="let card of deck.cards">
+					<ygm-card-pill [card]="card"></ygm-card-pill>
+				</div>
+				<br/>
+				<div class="actions column col-12">
+					<button class="btn" (click)="copyToClipboard()">copy to clipboard</button><!--
+					 -->&nbsp;<button class="btn btn-primary" (click)="save()">stash</button>
+				</div>
+			</div>
+			<ng-template #empty>
+				<div class="empty">
+					<div class="empty-icon">
+						<i class="icon icon-copy"></i>
+					</div>
+					<p class="empty-title h5">Deck preview</p>
+					<p class="empty-subtitle">Click on 'preview' to generate your deck</p>
+				</div>
+			</ng-template>
+		</div>
+	</div>
 </div>
