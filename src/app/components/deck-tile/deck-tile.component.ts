@@ -5,18 +5,22 @@ import { Card } from 'src/app/model/card';
 import { MtgService } from 'src/app/services/mtg.service';
 
 @Component({
-  selector: 'ygm-deck-tile',
-  templateUrl: './deck-tile.component.html',
-  styleUrls: ['./deck-tile.component.css']
+	selector: 'ygm-deck-tile',
+	templateUrl: './deck-tile.component.html',
+	styleUrls: ['./deck-tile.component.css']
 })
 export class DeckTileComponent implements OnInit {
-  @Input() meta: DeckMeta;
-  previewCard$: Observable<Card>;
+	@Input() meta: DeckMeta;
+	previewCard$: Observable<Card>;
 
-  constructor(private mtgService: MtgService) { }
+	constructor(private mtgService: MtgService) { }
 
-  ngOnInit(): void {
-    this.previewCard$ = this.mtgService.getCardByName(this.meta.previewCard);
-  }
+	ngOnInit(): void {
+		this.previewCard$ = this.mtgService.getCardByName(this.meta.previewCard);
+	}
+	
+	colorIdentityString(): string {
+		return '{' + this.meta.colorIdentity.join('}{') + '}';
+	}
 
 }

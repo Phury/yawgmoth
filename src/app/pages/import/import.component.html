@@ -13,28 +13,67 @@
 							<option *ngFor="let format of mtgFormats" [ngValue]="format">{{format}}</option>
 						</select>
 						
-						<label class="form-label" for="input-1">preview card</label>
-						<input class="form-input" type="text" [(ngModel)]="deckForm.preview" name="preview" />
+						<label class="form-label" for="input-1">deck platform</label>
+						<select class="form-select" [(ngModel)]="deckForm.platform" name="platform">
+							<option *ngFor="let platform of mtgPlatforms" [ngValue]="platform">{{platform}}</option>
+						</select>
 						
+						<label class="form-label" for="input-1">preview card</label>
+						<!-- 
+						<input class="form-input" type="text" [(ngModel)]="deckForm.preview" name="preview" />
+						<br/>
+						-->
+						<div class="dropdown">
+							<div class="has-icon-left">
+								<i class="form-icon icon icon-search"></i>
+								<input class="form-input dropdown-toggle" type="text" name="preview" autocomplete="off"
+											 [(ngModel)]="deckForm.preview"
+											 (ngModelChange)="cardSearch$.next($event)" />
+								<ul class="menu">
+									<li *ngFor="let cardName of (cardSearchResults$ | async)" class="menu-item">
+										<a (click)="selectPreview(cardName)">{{cardName}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- 
+						<div class="dropdown">
+							<a class="btn btn-link dropdown-toggle" tabindex="0">{{deckForm.preview}} <i class="icon icon-caret"></i></a>
+							<div class="menu">
+								<input class="form-input" type="text" [(ngModel)]="deckForm.preview" name="preview" autocomplete="off" />
+								<ul class="">
+									<li class="menu-item"><a href="#dropdowns">Slack</a></li>
+									<li class="menu-item"><a href="#dropdowns">Hipchat</a></li>
+									<li class="menu-item"><a href="#dropdowns">Skype</a></li>
+								</ul>
+							</div>
+						</div>
+						 -->
 						<label class="form-label" for="input-1">cards</label>
 						<textarea class="form-input" [(ngModel)]="deckForm.cards" name="cards" rows="10"></textarea>
+						
 					</div>
 					<div class="panel-footer">
-						<button class="btn btn-block" (click)="preview()">update preview</button>
+						<button class="btn btn-block" (click)="onPreview()">update preview</button>
 					</div>
 				</form>
 			</div>
 			<br/>
 		</div>
 		<div class="column col-8">
-			<div *ngIf="preview$ | async as deck; else empty">
+			<div *ngIf="(preview$ | async) as deck; else empty">
+			
+				<ygm-deck-tile [meta]="deckFormToDeckMeta()"></ygm-deck-tile>
+				<br/>
+			
+				<h3>{{deck.name}}</h3>
 				<div *ngFor="let card of deck.cards">
 					<ygm-card-pill [card]="card"></ygm-card-pill>
 				</div>
 				<br/>
 				<div class="actions column col-12">
 					<button class="btn" (click)="copyToClipboard()">copy to clipboard</button><!--
-					 -->&nbsp;<button class="btn btn-primary" (click)="save()">stash</button>
+					 -->&nbsp;<button class="btn btn-primary" (click)="onSaveDeck()">stash</button>
 				</div>
 			</div>
 			<ng-template #empty>

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, merge, combineLatest } from 'rxjs';
 import { flatMap, map, find, shareReplay, tap, catchError } from 'rxjs/operators';
 import { MtgService } from './mtg.service';
-import { Deck, DeckMeta, DeckInfo } from '../model/deck';
+import { Deck, DeckMeta, DeckForm } from '../model/deck';
 import { Card } from '../model/card';
 import { CsvService } from './csv.service';
 
@@ -80,13 +80,13 @@ export class DeckService {
 		);
 	}
 
-	public preview(deckInfo: DeckInfo): Observable<Deck> {
-		return of(deckInfo).pipe(
+	public preview(deckForm: DeckForm): Observable<Deck> {
+		return of(deckForm).pipe(
 			map(d => d.cards),
 			map(deckTxt => this.parseDeckText(deckTxt)),
 			flatMap(o => o),
-			map(cards => ({name: deckInfo.name, cards: cards})),
-			tap(deck => console.log(deck)),
+			map(cards => ({name: deckForm.name, cards: cards})),
+			//tap(deck => console.log(deck)),
 		);
 	}
 

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { DeckInfo, Deck } from 'src/app/model/deck';
+import { DeckForm, Deck, DeckMeta } from 'src/app/model/deck';
 import { DeckService } from 'src/app/services/deck.service';
 import { NameService } from 'src/app/services/name.service';
 import { GrowlService } from 'src/app/services/growl.service';
+import { MtgService } from 'src/app/services/mtg.service';
+import { Card } from 'src/app/model/card';
+import { debounceTime, distinctUntilChanged, filter, map, flatMap, tap } from 'rxjs/operators';
 
 const MTG_FORMATS = [
 	'kitchen',
@@ -19,17 +22,31 @@ const MTG_FORMATS = [
 	'commander'
 ];
 
+const MTG_PLATFORMS = [
+	'any',
+	'paper',
+	'arena',
+	'mtgo',
+];
+
 @Component({
 	selector: 'ygm-import',
 	templateUrl: './import.component.html',
 	styleUrls: ['./import.component.css']
 })
 export class ImportComponent implements OnInit {
-	deckForm: DeckInfo;
+	deckForm: DeckForm;
 	preview$: Observable<Deck>;
-	mtgFormats = MTG_FORMATS;// TODO: use constant directly ?!
+	
+	cardSearch$ = new Subject<string>();
+	cardSearchResults$: Observable<string[]>
+	
+	// TODO: refer to constants directly ?!
+	mtgFormats = MTG_FORMATS;
+	mtgPlatforms = MTG_PLATFORMS;
 
 	constructor(
+		private mtgService: MtgService,
 		private deckService: DeckService,
 		private nameService: NameService,
 		private growl: GrowlService) {
@@ -39,17 +56,53 @@ export class ImportComponent implements OnInit {
 		this.deckForm = {
 			name: this.nameService.random(),
 			format: 'standard',
+			platform: 'any',
 			preview: 'counterspell',
 			cards: '1 counterspell\n3 Sakura-Tribe Elder\n4 Eternal Witness\n2 Thing in the Ice'
 		};
-		this.preview();
+		this.cardSearchResults$ = this.cardSearch$.pipe(
+			debounceTime(400),
+			distinctUntilChanged(),
+			filter(input => input.length > 3),
+			flatMap(input => this.mtgService.searchCards(input))
+		);
+		this.onPreview();
 	}
-
-	preview() {
+	
+	onPreview() {
 		this.preview$ = this.deckService.preview(this.deckForm);
 	}
+	
+	selectPreview(card: string) {
+		this.deckForm.preview = card;
+	}
+	
+	deckFormToDeckMeta(): DeckMeta {
+		
+		// TODO: use selector
+		/*
+		const colors = [];
+		this.preview$.pipe(
+			map(deck => deck.cards.concat(deck.sideboard, deck.commander, deck.companion)),
+			map(cards => cards.filter(x => x).reduce((set, card) => {
+				card.colorIdentity.forEach(color => set.add(color));
+				return set;
+			}, new Set())),
+		).subscribe(colorIdentities => {
+			colors.splice(0, colors.length)
+			colors.concat(colorIdentities);
+		});
+		*/
+		return {
+			id: this.deckForm.id,
+			name: this.deckForm.name,
+			format: this.deckForm.format,
+			previewCard: this.deckForm.preview,
+			colorIdentity: ['U', 'G'],
+		}
+	}
 
-	save() {
+	onSaveDeck() {
 		// TODO: unsubscribe
 		// TODO: animate button + make green with tick sign
 		// TODO: add link to deck in growl

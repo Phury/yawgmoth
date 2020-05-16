@@ -2,10 +2,10 @@
 	<form>
 		<div class="has-btn-right">
 			<input type="text" class="form-input" name="searchFilter"
-                [(ngModel)]="searchFilter" 
-                (keyup.enter)="searchFilter$.next($event.target.value)" />
+						 [(ngModel)]="searchFilter" 
+						 (keyup.enter)="searchFilter$.next($event.target.value)" />
 			<button class="btn btn-primary" 
-				(click)="searchFilter$.next(searchFilter)">search</button>
+							(click)="searchFilter$.next(searchFilter)">search</button>
 		</div>
 	</form>
 </div>
