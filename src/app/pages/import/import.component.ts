@@ -5,6 +5,20 @@ import { DeckService } from 'src/app/services/deck.service';
 import { NameService } from 'src/app/services/name.service';
 import { GrowlService } from 'src/app/services/growl.service';
 
+const MTG_FORMATS = [
+	'kitchen',
+	'standard',
+	'brawl',
+	'pioneer',
+	'historic',
+	'modern',
+	'pauper',
+	'legacy',
+	'penny',
+	'vintage',
+	'commander'
+];
+
 @Component({
 	selector: 'ygm-import',
 	templateUrl: './import.component.html',
@@ -13,6 +27,7 @@ import { GrowlService } from 'src/app/services/growl.service';
 export class ImportComponent implements OnInit {
 	deckForm: DeckInfo;
 	preview$: Observable<Deck>;
+	mtgFormats = MTG_FORMATS;// TODO: use constant directly ?!
 
 	constructor(
 		private deckService: DeckService,

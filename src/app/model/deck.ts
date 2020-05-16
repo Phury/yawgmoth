@@ -1,4 +1,5 @@
 import { Card } from './card';
+import { Observable } from 'rxjs';
 
 export interface DeckMeta {
   id: string;
@@ -26,4 +27,13 @@ export interface DeckInfo {
   author?: string;
   cards: string;
   sideboard?: string;
+}
+
+
+export interface DeckView {
+	meta$: Observable<DeckMeta>;
+	mainboardGrouped$: Observable<Map<string, Card[]>>;
+	sideboard$?: Observable<Card[]>;
+	companion$?: Observable<Card>;
+	commander$?: Observable<Card>;
 }

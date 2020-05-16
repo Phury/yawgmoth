@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
-import { DeckMeta } from '../../model/deck';
+import { DeckMeta, DeckView } from '../../model/deck';
 import { Card } from '../../model/card';
 import { DeckService } from '../../services/deck.service';
-import { LoggerService } from 'src/app/services/logger.service';
+import { DeckFacade } from '../../facades/deck-facade.service';
 import { KeyValue } from '@angular/common';
 import { GrowlService } from 'src/app/services/growl.service';
 
@@ -23,14 +22,13 @@ interface DeleteAction {
 })
 export class DeckComponent implements OnInit {
 	meta$: Observable<DeckMeta>;
-	mainboardGrouped$: Observable<Map<string, Card[]>>;
-	sideboard$: Observable<Card[]>;
 	deleteAction: DeleteAction;
+	deckView: DeckView;
 
 
 	constructor(
-		private log: LoggerService,
 		private deckService: DeckService,
+		private deckFacade: DeckFacade,
 		private growl: GrowlService,
 		private route: ActivatedRoute,
 		private router: Router) { }
@@ -47,33 +45,12 @@ export class DeckComponent implements OnInit {
 		);
 		*/
 		const deckId = this.route.parent.snapshot.url[1].path;
-		this.meta$ = this.deckService.findMetadataById(deckId);
-		const deck$ = this.meta$.pipe(
-			flatMap(meta => this.deckService.getDeckById(meta.id)),
-		);
-		this.mainboardGrouped$ = deck$.pipe(
-			map(deck => deck.cards.reduce((acc, card) => {
-				if (card.board === 'sideboard') {
-					// skip
-				} else if (acc.has(card.types[0])) {
-					acc.get(card.types[0]).push(card);
-				} else {
-					acc.set(card.types[0], [card]);
-				}
-				return acc;
-			}, this.cardMap()))
-		);
-		this.sideboard$ = deck$.pipe(
-			map(deck => deck.cards.filter(c => c.board === 'sideboard')),
-		);
+		this.deckView = this.deckFacade.load(deckId);
 		// TODO: unsubscribe
-		this.meta$.subscribe(meta => this.deleteAction = { name: meta.name });
+		console.log(this.deckView);
+		this.deckView.meta$.subscribe(meta => this.deleteAction = { name: meta.name });
 	}
 
-	private cardMap(): Map<string, Card[]> {
-		return new Map<string, Card[]>();
-	}
-	
 	onDelete(): void {
 		this.deleteAction.show = true;
 	}
