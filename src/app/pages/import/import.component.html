@@ -8,12 +8,12 @@
 						<label class="form-label" for="input-1">deck title</label>
 						<input class="form-input" type="text" [(ngModel)]="deckForm.name" name="name" />
 						
-						<label class="form-label" for="input-1">deck format</label>
+						<label class="form-label" for="input-1">format</label>
 						<select class="form-select" [(ngModel)]="deckForm.format" name="format">
 							<option *ngFor="let format of mtgFormats" [ngValue]="format">{{format}}</option>
 						</select>
 						
-						<label class="form-label" for="input-1">deck platform</label>
+						<label class="form-label" for="input-1">platform</label>
 						<select class="form-select" [(ngModel)]="deckForm.platform" name="platform">
 							<option *ngFor="let platform of mtgPlatforms" [ngValue]="platform">{{platform}}</option>
 						</select>
@@ -45,18 +45,21 @@
 		</div>
 		<div class="column col-8">
 			<div *ngIf="(preview$ | async) as deck; else empty">
-			
+				<h3>{{deckForm.name}}</h3>
 				<ygm-deck-tile [meta]="deckFormToDeckMeta()"></ygm-deck-tile>
 				<br/>
-			
-				<h3>{{deck.name}}</h3>
 				<div *ngFor="let card of deck.cards">
 					<ygm-card-pill [card]="card"></ygm-card-pill>
 				</div>
 				<br/>
 				<div class="actions column col-12">
-					<button class="btn" (click)="copyToClipboard()">copy to clipboard</button><!--
-					 -->&nbsp;<button class="btn btn-primary" (click)="onSaveDeck()">stash</button>
+					<!--<button class="btn" (click)="copyToClipboard()">copy to clipboard</button>-->
+					<ng-container *ngIf="!((deck.meta)?.id); else updateDeck">
+						<button class="btn btn-primary" (click)="onSaveDeck('saved')">save</button>
+					</ng-container>
+					<ng-template #updateDeck>
+						<button class="btn btn-success" (click)="onSaveDeck('updated')">update</button>
+					</ng-template>
 				</div>
 			</div>
 			<ng-template #empty>

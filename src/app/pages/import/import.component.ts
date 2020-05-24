@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subject, of, combineLatest } from 'rxjs';
 import { DeckForm, Deck, DeckMeta } from 'src/app/model/deck';
 import { DeckService } from 'src/app/services/deck.service';
 import { NameService } from 'src/app/services/name.service';
 import { GrowlService } from 'src/app/services/growl.service';
 import { MtgService } from 'src/app/services/mtg.service';
-import { Card } from 'src/app/model/card';
-import { debounceTime, distinctUntilChanged, filter, map, flatMap, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, flatMap, tap, startWith, withLatestFrom } from 'rxjs/operators';
 
 const MTG_FORMATS = [
 	'kitchen',
@@ -37,6 +36,7 @@ const MTG_PLATFORMS = [
 export class ImportComponent implements OnInit {
 	deckForm: DeckForm;
 	preview$: Observable<Deck>;
+	onSave$ = new Subject<string>();
 	
 	cardSearch$ = new Subject<string>();
 	cardSearchResults$: Observable<string[]>
@@ -70,7 +70,22 @@ export class ImportComponent implements OnInit {
 	}
 	
 	onPreview() {
-		this.preview$ = this.deckService.preview(this.deckForm);
+		this.preview$ = combineLatest([
+			this.onSave$.pipe(startWith('init')),
+			this.deckService.preview(this.deckForm),
+		]).pipe(
+			map(([action, deck]) => {
+				if (action === 'init') return deck;
+				let next = this.deckService.save({...deck, meta: {
+					id: this.deckForm.format + '_' + this.deckForm.name.toLowerCase().replace(" ", "-"),
+					name: this.deckForm.name,
+					format: this.deckForm.format,
+					previewCard: this.deckForm.preview,
+				}});
+				this.growl.notify({message: `deck '${this.deckForm.name}' ${action}`, type: 'success' });
+				return next;
+			}),
+		);
 	}
 	
 	selectPreview(card: string) {
@@ -78,7 +93,6 @@ export class ImportComponent implements OnInit {
 	}
 	
 	deckFormToDeckMeta(): DeckMeta {
-		
 		// TODO: use selector
 		/*
 		const colors = [];
@@ -102,19 +116,10 @@ export class ImportComponent implements OnInit {
 		}
 	}
 
-	onSaveDeck() {
-		// TODO: unsubscribe
+	onSaveDeck(evt) {
 		// TODO: animate button + make green with tick sign
-		// TODO: add link to deck in growl
-		this.preview$.subscribe(deck => {
-			this.deckService.save({...deck, meta: {
-				id: this.deckForm.format + '_' + this.deckForm.name.toLowerCase().replace(" ", "-"),
-				name: this.deckForm.name,
-				format: this.deckForm.format,
-				previewCard: this.deckForm.preview,
-			}});
-			this.growl.notify({message: `deck '${this.deckForm.name}' stashed!`, type: 'success' });
-		});
+		// TODO: add link to deck in growl		
+		this.onSave$.next(evt);
 	}
 
 	copyToClipboard(): void {

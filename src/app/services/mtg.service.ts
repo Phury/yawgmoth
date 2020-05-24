@@ -31,6 +31,7 @@ export class MtgService {
 		return this.http.get(`${BASE_URL}/cards/search?order=name&unique=cards&q=${search}`).pipe(
 			map(searchResult => this.toCardList(searchResult)),
 			map(cards => cards.map(card => card.name)),
+			catchError(() => of([])),
 		);
 	}
 	

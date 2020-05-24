@@ -54,10 +54,18 @@ export class DeckService {
 		return (decks === null ? [] : decks);
 	}
 
-	public save(deck: Deck): void {
+	public save(deck: Deck): Deck {
+		console.log('saving deck: ')
+		console.log(deck);
 		let decks = this.loadFromLocalStorage();
-		decks.push(deck);
+		let id = decks.findIndex(elt => elt.meta.id === deck.meta.id);
+		if (id === -1) {
+			decks.push(deck); // save
+		} else {
+			decks[id] = deck; // update
+		}
 		localStorage.setItem('decks', JSON.stringify(decks));
+		return deck;
 	}
 	
 	public deleteByName(name: string): Deck {

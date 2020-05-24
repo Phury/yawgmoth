@@ -8,6 +8,7 @@ export interface DeckMeta {
 	author?: string;
 	previewCard?: string;
 	colorIdentity?: string[];
+	provenance?: string;
 }
 
 export interface Deck {
