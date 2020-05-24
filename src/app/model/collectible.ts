@@ -16,3 +16,8 @@ export interface Collectible {
   foil?: boolean;
   price: string;
 }
+
+export interface CardWithAmout {
+  name: string;
+  quantity: number;
+}

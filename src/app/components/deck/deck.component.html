@@ -1,73 +1,79 @@
-<div *ngIf="(meta$ | async) as meta">
-  <h3>{{meta.name}}</h3>
+<div *ngIf="(deckView.meta$ | async) as meta">
+	<div class="float-right">
+		<div class="dropdown dropdown-right">
+			<a class="btn dropdown-toggle" tabindex="0">actions <i class="icon icon-caret"></i></a>
+			<ul class="menu text-left">
+				<li class="menu-item">
+					<a [routerLink]="['/compare', meta.id]">compare</a>
+					<a [routerLink]="" (click)="onDelete()">delete</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<h3>{{meta.name}}</h3>
+	<div class="clearfix"></div>
 
-  <div class="float-right">
-    <a class="btn btn-primary"  [routerLink]="['/compare', meta.id]">compare</a>
-  </div>
-  <div class="clearfix"></div>
-
-  <!--
-  <div class="float-right">
-    <div class="btn-group btn-group-block">
-      <button class="btn">Filter</button>
-    </div> 
-  </div>
-  
-  <div class="" >
-    <form>
-      <div class="form-group">
-        <select class="form-select">
-          <option>Choose an option</option>
-          <option>Slack</option>
-          <option>Skype</option>
-          <option>Hipchat</option>
-        </select>
-      </div>
-    </form>
-  </div>
-
-  <div class="clearfix"></div>
-  -->
-
-  <div class="container">
-    <div class="columns">
-      <div class="column col-8 col-sm-12 lg-list">
-        <div *ngFor="let entry of (mainboardGrouped$ | async) | keyvalue: groupingOrder">
-          <h5 class="card-type-title">
-            {{entry.key}}
-            <!-- <span>({{(sideboard$ | async)?[entry.key].lenght}})</span> --> 
-          </h5>
-          <details *ngFor="let card of entry.value" class="accordion">
-            <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
-          </details>
-        </div>
-      </div>
-      <div class="column col-4 col-sm-12">
-        <h5 class="card-type-title">
-          sideboard
-          <!-- <span>({{(sideboard$ | async)?.lenght}})</span> -->
-        </h5>
-        <details *ngFor="let card of (sideboard$ | async)" class="accordion">
-          <ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
-        </details>
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="columns">
+			<div class="column col-8 col-sm-12 lg-list">
+				<div *ngFor="let entry of (deckView.mainboardGrouped$ | async) | keyvalue: groupingOrder">
+					<h5 class="card-type-title">
+						{{entry.key}}
+						<span>({{entry.value.length}})</span>
+					</h5>
+					<details *ngFor="let card of entry.value" class="accordion" 
+									 (click)="card.showDetails=true">
+						<ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
+					</details>
+				</div>
+			</div>
+			<div class="column col-4 col-sm-12">
+				<h5 class="card-type-title">
+					sideboard
+					<span>({{(deckView.sideboard$ | async)?.length}})</span>
+				</h5>
+				<details *ngFor="let card of (deckView.sideboard$ | async)" class="accordion" 
+								 (click)="card.showDetails=true">
+					<ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
+				</details>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal" [ngClass]="deleteAction.show ? 'active' : ''" id="delete-modal">
+			<div class="modal-container">
+				<div class="modal-header">
+					<a (click)="onDeleteCancel()" class="btn btn-clear float-right" aria-label="Close"></a>
+					<div class="modal-title h5">Delete deck</div>
+				</div>
+				<div class="modal-body">
+					<div class="content">
+						<p>this action cannot be undone</p>
+						<label class="form-label" for="input-1">type the name of the deck '<code>{{deleteAction.name}}</code>' to delete it</label>
+						<input class="form-input" type="text" [(ngModel)]="deleteAction.confirmName" name="name" autocomplete="off" />
+						<br/>
+						<button class="btn btn-block btn-error" (click)="onDeleteConfirm()">confirm deletion</button>
+					</div>
+				</div>
+			</div>
+	</div>
 </div>
+
 <ng-template #cardDetail let-card="card">
-  <summary class="accordion-header">
-    <i class="icon icon-photo"></i>
-    {{card.amount}}
-    <ng-container *ngIf="card.faces; else normal">
-      <span>{{card.faces[0].name}}&nbsp;</span>
-      <ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
-    </ng-container>
-    <ng-template #normal>
-      <span>{{card.name}}&nbsp;</span>
-      <ygm-mana [cost]="card.manaCost"></ygm-mana>
-    </ng-template>
-  </summary>
-  <div class="accordion-body">
-    <ygm-card-tile [card]="card"></ygm-card-tile>
-  </div>
+	<summary class="accordion-header">
+		<i class="icon icon-photo"></i>
+		{{card.amount}}
+		<ng-container *ngIf="card.faces; else normal">
+			<span>{{card.faces[0].name}}&nbsp;</span>
+			<ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+		</ng-container>
+		<ng-template #normal>
+			<span>{{card.name}}&nbsp;</span>
+			<ygm-mana [cost]="card.manaCost"></ygm-mana>
+		</ng-template>
+	</summary>
+	<div class="accordion-body">
+		<ygm-card-tile [card]="card"></ygm-card-tile>
+	</div>
 </ng-template>
+

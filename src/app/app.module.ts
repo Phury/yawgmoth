@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -24,6 +24,11 @@ import { appRouting } from './app.routing';
 import { CardTableComponent } from './components/card-table/card-table.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.component';
+import { ImportComponent } from './pages/import/import.component';
+import { CardPillComponent } from './components/card-pill/card-pill.component';
+import { CardIconPreviewComponent } from './components/card-icon-preview/card-icon-preview.component';
+import { CopyClipboardDirective } from './directives/copy-clipboard';
+import { GrowlComponent } from './core/growl/growl.component';
 
 
 @NgModule({
@@ -47,7 +52,12 @@ import { PullOutMenuComponent } from './layouts/pull-out-menu/pull-out-menu.comp
     DropdownComponent,
     CardTableComponent,
     SettingsComponent,
-    PullOutMenuComponent
+    PullOutMenuComponent,
+    ImportComponent,
+    CardPillComponent,
+    CardIconPreviewComponent,
+	CopyClipboardDirective,
+	GrowlComponent,
   ],
   imports: [
     RouterModule.forRoot(appRouting), //, { enableTracing: true }),

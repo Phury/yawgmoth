@@ -16,13 +16,13 @@
 	<div class="columns">
 		<div class="column col-6" *ngIf="source$ | async as cards; else empty">
 			<div *ngFor="let card of cards">
-				{{card?.amount}} {{card?.name}}
+				<ygm-card-pill [card]="card"></ygm-card-pill>
 			</div>
 		</div>
 		<div class="column col-6" *ngIf="difference$ | async as compare">
 			<ng-container *ngFor="let card of compare">
-				<div *ngIf="card.owned - card.required < 0">
-					{{card.owned - card.required}} {{card.name}} 
+				<div [ngClass]="(card.owned - card.required < 0) ? 'negative' : 'positive'">
+					{{(card.owned - card.required < 0) ? card.owned - card.required : card.owned}} {{card.name}} 
 				</div>
 			</ng-container>
 		</div>

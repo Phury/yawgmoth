@@ -1,0 +1,76 @@
+<div class="container grid-lg">
+	<h2>Import</h2>
+	<div class="columns">
+		<div class="column col-4">
+			<div class="panel">
+				<form>
+					<div class="panel-body">
+						<label class="form-label" for="input-1">deck title</label>
+						<input class="form-input" type="text" [(ngModel)]="deckForm.name" name="name" />
+						
+						<label class="form-label" for="input-1">format</label>
+						<select class="form-select" [(ngModel)]="deckForm.format" name="format">
+							<option *ngFor="let format of mtgFormats" [ngValue]="format">{{format}}</option>
+						</select>
+						
+						<label class="form-label" for="input-1">platform</label>
+						<select class="form-select" [(ngModel)]="deckForm.platform" name="platform">
+							<option *ngFor="let platform of mtgPlatforms" [ngValue]="platform">{{platform}}</option>
+						</select>
+						
+						<label class="form-label" for="input-1">preview card</label>
+						<div class="dropdown">
+							<div class="has-icon-left">
+								<i class="form-icon icon icon-search"></i>
+								<input class="form-input dropdown-toggle" type="text" name="preview" autocomplete="off"
+											 [(ngModel)]="deckForm.preview"
+											 (ngModelChange)="cardSearch$.next($event)" />
+								<ul class="menu">
+									<li *ngFor="let cardName of (cardSearchResults$ | async)" class="menu-item">
+										<a (click)="selectPreview(cardName)">{{cardName}}</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<label class="form-label" for="input-1">cards</label>
+						<textarea class="form-input" [(ngModel)]="deckForm.cards" name="cards" rows="10"></textarea>
+						
+					</div>
+					<div class="panel-footer">
+						<button class="btn btn-block" (click)="onPreview()">update preview</button>
+					</div>
+				</form>
+			</div>
+			<br/>
+		</div>
+		<div class="column col-8">
+			<div *ngIf="(preview$ | async) as deck; else empty">
+				<h3>{{deckForm.name}}</h3>
+				<ygm-deck-tile [meta]="deckFormToDeckMeta()"></ygm-deck-tile>
+				<br/>
+				<div *ngFor="let card of deck.cards">
+					<ygm-card-pill [card]="card"></ygm-card-pill>
+				</div>
+				<br/>
+				<div class="actions column col-12">
+					<!--<button class="btn" (click)="copyToClipboard()">copy to clipboard</button>-->
+					<ng-container *ngIf="!((deck.meta)?.id); else updateDeck">
+						<button class="btn btn-primary" (click)="onSaveDeck('saved')">save</button>
+					</ng-container>
+					<ng-template #updateDeck>
+						<button class="btn btn-success" (click)="onSaveDeck('updated')">update</button>
+					</ng-template>
+				</div>
+			</div>
+			<ng-template #empty>
+				<div class="empty">
+					<div class="empty-icon">
+						<i class="icon icon-copy"></i>
+					</div>
+					<p class="empty-title h5">Deck preview</p>
+					<p class="empty-subtitle">Click on 'preview' to generate your deck</p>
+				</div>
+			</ng-template>
+		</div>
+	</div>
+</div>

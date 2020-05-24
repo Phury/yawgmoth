@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="card.layout">
+    <ygm-card-icon-preview [card]="card"></ygm-card-icon-preview>
+    <ng-container *ngSwitchDefault> 
+        {{card.amount}}
+        {{card.faces[0].name}}
+        <ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+    </ng-container>
+    <ng-container *ngSwitchCase="'normal'">
+        {{card.amount}}
+        {{card.name}}
+        <ygm-mana [cost]="card.manaCost"></ygm-mana>
+    </ng-container>
+</ng-container>

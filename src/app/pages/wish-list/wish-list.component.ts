@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DeckMeta } from 'src/app/model/deck';
+import { DeckMeta, Deck } from 'src/app/model/deck';
 import { DeckService } from 'src/app/services/deck.service';
 import { Collectible } from 'src/app/model/collectible';
 import { CollectionService } from 'src/app/services/collection.service';
@@ -12,6 +12,7 @@ import { CollectionService } from 'src/app/services/collection.service';
 export class WishListComponent implements OnInit {
 
   meta$: Observable<DeckMeta[]>;
+  stash$: Observable<DeckMeta[]>;
   wishCards$: Observable<Collectible[]>;
 
   constructor(
@@ -20,6 +21,7 @@ export class WishListComponent implements OnInit {
 
   ngOnInit(): void {
     this.meta$ = this.deckService.listAllWishDecks();
+    this.stash$ = this.deckService.listAllStashedDecks();
     this.wishCards$ = this.collectionService.getWishCards();
   }
 

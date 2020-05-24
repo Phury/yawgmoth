@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Card } from '../model/card';
-import { Collectible } from '../model/collectible';
+import { Collectible, CardWithAmout } from '../model/collectible';
 
 export interface Diff {
   name?: string;
@@ -16,11 +16,9 @@ export class CompareService {
   constructor() { }
 
   diff(cards: Card[], collection: Collectible[]): Diff[] {
-    // console.log(cards);
     return (cards || []).reduce((acc, card) => {
-      const inCollection = this.findAllMatchingCards(card.name, collection);
-      // console.log(inCollection);
-      if (!inCollection) {
+      const cardWithAmout = this.findAllMatchingCards(card.name, collection);
+      if (!cardWithAmout) {
         acc.push({
           name: card.name,
           owned: 0,
@@ -29,7 +27,7 @@ export class CompareService {
       } else {
         acc.push({
           name: card.name,
-          owned: inCollection.quantity,
+          owned: cardWithAmout.quantity,
           required: card.amount,
         });
       }
@@ -37,12 +35,12 @@ export class CompareService {
     }, []);
   }
 
-  private findAllMatchingCards(cardName: string, collection: Collectible[]): {name: string, quantity: number} {
+  private findAllMatchingCards(cardName: string, collection: Collectible[]): CardWithAmout {
     return collection
         .filter(elt => elt.cardName === cardName)
-        .reduce((withAmount: {name: string, quantity: number}, item: Collectible) => {
-          withAmount.quantity += item.quantity;
-          return withAmount;
+        .reduce((ctbl: CardWithAmout, item: Collectible) => {
+          ctbl.quantity = Number(ctbl.quantity) + Number(item.quantity);
+          return ctbl;
         }, {name: cardName, quantity: 0});
   }
 }

@@ -1,15 +1,15 @@
 <div class="tile" *ngIf="(previewCard$ | async) as card">
-  <div class="tile-icon">
+	<div class="tile-icon">
 	<figure class="deck-icon">
-	    <img src="{{card.imgArtUrl}}" />
+			<img src="{{card.imgArtUrl}}" />
 	</figure>
-  </div>
-  <div class="tile-content">
-  	<p>
-	  <a [routerLink]="['/decks', meta.id]" [state]="meta" class="btn btn-success">{{meta.name}}</a>
-	</p>
-	<p>
-      <span class="chip">{{meta.format}}</span>
-	</p>
-  </div>
+	</div>
+	<div class="tile-content">
+		<h5>
+			<a *ngIf="meta.id" [routerLink]="['/decks', meta.id]" [state]="meta">{{meta.name}}</a>
+			<ng-container *ngIf="!meta.id">{{meta.name}}</ng-container>
+		</h5>
+		<ygm-mana *ngIf="meta.colorIdentity" [cost]="colorIdentityString()"></ygm-mana>
+		<span class="chip">{{meta.format}}</span>
+	</div>
 </div>
