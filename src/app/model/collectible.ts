@@ -1,4 +1,3 @@
-import { Card } from './card';
 
 export interface Collectible {
   /*
@@ -9,12 +8,12 @@ export interface Collectible {
   */
   quantity: number;
   cardName: string;
-  setNumber: number;
-  lang: string;
-  condition: string;
-  set: string;
+  setNumber?: number;
+  lang?: string;
+  condition?: string;
+  set?: string;
   foil?: boolean;
-  price: string;
+  price?: string;
 }
 
 export interface CardWithAmout {

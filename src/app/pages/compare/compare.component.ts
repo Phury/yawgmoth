@@ -9,44 +9,46 @@ import { Item } from 'src/app/core/item';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'ygm-compare',
-  templateUrl: './compare.component.html',
-  styleUrls: ['./compare.component.css']
+	selector: 'ygm-compare',
+	templateUrl: './compare.component.html',
+	styleUrls: ['./compare.component.css']
 })
 export class CompareComponent implements OnInit {
 
-  sources$: Observable<Item[]>;
-  source$: Observable<Card[]>;
-  difference$: Observable<Diff[]>;
-  selectedSource$: Subject<string>;
+	sources$: Observable<Item[]>;
+	source$: Observable<Card[]>;
+	difference$: Observable<Diff[]>;
+	selectedSource$: BehaviorSubject<string>;
+	deckId: string;
 
-  constructor(
-    private deckService: DeckService,
-    private collectionService: CollectionService,
-    private compareService: CompareService,
-    private route: ActivatedRoute) { }
+	constructor(
+		private deckService: DeckService,
+		private collectionService: CollectionService,
+		private compareService: CompareService,
+		private route: ActivatedRoute) {
+			this.deckId = this.route.parent.snapshot.url[1].path;
+		}
 
-  ngOnInit(): void {
-    const deckId = this.route.parent.snapshot.url[1].path;
-    this.selectedSource$ = new Subject();
+	ngOnInit(): void {
+		this.selectedSource$ = new BehaviorSubject<string>(this.deckId);
 
-    this.sources$ = this.deckService.listAll().pipe(
-      map(decks => decks.map(deck => ({ value: deck.id, label: deck.id.split('_').join('/') }))),
-    );
-    this.source$ = this.selectedSource$.pipe(
-      startWith(deckId), // TODO: update dropdown
-      map(next => this.deckService.getDeckById(next)),
-      flatMap(deck$ => deck$.pipe(
-        map(deck => deck.cards.concat(deck.sideboard)),
-        map(cards => cards.filter(card => card != null)),
-      )),
-    );
-    this.difference$ = combineLatest([
-      this.source$,
-      this.collectionService.getCollection()
-    ]).pipe(
-      map(([cards, collection]) => this.compareService.diff(cards, collection)),
-    );
-  }
+		this.sources$ = this.deckService.listAll().pipe(
+			map(decks => decks.map(deck => ({ value: deck.id, label: deck.id.split('_').join('/') } as Item))),
+		);
+		this.source$ = this.selectedSource$.pipe(
+			startWith(this.deckId), // TODO: update dropdown
+			map(next => this.deckService.getDeckById(next)),
+			flatMap(deck$ => deck$.pipe(
+				map(deck => deck.cards.concat(deck.sideboard)),
+				map(cards => cards.filter(card => card != null)),
+			)),
+		);
+		this.difference$ = combineLatest([
+			this.source$,
+			this.collectionService.getCollection()
+		]).pipe(
+			map(([cards, collection]) => this.compareService.diff(cards, collection)),
+		);
+	}
 
 }

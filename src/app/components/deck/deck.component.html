@@ -19,23 +19,21 @@
 				<div *ngFor="let entry of (deckView.mainboardGrouped$ | async) | keyvalue: groupingOrder">
 					<h5 class="card-type-title">
 						{{entry.key}}
-						<span>({{entry.value.length}})</span>
+						<span>({{ countCards(entry.value) }})</span>
 					</h5>
-					<details *ngFor="let card of entry.value" class="accordion" 
-									 (click)="card.showDetails=true">
+					<div *ngFor="let card of entry.value">
 						<ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
-					</details>
+					</div>
 				</div>
 			</div>
-			<div class="column col-4 col-sm-12">
+			<div class="column col-4 col-sm-12" *ngIf="(deckView.sideboard$ | async) as sideboard">
 				<h5 class="card-type-title">
 					sideboard
-					<span>({{(deckView.sideboard$ | async)?.length}})</span>
+					<span >({{ countCards(sideboard) }})</span>
 				</h5>
-				<details *ngFor="let card of (deckView.sideboard$ | async)" class="accordion" 
-								 (click)="card.showDetails=true">
+				<div *ngFor="let card of sideboard">
 					<ng-container *ngTemplateOutlet="cardDetail; context: { card: card }"></ng-container>
-				</details>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -60,6 +58,18 @@
 </div>
 
 <ng-template #cardDetail let-card="card">
+	
+	<ygm-card-icon-preview [card]="card"></ygm-card-icon-preview>
+	{{card.amount}}
+	<ng-container *ngIf="card.faces; else normal">
+		<span>{{card.faces[0].name}}&nbsp;</span>
+		<ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+	</ng-container>
+	<ng-template #normal>
+		<span>{{card.name}}&nbsp;</span>
+		<ygm-mana [cost]="card.manaCost"></ygm-mana>
+	</ng-template>
+	<!--
 	<summary class="accordion-header">
 		<i class="icon icon-photo"></i>
 		{{card.amount}}
@@ -75,5 +85,6 @@
 	<div class="accordion-body">
 		<ygm-card-tile [card]="card"></ygm-card-tile>
 	</div>
+  -->
 </ng-template>
 

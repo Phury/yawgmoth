@@ -11,8 +11,7 @@ const BASE_URL = 'https://api.scryfall.com';
 })
 export class MtgService {
 
-	constructor(
-		private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
 	public getCardByName(cardName: string): Observable<Card> {
 		return this.http.get(`${BASE_URL}/cards/named?exact=${cardName}`).pipe(

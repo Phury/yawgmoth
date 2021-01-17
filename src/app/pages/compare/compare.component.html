@@ -1,13 +1,13 @@
 <div class="columns">
 	<div class="column col-6">
 		<ygm-dropdown 
-			[initialValue]="{ value: 'source', label: 'Select' }"
+			[initialValue]="{ value: deckId, label: deckId.split('_').join('/') }"
 			[selectValues]="(sources$ | async)"
 			(valueChange)="selectedSource$.next($event)">
 		</ygm-dropdown>
 	</div>
 	<div class="column col-6">
-		
+		<h3>Collection</h3>
 	</div>
 </div>
 <div class="spacer"></div>
@@ -20,6 +20,7 @@
 			</div>
 		</div>
 		<div class="column col-6" *ngIf="difference$ | async as compare">
+			
 			<ng-container *ngFor="let card of compare">
 				<div [ngClass]="(card.owned - card.required < 0) ? 'negative' : 'positive'">
 					{{(card.owned - card.required < 0) ? card.owned - card.required : card.owned}} {{card.name}} 

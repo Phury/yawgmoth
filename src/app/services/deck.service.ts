@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of, merge, combineLatest } from 'rxjs';
-import { flatMap, map, find, shareReplay, tap, catchError } from 'rxjs/operators';
+import { flatMap, map, find, shareReplay, catchError } from 'rxjs/operators';
 import { MtgService } from './mtg.service';
 import { Deck, DeckMeta, DeckForm } from '../model/deck';
 import { Card } from '../model/card';

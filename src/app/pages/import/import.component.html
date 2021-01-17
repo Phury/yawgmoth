@@ -1,7 +1,7 @@
 <div class="container grid-lg">
 	<h2>Import</h2>
 	<div class="columns">
-		<div class="column col-4">
+		<div class="column col-4 col-md-12">
 			<div class="panel">
 				<form>
 					<div class="panel-body">
@@ -43,7 +43,7 @@
 			</div>
 			<br/>
 		</div>
-		<div class="column col-8">
+		<div class="column col-8 col-md-12">
 			<div *ngIf="(preview$ | async) as deck; else empty">
 				<h3>{{deckForm.name}}</h3>
 				<ygm-deck-tile [meta]="deckFormToDeckMeta()"></ygm-deck-tile>

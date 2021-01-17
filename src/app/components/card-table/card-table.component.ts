@@ -19,6 +19,9 @@ export class CardTableComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
+		this.cards$ = this.cards$.pipe(
+			map(collection => collection.sort((a, b) => a.cardName.localeCompare(b.cardName)))
+		);
 		this.searchFilter$.pipe(
 			debounceTime(400),
 			distinctUntilChanged(),
@@ -27,7 +30,7 @@ export class CardTableComponent implements OnInit {
 			this.cards$,
 			this.searchFilter$.pipe(startWith('')),
 		]).pipe(
-			map(([elements, search]) => elements.filter(state => state.cardName.toLowerCase().startsWith(search.toLowerCase()))),
+			map(([elements, search]) => elements.filter(state => state.cardName.toLowerCase().includes(search.toLowerCase()))),
 		);
 	}
 

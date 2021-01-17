@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DeckMeta, DeckView } from '../../model/deck';
 import { Card } from '../../model/card';
 import { DeckService } from '../../services/deck.service';
@@ -20,11 +20,11 @@ interface DeleteAction {
 	selector: 'ygm-deck',
 	templateUrl: './deck.component.html',
 })
-export class DeckComponent implements OnInit {
+export class DeckComponent implements OnInit, OnDestroy {
+	subscriptions = new Subscription();
 	meta$: Observable<DeckMeta>;
 	deleteAction: DeleteAction;
 	deckView: DeckView;
-
 
 	constructor(
 		private deckService: DeckService,
@@ -32,6 +32,10 @@ export class DeckComponent implements OnInit {
 		private growl: GrowlService,
 		private route: ActivatedRoute,
 		private router: Router) { }
+		
+	ngOnDestroy(): void {
+		this.subscriptions.unsubscribe();
+	}
 
 	ngOnInit(): void {
 		/*
@@ -48,7 +52,9 @@ export class DeckComponent implements OnInit {
 		this.deckView = this.deckFacade.load(deckId);
 		// TODO: unsubscribe
 		console.log(this.deckView);
-		this.deckView.meta$.subscribe(meta => this.deleteAction = { name: meta.name });
+		this.subscriptions.add(
+			this.deckView.meta$.subscribe(meta => this.deleteAction = { name: meta.name })
+		);
 	}
 
 	onDelete(): void {
@@ -71,6 +77,10 @@ export class DeckComponent implements OnInit {
 		const indexOfA = CARD_TYPE_GROUPES.indexOf(a.key);
 		const indexOfB = CARD_TYPE_GROUPES.indexOf(b.key);
 		return indexOfB > indexOfA ? -1 : (indexOfA > indexOfB ? 1 : 0);
+	}
+	
+	countCards(cards: Card[]): number {
+		return cards.reduce((acc: number, card: Card) => acc + card.amount, 0);
 	}
 
 }

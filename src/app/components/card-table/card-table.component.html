@@ -23,9 +23,9 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let item of (filterdCards$ | async)" >
-				<td><ygm-card-icon-preview [card]="item"></ygm-card-icon-preview></td>
+				<td><ygm-card-icon-preview [cardName]="item.cardName"></ygm-card-icon-preview></td>
 				<td>{{item.cardName}}</td>
-				<td><ygm-keyrune [symbol]="item.set"></ygm-keyrune></td>
+				<td><ygm-keyrune [symbol]="item.set" *ngIf="item.set"></ygm-keyrune></td>
 				<td>{{item.setNumber}}</td>
 				<td>{{item.price}}</td>
 				<td>{{item.quantity}}</td>
