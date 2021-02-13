@@ -12,6 +12,8 @@ export class CardTableComponent implements OnInit {
 
 	@Input() searchable: boolean = true;
 	@Input() cards$: Observable<Collectible[]>;
+	@Input() headers = ['preview', 'cardName', 'set', 'set num', 'price', 'quantity'];
+	
 	searchFilter: string = '';
 	searchFilter$ = new Subject<string>();
 	filterdCards$: Observable<Collectible[]>;

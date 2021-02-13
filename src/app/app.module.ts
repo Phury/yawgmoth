@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,43 +29,52 @@ import { CardPillComponent } from './components/card-pill/card-pill.component';
 import { CardIconPreviewComponent } from './components/card-icon-preview/card-icon-preview.component';
 import { CopyClipboardDirective } from './directives/copy-clipboard';
 import { GrowlComponent } from './core/growl/growl.component';
+import { AppConfigService } from './services/app-config.service';
 
+export function initApp(appConfigService: AppConfigService): any {
+	return () => appConfigService.loadConfig().toPromise();
+}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DeckComponent,
-    SpinnerCardComponent,
-    ManaComponent,
-    DeckListComponent,
-    CollectionComponent,
-    DefaultLayoutComponent,
-    DeckCardComponent,
-    NavigationComponent,
-    KeyruneComponent,
-    DeckTileComponent,
-    CardTileComponent,
-    WishListComponent,
-    MetaListComponent,
-    ToggleComponent,
-    CompareComponent,
-    DropdownComponent,
-    CardTableComponent,
-    SettingsComponent,
-    PullOutMenuComponent,
-    ImportComponent,
-    CardPillComponent,
-    CardIconPreviewComponent,
+	declarations: [
+		AppComponent,
+		DeckComponent,
+		SpinnerCardComponent,
+		ManaComponent,
+		DeckListComponent,
+		CollectionComponent,
+		DefaultLayoutComponent,
+		DeckCardComponent,
+		NavigationComponent,
+		KeyruneComponent,
+		DeckTileComponent,
+		CardTileComponent,
+		WishListComponent,
+		MetaListComponent,
+		ToggleComponent,
+		CompareComponent,
+		DropdownComponent,
+		CardTableComponent,
+		SettingsComponent,
+		PullOutMenuComponent,
+		ImportComponent,
+		CardPillComponent,
+		CardIconPreviewComponent,
 	CopyClipboardDirective,
 	GrowlComponent,
-  ],
-  imports: [
-    RouterModule.forRoot(appRouting), //, { enableTracing: true }),
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	],
+	imports: [
+		RouterModule.forRoot(appRouting), //, { enableTracing: true }),
+		BrowserModule,
+		HttpClientModule,
+		FormsModule,
+	],
+	providers: [{
+		provide: APP_INITIALIZER,
+		useFactory: initApp,
+		multi: true,
+		deps: [AppConfigService]
+	}],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

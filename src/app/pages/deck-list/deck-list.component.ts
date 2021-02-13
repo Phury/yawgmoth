@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DeckMeta } from '../../model/deck';
 import { DeckService } from '../../services/deck.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'ygm-deck-list',
@@ -13,11 +13,12 @@ export class DeckListComponent implements OnInit {
   meta$: Observable<DeckMeta[]>;
 
   constructor(
-    private settingsService: SettingsService,
-    private deckService: DeckService) { }
+    appConfigService: AppConfigService,
+    private deckService: DeckService) {
+	this.selectedView = appConfigService.getConfig().selectedViewMode;
+}
 
   ngOnInit(): void {
-    this.selectedView = this.settingsService.load().selectedViewMode;
     this.meta$ = this.deckService.listAllDecks();
   }
 

@@ -9,26 +9,21 @@
 		</div>
 	</form>
 </div>
-<div class="columns collection-view">
+<div class="headers collection-view">
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th></th>
-				<th>cardname</th>
-				<th>set</th>
-				<th>set num</th>
-				<th>price</th>
-				<th>quantity</th>
+				<th *ngFor="let header of headers">{{ header }}</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr *ngFor="let item of (filterdCards$ | async)" >
-				<td><ygm-card-icon-preview [cardName]="item.cardName"></ygm-card-icon-preview></td>
-				<td>{{item.cardName}}</td>
-				<td><ygm-keyrune [symbol]="item.set" *ngIf="item.set"></ygm-keyrune></td>
-				<td>{{item.setNumber}}</td>
-				<td>{{item.price}}</td>
-				<td>{{item.quantity}}</td>
+				<td *ngIf="headers.indexOf('preview') > -1"><ygm-card-icon-preview [cardName]="item.cardName"></ygm-card-icon-preview></td>
+				<td *ngIf="headers.indexOf('cardName') > -1">{{item.cardName}}</td>
+				<td *ngIf="headers.indexOf('set') > -1"><ygm-keyrune [symbol]="item.set" *ngIf="item.set"></ygm-keyrune></td>
+				<td *ngIf="headers.indexOf('setNumber') > -1">{{item.setNumber}}</td>
+				<td *ngIf="headers.indexOf('price') > -1">{{item.price}}</td>
+				<td *ngIf="headers.indexOf('quantity') > -1">{{item.quantity}}</td>
 			</tr>
 		</tbody>
 	</table>

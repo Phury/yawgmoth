@@ -3,11 +3,11 @@
     <ng-container *ngSwitchDefault> 
         {{card.amount}}
         {{card.faces[0].name}}
-        <ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+        <ygm-mana [cost]="card.faces[0].manaCost" [type]="card.types[0]"></ygm-mana>
     </ng-container>
     <ng-container *ngSwitchCase="'normal'">
         {{card.amount}}
         {{card.name}}
-        <ygm-mana [cost]="card.manaCost"></ygm-mana>
+        <ygm-mana [cost]="card.manaCost" [type]="card.types[0]"></ygm-mana>
     </ng-container>
 </ng-container>

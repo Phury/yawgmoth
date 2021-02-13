@@ -1,0 +1,5 @@
+{
+	"selectedViewMode": "cardView",
+	"viewModes": ["tileView", "cardView"],
+	"collectionHeaders": ["preview", "cardName", "quantity"]
+}
