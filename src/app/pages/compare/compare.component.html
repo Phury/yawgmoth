@@ -23,7 +23,7 @@
 			
 			<ng-container *ngFor="let card of compare">
 				<div [ngClass]="(card.owned - card.required < 0) ? 'negative' : 'positive'">
-					{{(card.owned - card.required < 0) ? card.owned - card.required : card.owned}} {{card.name}} 
+					{{(card.owned - card.required < 0) ? card.owned - card.required : card.required}} {{card.name}} <ygm-mana [type]="card.cardRef?.types"></ygm-mana>
 				</div>
 			</ng-container>
 		</div>

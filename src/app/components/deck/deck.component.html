@@ -63,11 +63,11 @@
 	{{card.amount}}
 	<ng-container *ngIf="card.faces; else normal">
 		<span>{{card.faces[0].name}}&nbsp;</span>
-		<ygm-mana [cost]="card.faces[0].manaCost"></ygm-mana>
+		<ygm-mana [cost]="card.faces[0].manaCost" [type]="card.types"></ygm-mana>
 	</ng-container>
 	<ng-template #normal>
 		<span>{{card.name}}&nbsp;</span>
-		<ygm-mana [cost]="card.manaCost"></ygm-mana>
+		<ygm-mana [cost]="card.manaCost" [type]="card.types"></ygm-mana>
 	</ng-template>
 	<!--
 	<summary class="accordion-header">

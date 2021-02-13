@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ManaComponent implements OnInit {
 	@Input() cost: string;
-	@Input() type: string;
+	@Input() type: string[];
 
 	constructor() { }
 
@@ -15,9 +15,14 @@ export class ManaComponent implements OnInit {
 
 	manaClasses(): string[][] { // TODO: compute on @Input setter
 		if (!this.cost) {
-			console.log(this.type);
-			if (this.type === 'land') {
-				return [['ms', 'ms-land']];
+			if (this.type && this.type.length > 0) {
+				if (this.type.indexOf('artifact') > -1) return [['ms', 'ms-artifact']];
+				if (this.type.indexOf('creature') > -1) return [['ms', 'ms-creature']];
+				if (this.type.indexOf('enchantment') > -1) return [['ms', 'ms-enchantment']];
+				if (this.type.indexOf('instant') > -1) return [['ms', 'ms-instant']];
+				if (this.type.indexOf('land') > -1) return [['ms', 'ms-land']];
+				if (this.type.indexOf('planeswalker') > -1) return [['ms', 'ms-planeswalker']];
+				if (this.type.indexOf('sorcery') > -1) return [['ms', 'ms-sorcery']];
 			}
 			return [[]];
 		}
